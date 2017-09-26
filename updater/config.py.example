@@ -1,0 +1,84 @@
+#!/usr/bin/python3
+
+configuration = \
+{
+	# If you run the Hubble Enterprise updater on a dedicated machine instead
+	# of the GitHub Enterprise appliance directly, then you need to enable
+	# "remoteRun".  Set the path to a private key that has permission to access
+	# the GitHub Enterprise administrative shell [1] on your apploance in the
+	# "sshKey" field.  Set the hostname or the IP address of your GitHub
+	# Enterprise in the "gheHost" field.
+	#
+	"remoteRun": {
+		"enabled" : False,
+		"sshKey"  : "/path/to/key",
+		"gheHost" : "host",
+	},
+
+
+	# Define the repository that Hubble Enterprise uses to store the statistics
+	# data.  Hubble Enterprise also requires write access to the repository.
+	# Uncomment one of the options below and adjust it to your environment.
+	#
+	# -------------------------------------------------------------------------
+	# OPTION A - Grant access via Personal Access Token (PAT)
+	#            Generate a GitHub personal access token [2] that has write
+	#            permissions to data repository the and set it as YOUR-PAT
+	#            below.  Use this option if you run the updater on your GitHub
+	#            Enterprise appliance directly.
+	#
+	# "repositoryURL": "https://token:YOUR-PAT@git.company.com/organization/hubble-data",
+	#
+	# -------------------------------------------------------------------------
+	# OPTION B - Grant access via Git credential helper [3]
+	#
+	# "repositoryURL": "https://git.company.com/organization/hubble-data",
+	#
+	# -------------------------------------------------------------------------
+	# OPTION C - Grant access via SSH [4]
+	#
+	# "repositoryURL": "git@git.company.com:organization/hubble-data.git",
+	#
+	# -------------------------------------------------------------------------
+
+
+	# Name and email used for commits to the Hubble Enterprise data repository
+	"userName": "Hubble Enterprise Bot",
+	"userEMail": "hubble@company.com",
+
+
+	# List of users that should be excluded from the statistics on your GitHub
+	# Enterprise appliance (usually service accounts etc.).  User names may
+	# include ‘%’ as a wildcard (as with SQL LIKE statements).
+	#
+	# Example: [ "aecbuild", "service-%" ]
+	"excludedUsers": [],
+
+
+	# Help Links
+	#
+	# [1] https://help.github.com/enterprise/2.11/admin/guides/installation/administrative-shell-ssh-access/
+	# [2] https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/
+	# [3] https://help.github.com/articles/caching-your-github-password-in-git/
+	# [4] https://help.github.com/articles/connecting-to-github-with-ssh/
+
+
+
+	###########################################################################
+	# Debugging Section                                                       #
+	###########################################################################
+	# You don't need to change any of the fields below in a normal setup.
+
+	# Local temporary directory for cloning the repository and applying the changes
+	"tmpDirectory": "/tmp",
+
+	# Directory within the repository that the updated data will be written to
+	"dataDirectory": "data",
+
+	# Whether to perform a dry run (no data is pushed into the repository in a dry run)
+	"dryRun": False,
+
+	# Command that returns the SQL shell with the correct environment
+	"databaseCommand": ["ghe-dbconsole", "-y"],
+
+}

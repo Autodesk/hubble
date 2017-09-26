@@ -1,0 +1,39 @@
+---
+layout: default
+title: Git Traffic
+permalink: /housekeeping-git-traffic
+---
+<h2>Git Download</h2>
+
+<div class="chart-container">
+	<canvas
+		class="chart"
+		data-url="{{ site.dataURL }}/git-download.tsv"
+		data-type="history"
+		data-config='{
+			"series": [
+				"Clone Traffic GB/Day",
+				"Fetch Traffic GB/Day"
+			]
+		}'
+	></canvas>
+</div>
+
+<div class="chart-container">
+	<canvas
+		class="chart"
+		data-url="{{ site.dataURL }}/git-download.tsv"
+		data-type="history"
+		data-config='{
+			"series": [
+				"Clones/Day",
+				"Fetches/Day"
+			]
+		}'
+	></canvas>
+</div>
+
+<table
+	class="table"
+	data-url="{{ site.dataURL }}/git-download-detailed.tsv"
+></table>

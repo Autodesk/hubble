@@ -1,0 +1,43 @@
+<section class="navigation">
+	{% if site.github.repository_nwo != nil %}
+		{% assign site.baseurl = site.github.repository_nwo %}
+	{% endif %}
+	{% assign activeItem = nil %}
+	{% assign activeSubitem = nil %}
+	{% for item in site.data.navigation %}
+		{% if item.url == page.url %}
+			{% assign activeItem = item %}
+		{% endif %}
+		{% for subitem in item.subnavigation %}
+			{% if subitem.url == page.url %}
+				{% assign activeItem = item %}
+				{% assign activeSubitem = subitem %}
+			{% endif %}
+		{% endfor %}
+	{% endfor %}
+	<ul class="navigation-primary">
+		{% for item in site.data.navigation %}
+		<li>
+			{% if item == activeItem %}
+			<a href="{{ site.baseurl }}{{ item.url }}" class="active">{{ item.title }}</a>
+			{% else %}
+			<a href="{{ site.baseurl }}{{ item.url }}">{{ item.title }}</a>
+			{% endif %}
+		</li>
+		{% endfor %}
+	</ul>
+	{% if activeItem != nil and activeItem.subnavigation != nil %}
+	<ul class="navigation-secondary">
+		{% for subitem in activeItem.subnavigation %}
+		<li>
+			{% if subitem == activeSubitem %}
+			<a href="{{ site.baseurl }}{{ subitem.url }}" class="active">{{ subitem.title }}</a>
+			{% else %}
+			<a href="{{ site.baseurl }}{{ subitem.url }}">{{ subitem.title }}</a>
+			{% endif %}
+		</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+
+</section>

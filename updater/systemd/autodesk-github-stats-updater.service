@@ -1,0 +1,8 @@
+[Unit]
+Description=Hubble Enterprise updater
+After=mysql.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/autodesk/hubble-enterprise/update-stats.py
+WorkingDirectory=/opt/autodesk/hubble-enterprise/

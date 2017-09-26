@@ -1,0 +1,20 @@
+---
+layout: default
+title: Harmful Behavior
+permalink: /harmful-behavior
+---
+
+<h2>Number Of Direct LDAP Authentication Requests</h2>
+
+<div class="chart-container">
+	<canvas
+		class="chart"
+		data-url="{{ site.dataURL }}/ldap-authentication.tsv"
+		data-type="history"
+	></canvas>
+</div>
+
+<table
+	class="table"
+	data-url="{{ site.dataURL }}/ldap-authentication-detailed.tsv"
+></table>

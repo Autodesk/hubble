@@ -1,0 +1,10 @@
+[Unit]
+Description=Runs Hubble Enterprise updater periodically
+
+[Timer]
+OnCalendar=7:30
+Persistent=true
+Unit=hubble-enterprise.service
+
+[Install]
+WantedBy=default.target
