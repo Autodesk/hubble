@@ -1,26 +1,20 @@
 ---
 layout: default
-title: User Activity
+title: Collaboration
 permalink: /
 ---
-<h2>Users (Active/Using License)</h2>
+<h2>Collaboration across all organizations</h2>
 
-<div class="chart-container">
-	<canvas
-		class="chart"
-		data-url="{{ site.dataURL }}/users.tsv"
-		data-type="history"
-		data-config='{
-			"series": [
-				"using license",
-				"pushing commits (last month)",
-				"pushing commits (last week)",
-				"pushing commits (last day)"
-			],
-			"visibleSeries": [
-				"using license",
-				"pushing commits (last month)"
-			]
-		}'
-	></canvas>
-</div>
+<svg
+	width="1100"
+	height="1100"
+	class="collaboration"
+	data-url="{{ site.dataURL }}/org-collaboration.tsv"
+></svg>
+
+<p>Visualize the organizations with the largest number of people contributing
+to other organizations. The depicted collaboration is especially meaningful if
+the affected organizations cover different topics. If two organizations cover
+the same topic (e.g. an organization "foo-server" and an organization
+"foo-client"), then the collaboration is less meaningful. In this situation it
+might be a good idea to consolidate the two organizations into one (e.g. "foo").</p>

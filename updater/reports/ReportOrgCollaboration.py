@@ -1,7 +1,7 @@
 from .Report import *
 
 # Calculate the number of users that have contributed to more than one
-# organization over the last year
+# organization over the last two years
 class ReportOrgCollaboration(Report):
 	def name(self):
 		return "org-collaboration"
@@ -44,12 +44,12 @@ class ReportOrgCollaboration(Report):
 		self.header = orgs
 		self.data = matrix
 
-	def pushersPerOrgSubquery(self, timeRange):
+	# Calculates a table with all "org, pusher" combinations for the given time range
+	def pushersToOrgSubquery(self, timeRange):
 		query = '''
-			SELECT orgs.login as entity,
-			       orgs.id as entity_id,
-			       pushes.pusher_id,
-			       COUNT(*) as push_count
+			SELECT orgs.login as org_name,
+			       orgs.id as org_id,
+			       pushes.pusher_id
 			FROM users AS orgs,
 			     repositories,
 			     pushes
@@ -62,21 +62,35 @@ class ReportOrgCollaboration(Report):
 		'''
 		return query
 
-	def query(self, date):
-		timeRange = [date - datetime.timedelta(365), date]
+	# Calculate the "home" org of a user based on the number of pushes in given time range
+	def homeOrgSubquery(self, timeRange):
 		query = '''
-			SELECT source.entity AS source,
-			       target.entity AS target,
-			       COUNT(*) AS entity_count
+			SELECT org_name, org_id, pusher_id, MAX(push_count)
+			FROM (
+				SELECT orgs.login AS org_name, orgs.id AS org_id, pusher_id, COUNT(*) AS push_count
+				FROM users AS orgs, repositories, pushes
+				WHERE orgs.type = "organization"
+				  AND orgs.id = repositories.owner_id
+				  AND repositories.id = pushes.repository_id
+				  AND cast(pushes.created_at AS DATE) BETWEEN "''' + str(timeRange[0]) + '''" and "''' + str(timeRange[1]) + '''"
+				GROUP BY org_id, pusher_id
+			) AS counts
+			GROUP BY pusher_id
+		'''
+		return query
+
+	def query(self, date):
+		query = '''
+			SELECT source.org_name AS source,
+			       target.org_name AS target,
+			       COUNT(*) AS org_count
 			FROM
-			  (''' + self.pushersPerOrgSubquery(timeRange) + ''') AS source
-			  LEFT JOIN
-			  (''' + self.pushersPerOrgSubquery(timeRange) + ''') AS target
-			  ON source.pusher_id = target.pusher_id
-			WHERE source.entity_id != target.entity_id AND source.push_count >= target.push_count
-			GROUP BY source.entity_id,
-			         target.entity_id
-			ORDER BY entity_count DESC
-			LIMIT 60
+				(''' + self.homeOrgSubquery(self.timeRangeTotal()) + ''') AS source
+				LEFT JOIN (''' + self.pushersToOrgSubquery(self.timeRangeTotal()) + ''') AS target
+					ON source.pusher_id = target.pusher_id
+			WHERE source.org_id != target.org_id
+			GROUP BY source.org_id,
+			         target.org_id
+			ORDER BY LOWER(source.org_name)
 		'''
 		return query

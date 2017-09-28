@@ -350,6 +350,112 @@ function createTable(table)
 		});
 }
 
+function drawCoord(orgs, matrix) {
+	function fadeRibbon(opacity) {
+		return function(active_ribbon, i) {
+			ribbons.filter(function(d) { return d != active_ribbon; })
+				.transition()
+				.style("opacity", opacity);
+		};
+	}
+
+	function fadeRibbonsWithSameSource(opacity) {
+		return function(d, i) {
+			ribbons.filter(function(d) { return d.source.index != i && d.target.index != i; })
+				.transition()
+				.style("opacity", opacity);
+		};
+	}
+
+	function ribbonTip(d) {
+		var tip = d.source.value + " " + orgs[d.source.index] + " member" +
+			(d.source.value > 1 ? "s" : "") + " contributed to " + orgs[d.target.index] + ".";
+		if (d.target.value > 0) {
+			tip = tip + "\n" + " " + orgs[d.target.index] + " member" +
+			(d.source.value > 1 ? "s" : "") + " contributed to " + orgs[d.source.index] + ".";
+		}
+		return tip;
+	}
+
+	function chordTip(d) {
+		return orgs[d.index];
+	}
+
+	var pad = 90;
+	var svg = d3.select("svg"),
+		width = +svg.attr("width")-2*pad,
+		height = +svg.attr("height")-2*pad,
+		outerRadius = Math.min(width, height) * 0.5 - 65,
+		innerRadius = outerRadius - 50;
+
+	var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+	//Initialize chord diagram
+	var chord = d3.chord()
+		.padAngle(0.05)
+		.sortSubgroups(d3.descending);
+
+	var g = svg.append("g")
+		.attr("transform", "translate(" + (width / 2 + pad) + "," + (height / 2 + pad) + ")")
+		.datum(chord(matrix));
+
+	// Defines each "group" in the chord diagram
+	var group = g.append("g")
+		.attr("class", "groups")
+		.selectAll("g")
+		.data(function(chords) { return chords.groups; })
+		.enter().append("g")
+
+	// Draw the radial arcs for each group
+	var arc = d3.arc()
+		.innerRadius(innerRadius)
+		.outerRadius(outerRadius);
+
+	group.append("path")
+		.style("fill", function(d) { return color(d.index); })
+		.style("stroke", function(d) { return d3.rgb(color(d.index)).darker(); })
+		.attr("d", arc)
+		.on("mouseover", fadeRibbonsWithSameSource(.1))
+		.on("mouseout", fadeRibbonsWithSameSource(1))
+		.append("title")
+		.text(function(d){return chordTip(d);});
+
+	// Add labels to each group
+	group.append("text")
+		.attr("dy", ".35em") //width
+		.attr("class", "org-label")
+		.attr("transform", function(d,i) {
+			d.angle = (d.startAngle + d.endAngle) / 2;
+			d.name = orgs[i];
+			var degree = d.angle * 180 / Math.PI;
+			var flip = (degree > 180 ? 90 : -90);
+			return "rotate(" + degree + ")" +
+				"translate(0," + -1 * (outerRadius + 5) + ")" +
+				"rotate(" + flip + ")";
+		})
+		.style("text-anchor", function(d) { return d.angle > Math.PI ? "end" : null; })
+		.text(function(d) { return d.name; });
+
+	// Draw the ribbons that go from group to group
+	var ribbon = d3.ribbon()
+		.radius(innerRadius);
+
+	var ribbons = g.append("g")
+		.attr("class", "ribbons")
+		.selectAll("path")
+		.data(function(chords) { return chords; })
+		.enter().append("path")
+			.attr("d", ribbon)
+			.style("fill", function(d) { return color(d.source.index); })
+			.style("stroke", function(d) { return d3.rgb(color(d.source.index)).darker(); })
+			.on("mouseover", fadeRibbon(.1))
+			.on("mouseout", fadeRibbon(1));
+
+	ribbons.append("title")
+		.text(function(d) { return ribbonTip(d); });
+}
+
+
 function createCollaborationChart(canvas)
 {
 	var url = $(canvas).data("url");
@@ -357,107 +463,45 @@ function createCollaborationChart(canvas)
 	d3.text(url,
 		function(text)
 		{
-			function fadeRibbon(opacity) {
-				return function(active_ribbon, i) {
-					ribbons.filter(function(d) { return d != active_ribbon; })
-						.transition()
-						.style("opacity", opacity);
-				};
-			}
-
-			function fadeRibbons(opacity) {
-				return function(d, i) {
-					ribbons.filter(function(d) { return d.source.index != i && d.target.index != i; })
-						.transition()
-						.style("opacity", opacity);
-				};
-			}
-
-			function chordTip(d){
-				var tip = d.source.value + " " + orgs[d.source.index] + " member" +
-					(d.source.value > 1 ? "s" : "") + " contributed to " + orgs[d.target.index] + ".";
-				if (d.target.value > 0) {
-					tip = tip + "\n" + " " + orgs[d.target.index] + " member" +
-					(d.source.value > 1 ? "s" : "") + " contributed to " + orgs[d.source.index] + ".";
-				}
-				return tip;
-			}
+			// Define number of visualized connections
+			var quota = 75;
 
 			var data = d3.tsvParseRows(text);
 			var orgs = data.shift();
 			var matrix = data.map(function(x) { return x.map(function(y) { return +y; }) });
 
-			var pad = 90;
-			var svg = d3.select("svg"),
-				width = +svg.attr("width")-2*pad,
-				height = +svg.attr("height")-2*pad,
-				outerRadius = Math.min(width, height) * 0.5 - 65,
-				innerRadius = outerRadius - 50;
+			// Calculate the number of connections that we would need to visualize
+			// if we only visualize connections larger than the threshold
+			var threshold = 0;
+			do {
+				var lastConnections = connections;
+				var connections = matrix
+					.map(function(x) { return x.map(function(y) { return y > threshold ? 1 : 0; }) })
+					.reduce(function(xa, xb) {
+						if (isNaN(xa)) xa = xa.reduce(function(ya, yb) { return ya + yb; }, 0);
+						if (isNaN(xb)) xb = xb.reduce(function(ya, yb) { return ya + yb; }, 0);
+						return xa + xb
+					}, 0);
+				threshold++;
+			} while (connections > quota && lastConnections != connections)
 
-			var color = d3.scaleOrdinal(d3.schemeCategory20);
+			// Clear all organizations that with a connections count less than the threshold
+			matrix = matrix.map(function(x) { return x.map(function(y) { return y >= threshold ? y : 0; }) });
 
-			//Initialize chord diagram
-			var chord = d3.chord()
-				.padAngle(0.05)
-				.sortSubgroups(d3.descending);
+			// Remove all organizations that are cleared out
+			var i = orgs.length - 1;
+			while (i >= 0) {
+				count =   matrix.reduce(function(a, b) { return a + b[i]; }, 0)
+				        + matrix[i].reduce(function(a, b) { return a + b; }, 0);
+				if (count == 0) {
+					matrix.splice(i,1);
+					matrix.map(function(x) { return x.splice(i,1); });
+					orgs.splice(i, 1);
+				}
+				i--;
+			}
 
-			var g = svg.append("g")
-				.attr("transform", "translate(" + (width / 2 + pad) + "," + (height / 2 + pad) + ")")
-				.datum(chord(matrix));
-
-			// Defines each "group" in the chord diagram
-			var group = g.append("g")
-				.attr("class", "groups")
-				.selectAll("g")
-				.data(function(chords) { return chords.groups; })
-				.enter().append("g")
-
-			// Draw the radial arcs for each group
-			var arc = d3.arc()
-				.innerRadius(innerRadius)
-				.outerRadius(outerRadius);
-
-			group.append("path")
-				.style("fill", function(d) { return color(d.index); })
-				.style("stroke", function(d) { return d3.rgb(color(d.index)).darker(); })
-				.attr("d", arc)
-				.on("mouseover", fadeRibbons(.1))
-				.on("mouseout", fadeRibbons(1));
-
-			// Add labels to each group
-			group.append("text")
-				.attr("dy", ".35em") //width
-				.attr("class", "org-label")
-				.attr("transform", function(d,i) {
-					d.angle = (d.startAngle + d.endAngle) / 2;
-					d.name = orgs[i];
-					var degree = d.angle * 180 / Math.PI;
-					var flip = (degree > 180 ? 90 : -90);
-					return "rotate(" + degree + ")" +
-						"translate(0," + -1 * (outerRadius + 5) + ")" +
-						"rotate(" + flip + ")";
-				})
-				.style("text-anchor", function(d) { return d.angle > Math.PI ? "end" : null; })
-				.text(function(d) { return d.name; });
-
-			// Draw the ribbons that go from group to group
-			var ribbon = d3.ribbon()
-				.radius(innerRadius);
-
-			var ribbons = g.append("g")
-				.attr("class", "ribbons")
-				.selectAll("path")
-				.data(function(chords) { return chords; })
-				.enter().append("path")
-					.attr("d", ribbon)
-					.style("fill", function(d) { return color(d.source.index); })
-					.style("stroke", function(d) { return d3.rgb(color(d.source.index)).darker(); })
-					.on("mouseover", fadeRibbon(.1))
-					.on("mouseout", fadeRibbon(1));
-
-			ribbons.append("title")
-				.text(function(d) { return chordTip(d); });
-
+			drawCoord(orgs, matrix);
 		}
 	);
 }

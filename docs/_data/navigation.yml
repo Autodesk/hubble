@@ -2,9 +2,9 @@
   url: "/"
   subnavigation:
     - title: "Activity"
-      url: "/"
+      url: "/users-activity"
     - title: "Collaboration"
-      url: "/users-collaboration"
+      url: "/"
     - title: "Contributors"
       url: "/users-contributors"
     - title: "Git Versions"

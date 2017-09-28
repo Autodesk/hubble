@@ -1,0 +1,26 @@
+---
+layout: default
+title: User Activity
+permalink: /users-activity
+---
+<h2>Users (Active/Using License)</h2>
+
+<div class="chart-container">
+	<canvas
+		class="chart"
+		data-url="{{ site.dataURL }}/users.tsv"
+		data-type="history"
+		data-config='{
+			"series": [
+				"using license",
+				"pushing commits (last month)",
+				"pushing commits (last week)",
+				"pushing commits (last day)"
+			],
+			"visibleSeries": [
+				"using license",
+				"pushing commits (last month)"
+			]
+		}'
+	></canvas>
+</div>
