@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 import calendar
 import datetime
 from .ReportDaily import *

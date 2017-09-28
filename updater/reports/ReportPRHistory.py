@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from .ReportDaily import *
 
 # Lists the number of merged and new pull requests for each month in the last two years

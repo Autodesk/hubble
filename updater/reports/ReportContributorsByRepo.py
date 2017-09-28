@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from .Report import *
 
 # Lists the number of contributors for each repository

@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from .Report import *
 
 # A report that is updated daily by appending data rows to it, where the first column is a date

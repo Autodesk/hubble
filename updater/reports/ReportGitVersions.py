@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from .Report import *
 
 # Lists which git version was used by how many users yesterday

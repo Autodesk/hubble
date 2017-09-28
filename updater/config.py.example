@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 configuration = \
 {
 	# If you run the Hubble Enterprise updater on a dedicated machine instead

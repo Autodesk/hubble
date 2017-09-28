@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from .ReportDaily import *
 
 # Find all forks in organizations that have a parent in an organization.

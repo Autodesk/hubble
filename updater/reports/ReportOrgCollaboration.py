@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from .Report import *
 
 # Calculate the number of users that have contributed to more than one

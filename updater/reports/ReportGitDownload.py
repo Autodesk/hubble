@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from .ReportDaily import *
 
 # Report how much data is downloaded from the GHE instance

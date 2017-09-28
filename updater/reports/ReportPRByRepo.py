@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from .Report import *
 
 # Lists the number of merged and new pull requests for each repository in the last 30 days

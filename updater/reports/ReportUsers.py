@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from .ReportDaily import *
 
 # Lists how many users pushed commits vs. how many used a seat in the last day, week, and month
