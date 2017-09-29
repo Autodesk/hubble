@@ -3,8 +3,8 @@ import datetime
 from .ReportDaily import *
 
 # Calculate percentage of active repositories with a least two contributors
-# in organizations that have used pull requests over the last month. An active
-# repository is an repository that receives pushes.
+# in organizations that have used pull requests over the last 4 weeks.
+# An active repository is an repository that receives pushes.
 #
 # TODO: Might be sufficient to run this report once a month!
 class ReportPRUsage(ReportDaily):
@@ -31,7 +31,7 @@ class ReportPRUsage(ReportDaily):
 		self.sortDataByDate()
 
 	def query(self, date):
-		thirtyDaysEarlier = date - datetime.timedelta(29)
+		lastFourWeeks = date - datetime.timedelta(7*4)
 		query = '''
 			SELECT
 				"''' + str(date) + '''" AS date,
@@ -42,7 +42,7 @@ class ReportPRUsage(ReportDaily):
 					SELECT repository_id
 					FROM pushes, repositories, users
 					WHERE cast(pushes.created_at AS date) BETWEEN
-						"''' + str(thirtyDaysEarlier) + '''" AND "''' + str(date) + '''" AND
+						"''' + str(lastFourWeeks) + '''" AND "''' + str(date) + '''" AND
 						pushes.repository_id = repositories.id AND
 						repositories.owner_id = users.id AND
 						users.type = "organization"
@@ -53,13 +53,13 @@ class ReportPRUsage(ReportDaily):
 					SELECT DISTINCT(repository_id)
 					FROM pull_requests
 					WHERE CAST(pull_requests.created_at AS date) BETWEEN
-						"''' + str(thirtyDaysEarlier) + '''" AND "''' + str(date) + '''"
+						"''' + str(lastFourWeeks) + '''" AND "''' + str(date) + '''"
 				) AS pr ON active.repository_id = pr.repository_id
 				LEFT JOIN (
 					SELECT DISTINCT(repository_id)
 					FROM statuses
 					WHERE CAST(statuses.created_at as date) BETWEEN
-						"''' + str(thirtyDaysEarlier) + '''" AND "''' + str(date) + '''"
+						"''' + str(lastFourWeeks) + '''" AND "''' + str(date) + '''"
 				) AS status ON active.repository_id = status.repository_id
 		'''
 		return query
