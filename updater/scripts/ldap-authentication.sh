@@ -6,7 +6,7 @@
 echo -e "User\tRepository\tLDAP Authentications/Day"
 
 zcat -f /var/log/github/gitauth.log.1* |
-    perl -ne 'print if s/.*member="?([^ "]+).*hashed_token=nil.*path=([^ ]+)\.git.*proto=http.*/\1 \2/' |
+    perl -ne 'print if s/.*status=OK member="?([^ "]+) hashed_token=nil.*path=([^ ]+)\.git .*proto=http.*/\1 \2/' |
     sort |
     uniq -c |
     sort -rn |
