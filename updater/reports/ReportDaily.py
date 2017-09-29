@@ -2,15 +2,6 @@ from .Report import *
 
 # A report that is updated daily by appending data rows to it, where the first column is a date
 class ReportDaily(Report):
-	# The total time range to update consisting of the last full 105 weeks starting with a Monday
-	# Start and end of the time range are inclusive
-	def timeRangeTotal(self):
-		twoYearsAgo = self.yesterday() - datetime.timedelta(weeks = 105)
-
-		# Always start with a Monday
-		twoYearsAgo -= datetime.timedelta(twoYearsAgo.weekday())
-
-		return [twoYearsAgo, self.yesterday()]
 
 	# The date of the last update that has been recorded
 	def timeOfLastUpdate(self):

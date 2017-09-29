@@ -58,6 +58,17 @@ class Report(object):
 	def yesterday(self):
 		return self.daysAgo(1)
 
+	# The maximum time range for all metrics consisting of the last full
+	# 105 weeks (~ 2 years) starting with a Monday.
+	# Start and end of the time range are inclusive
+	def timeRangeTotal(self):
+		twoYearsAgo = self.yesterday() - datetime.timedelta(weeks = 105)
+
+		# Always start with a Monday
+		twoYearsAgo -= datetime.timedelta(twoYearsAgo.weekday())
+
+		return [twoYearsAgo, self.yesterday()]
+
 	# Executes a script but prints stderr and returns stdout only
 	def executeScript(self, script, stdin = None):
 		if self.configuration["remoteRun"]["enabled"]:
@@ -116,6 +127,7 @@ class Report(object):
 		self.data.sort(key = lambda row: row[key], reverse = reverse)
 
 	def writeDataInternal(self, fileName, header, data):
+		print(fileName)
 		with open(fileName, "w") as tsvFile:
 			writer = csv.writer(tsvFile, delimiter = "\t", lineterminator = "\n")
 			if header != None:
