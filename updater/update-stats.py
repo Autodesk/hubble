@@ -21,6 +21,13 @@ from reports.ReportPRUsage import *
 from reports.ReportTokenlessAuth import *
 from reports.ReportUsers import *
 
+def writeMeta(dataDirectory):
+	outputFilePath = os.path.join(dataDirectory, "meta.tsv")
+
+	with open(outputFilePath, "w") as outputFile:
+		outputFile.write("key\tvalue\n")
+		outputFile.write("schema-version\t1\n")
+
 def writeMetaStats(metaStats, dataDirectory):
 	outputFilePath = os.path.join(dataDirectory, "meta-runtimes.tsv")
 
@@ -74,7 +81,8 @@ def main():
 	ReportTokenlessAuth(configuration, dataDirectory, metaStats).update()
 	ReportUsers(configuration, dataDirectory, metaStats).update()
 
-	# Write meta statistics
+	# Write meta infos
+	writeMeta(dataDirectory)
 	writeMetaStats(metaStats, dataDirectory)
 
 	# Commit changes
