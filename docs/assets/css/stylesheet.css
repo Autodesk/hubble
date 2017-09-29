@@ -161,6 +161,7 @@ a {
   display: block;
   width: 100%;
   overflow: auto;
+  padding-top: 1rem;
   word-break: normal;
   word-break: keep-all; }
   .main-content table th {
