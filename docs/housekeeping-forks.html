@@ -3,7 +3,7 @@ layout: default
 title: Forks
 permalink: /housekeeping-forks
 ---
-<h2>Number Of Forks To Organizations</h2>
+<h2>Forks To Organizations</h2>
 
 <div class="chart-container">
 	<canvas
@@ -12,7 +12,13 @@ permalink: /housekeeping-forks
 		data-type="history"
 	></canvas>
 </div>
-
+<p>
+	Forks to personal user accounts are a great way to contribute code.
+	Forks to organizations can be troublesome as they promote multiple
+	(sometimes even incompatibility) versions of the same component within
+	a company. Therefore, you should try to reduce them. See <a href="https://medium.com/@larsxschneider/talk-dont-fork-743a1253b8d5">
+	this blog post</a> for more information.
+</p>
 <table
 	class="table"
 	data-url="{{ site.dataURL }}/forks-to-organizations-detailed.tsv"

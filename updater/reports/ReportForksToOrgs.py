@@ -21,7 +21,8 @@ class ReportForksToOrgs(ReportDaily):
 	def query(self):
 		query = '''
 			SELECT
-				CONCAT(organizations.login, "/", repositories.name) AS repository
+				CONCAT(organizations.login, "/", repositories.name) AS "Fork",
+				CAST(repositories.created_at AS date) AS "Creation Date"
 			FROM
 				users AS organizations,
 				repositories,
@@ -37,7 +38,6 @@ class ReportForksToOrgs(ReportDaily):
 				parentRepositories.owner_id = parentOrganizations.id AND
 				parentRepositories.id = repositories.parent_id
 			ORDER BY
-				organizations.login,
-				repositories.name
+				repositories.created_at DESC
 		'''
 		return query
