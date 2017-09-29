@@ -13,12 +13,12 @@ from reports.ReportForksToOrgs import *
 from reports.ReportGitDownload import *
 from reports.ReportGitRequests import *
 from reports.ReportGitVersions import *
-from reports.ReportLDAPAuthentication import *
 from reports.ReportOrgCollaboration import *
 from reports.ReportPRByOrg import *
 from reports.ReportPRByRepo import *
 from reports.ReportPRHistory import *
 from reports.ReportPRUsage import *
+from reports.ReportTokenlessAuth import *
 from reports.ReportUsers import *
 
 def writeMetaStats(metaStats, dataDirectory):
@@ -66,12 +66,12 @@ def main():
 	ReportGitDownload(configuration, dataDirectory, metaStats).update()
 	ReportGitRequests(configuration, dataDirectory, metaStats).update()
 	ReportGitVersions(configuration, dataDirectory, metaStats).update()
-	ReportLDAPAuthentication(configuration, dataDirectory, metaStats).update()
 	ReportOrgCollaboration(configuration, dataDirectory, metaStats).update()
 	ReportPRByOrg(configuration, dataDirectory, metaStats).update()
 	ReportPRByRepo(configuration, dataDirectory, metaStats).update()
 	ReportPRHistory(configuration, dataDirectory, metaStats).update()
 	ReportPRUsage(configuration, dataDirectory, metaStats).update()
+	ReportTokenlessAuth(configuration, dataDirectory, metaStats).update()
 	ReportUsers(configuration, dataDirectory, metaStats).update()
 
 	# Write meta statistics
