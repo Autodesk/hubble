@@ -24,6 +24,7 @@ class ReportGitDownload(ReportDaily):
 			sum(map(lambda x: int(x[4] if len(x) > 3 and x[2] == "true" else 0), newData))//(1024**3),
 			sum(map(lambda x: int(x[4] if len(x) > 3 and x[2] != "true" else 0), newData))//(1024**3),
 		])
-		self.detailedData = newData[:25]
+		self.detailedHeader[4] = "Download in GB/Day"
+		self.detailedData = map(lambda x: [x[0], x[1], x[2], x[3], round(int(x[4])/(1024**3))], newData[:25])
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()
