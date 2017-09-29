@@ -7,15 +7,16 @@ The updater can run in one of two modes:
 1. As a [service on the GitHub Enterprise appliance](README.md#service-on-the-github-enterprise-appliance).  
 	* Pro: Quick and easy setup. No additional machine required.  
 	* Con: Requires modifications to the GitHub Enterprise image.
+	* Con: Will need to reinstall the service after each upgrade of your GitHub Enterprise appliance.
 
 
 ### Setup on a dedicated machine
 
-1. Setup a Linux or macOS machine. 
+1. Setup a Linux or macOS machine.
 1. Ensure that Git and Python3 are installed (e.g. on macOS via [homebrew](https://brew.sh/) with `brew update && brew install python3`).
 1. Clone this repository to your machine.
 1. Create a config file in `updater/config.py` in your local clone (based on [`updater/config.py.example`](config.py.example))
-1. Configure a service or cron job that executes `python3 update-stats.py` once per day. 
+1. Configure a service or cron job that executes `python3 update-stats.py` once per day.
 
 
 ### Setup on the GitHub Enterprise appliance
@@ -77,4 +78,3 @@ journalctl -f --user-unit hubble-enterprise.service
 #### Debian Packaging
 
 See the [documentation](packaging/debian) for more instructions.
-
