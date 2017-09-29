@@ -339,6 +339,7 @@ function createTable(table)
 						case "organization":
 						case "repository":
 						case "resource":
+						case "fork":
 							cell = cell
 								.append("a")
 								.attr("target", "_blank")
