@@ -58,13 +58,13 @@ The updater can run in one of two modes:
 
 #### Uninstallation
 
-1. Remove the package:
-	```sh
-	sudo apt-get remove hubble-enterprise
-	```
 1. Disable the **periodic** updater process:
 	```sh
 	systemctl --user disable hubble-enterprise.timer
+	```
+1. Remove the package:
+	```sh
+	sudo apt-get remove hubble-enterprise
 	```
 
 #### Debugging
