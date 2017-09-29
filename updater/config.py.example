@@ -70,9 +70,6 @@ configuration = \
 	# Local temporary directory for cloning the repository and applying the changes
 	"tmpDirectory": "/tmp",
 
-	# Directory within the repository that the updated data will be written to
-	"dataDirectory": "data",
-
 	# Whether to perform a dry run (no data is pushed into the repository in a dry run)
 	"dryRun": False,
 

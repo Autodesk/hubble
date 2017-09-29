@@ -39,26 +39,22 @@ def main():
 	print("Preparing update of GitHub usage statistics", file = sys.stderr)
 	sys.stderr.flush()
 
-	localRepositoryName = "github-stats-data"
+	localRepositoryName = "hubble-data"
 	tmpDirectory = configuration["tmpDirectory"]
-	cloneDirectory = os.path.join(tmpDirectory, localRepositoryName)
-	dataDirectory = os.path.join(cloneDirectory, configuration["dataDirectory"])
-
-	# Create tmp directory if not existing
-	if not os.path.exists(tmpDirectory):
-		os.makedirs(tmpDirectory)
-
-	# Commit changes
-	if not configuration["dryRun"]:
-		# Clone fresh data repository
-		if os.path.exists(cloneDirectory):
-			shutil.rmtree(cloneDirectory)
-
-		executeCommand(["git", "clone", configuration["repositoryURL"], localRepositoryName], cwd = tmpDirectory)
+	dataDirectory = os.path.join(tmpDirectory, localRepositoryName)
 
 	# Create data directory if not existing
 	if not os.path.exists(dataDirectory):
 		os.makedirs(dataDirectory)
+
+	# Commit changes
+	if not configuration["dryRun"]:
+		# Clone data repository if necessary
+		if not os.path.exists(os.path.join(dataDirectory, ".git")):
+			executeCommand(["git", "clone", configuration["repositoryURL"], "."], cwd = dataDirectory)
+		else:
+			executeCommand(["git", "fetch"], cwd = dataDirectory)
+			executeCommand(["git", "reset", "--hard", "origin/master"], cwd = dataDirectory)
 
 	configuration["today"] = datetime.date.today()
 
@@ -83,14 +79,11 @@ def main():
 
 	# Commit changes
 	if not configuration["dryRun"]:
-		executeCommand(["git", "config", "user.name", configuration["userName"]], cwd = cloneDirectory)
-		executeCommand(["git", "config", "user.email", configuration["userEMail"]], cwd = cloneDirectory)
-		executeCommand(["git", "add", configuration["dataDirectory"]], cwd = cloneDirectory)
-		executeCommand(["git", "commit", "--allow-empty", "-mUpdated GitHub usage statistics"], cwd = cloneDirectory)
-		executeCommand(["git", "push"], cwd = cloneDirectory)
-
-		# Remove cloned directory
-		shutil.rmtree(cloneDirectory)
+		executeCommand(["git", "config", "user.name", configuration["userName"]], cwd = dataDirectory)
+		executeCommand(["git", "config", "user.email", configuration["userEMail"]], cwd = dataDirectory)
+		executeCommand(["git", "add", "."], cwd = dataDirectory)
+		executeCommand(["git", "commit", "--allow-empty", "-mUpdated GitHub usage statistics"], cwd = dataDirectory)
+		executeCommand(["git", "push"], cwd = dataDirectory)
 
 	print("Finished update of GitHub usage statistics", file = sys.stderr)
 	sys.stderr.flush()
