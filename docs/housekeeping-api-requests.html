@@ -3,8 +3,8 @@ layout: default
 title: API Requests
 permalink: /housekeeping-api-requests
 ---
-<h2>API Requests</h2>
 
+<h2>API Requests</h2>
 <div class="chart-container">
 	<canvas
 		class="chart"
@@ -12,6 +12,12 @@ permalink: /housekeeping-api-requests
 		data-type="history"
 	></canvas>
 </div>
+<p>
+	Visualizes the total number of <a href="https://developer.github.com/">GitHub API requests</a>.
+	High numbers usually indicate unfavorable configured CI processes.
+	The table below lists the resources requested via API that accounted
+	for the majority of request yesterday.
+</p>
 <table
 	class="table"
 	data-url="{{ site.dataURL }}/api-requests-detailed.tsv"

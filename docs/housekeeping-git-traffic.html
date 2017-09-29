@@ -3,22 +3,8 @@ layout: default
 title: Git Traffic
 permalink: /housekeeping-git-traffic
 ---
-<h2>Git Download</h2>
 
-<div class="chart-container">
-	<canvas
-		class="chart"
-		data-url="{{ site.dataURL }}/git-download.tsv"
-		data-type="history"
-		data-config='{
-			"series": [
-				"Clone Traffic GB/Day",
-				"Fetch Traffic GB/Day"
-			]
-		}'
-	></canvas>
-</div>
-
+<h2>Operations</h2>
 <div class="chart-container">
 	<canvas
 		class="chart"
@@ -32,6 +18,36 @@ permalink: /housekeeping-git-traffic
 		}'
 	></canvas>
 </div>
+<p>
+	Cloning a Git repository is expensive as the entire repository history
+	must be transfered. Clients that have cloned a repository before should
+	rather fetch the latest changes. This is (sometimes dramatically!)
+	faster for the client and less expensive for the server. A high number
+	of clone operations usually indicate an unfavorable configured CI process.
+</p>
+
+
+<h2>Transferred Data</h2>
+<div class="chart-container">
+	<canvas
+		class="chart"
+		data-url="{{ site.dataURL }}/git-download.tsv"
+		data-type="history"
+		data-config='{
+			"series": [
+				"Clone Traffic GB/Day",
+				"Fetch Traffic GB/Day"
+			]
+		}'
+	></canvas>
+</div>
+<p>
+	Visualizes the amount of data transferred for clones and fetches.
+	To save resources you should try to minimize the number of clones,
+	especially for large repositories. The table below lists the
+	repositories that accounted for the majority of traffic yesterday.
+</p>
+
 
 <table
 	class="table"

@@ -3,8 +3,8 @@ layout: default
 title: Git Requests
 permalink: /housekeeping-git-requests
 ---
-<h2>Git Requests</h2>
 
+<h2>Git Requests</h2>
 <div class="chart-container">
 	<canvas
 		class="chart"
@@ -12,6 +12,12 @@ permalink: /housekeeping-git-requests
 		data-type="history"
 	></canvas>
 </div>
+<p>
+	Visualizes the total number of Git requests (includes pushes, fetches, and
+	clones). High numbers usually indicate unfavorable configured CI processes.
+	The table below lists the repositories that accounted for the majority of
+	requests yesterday.
+</p>
 <table
 	class="table"
 	data-url="{{ site.dataURL }}/git-requests-detailed.tsv"
