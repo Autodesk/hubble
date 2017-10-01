@@ -30,7 +30,7 @@ class ReportOrgCollaboration(Report):
 			if target not in orgs:
 				orgs.append(target)
 
-		orgs.sort()
+		orgs.sort(key=lambda x: x.lower())
 		matrix = [[0 for j in range(len(orgs))] for i in range(len(orgs))]
 
 		# Transform the MySQL data into a matrix using the dictionary
@@ -45,7 +45,7 @@ class ReportOrgCollaboration(Report):
 		self.data = matrix
 
 	# Calculates a table with all "org, pusher" combinations for the given time range
-	def pushersToOrgSubquery(self, timeRange):
+	def pushersToOrgQuery(self, timeRange):
 		query = '''
 			SELECT orgs.login as org_name,
 			       orgs.id as org_id,
@@ -57,26 +57,39 @@ class ReportOrgCollaboration(Report):
 			  AND orgs.id = repositories.owner_id
 			  AND repositories.id = pushes.repository_id
 			  AND cast(pushes.created_at AS DATE) BETWEEN "''' + str(timeRange[0]) + '''" and "''' + str(timeRange[1]) + '''"
+			  ''' + self.andExcludedEntities("orgs", "repositories") + '''
 			GROUP BY orgs.id,
 			         pushes.pusher_id
 		'''
 		return query
 
-	# Calculate the "home" org of a user based on the number of pushes in given time range
-	def homeOrgSubquery(self, timeRange):
+	def pushCountQuery(self, timeRange):
 		query = '''
-			SELECT org_name, org_id, pusher_id, MAX(push_count)
-			FROM (
-				SELECT orgs.login AS org_name, orgs.id AS org_id, pusher_id, COUNT(*) AS push_count
-				FROM users AS orgs, repositories, pushes
-				WHERE orgs.type = "organization"
-				  AND orgs.id = repositories.owner_id
-				  AND repositories.id = pushes.repository_id
-				  AND cast(pushes.created_at AS DATE) BETWEEN "''' + str(timeRange[0]) + '''" and "''' + str(timeRange[1]) + '''"
-				GROUP BY org_id, pusher_id
-			) AS counts
-			GROUP BY pusher_id
+			SELECT orgs.login AS org_name, orgs.id AS org_id, pusher_id, COUNT(*) AS push_count
+			FROM users AS orgs, repositories, pushes
+			WHERE orgs.type = "organization"
+			  AND orgs.id = repositories.owner_id
+			  AND repositories.id = pushes.repository_id
+			  AND cast(pushes.created_at AS DATE) BETWEEN "''' + str(timeRange[0]) + '''" and "''' + str(timeRange[1]) + '''"
+			  ''' + self.andExcludedEntities("orgs", "repositories") \
+			      + self.andExcludeMemberlessOrganizations("orgs") + '''
+			GROUP BY org_id, pusher_id
 		'''
+		return query
+
+	# Calculate the "home" org of a user based on the number of pushes in given time range
+	# Explained here: https://stackoverflow.com/a/28090544
+	def homeOrgQuery(self, timeRange):
+		query = '''
+			SELECT a.org_name, a.org_id, a.pusher_id, a.push_count
+			FROM users, (''' + self.pushCountQuery(timeRange) +''' ) AS a
+				LEFT JOIN  (''' + self.pushCountQuery(timeRange) +''' ) AS b
+				ON     a.pusher_id = b.pusher_id
+				   AND (   a.push_count < b.push_count
+				        OR (a.push_count = b.push_count AND a.pusher_id != b.pusher_id)
+				       )
+			WHERE b.push_count is NULL AND a.pusher_id = users.id ''' \
+				+ self.andExcludedUsers("users")
 		return query
 
 	def query(self, date):
@@ -85,12 +98,11 @@ class ReportOrgCollaboration(Report):
 			       target.org_name AS target,
 			       COUNT(*) AS org_count
 			FROM
-				(''' + self.homeOrgSubquery(self.timeRangeTotal()) + ''') AS source
-				LEFT JOIN (''' + self.pushersToOrgSubquery(self.timeRangeTotal()) + ''') AS target
+				(''' + self.homeOrgQuery(self.timeRangeTotal()) + ''') AS source
+				LEFT JOIN (''' + self.pushersToOrgQuery(self.timeRangeTotal()) + ''') AS target
 					ON source.pusher_id = target.pusher_id
 			WHERE source.org_id != target.org_id
 			GROUP BY source.org_id,
 			         target.org_id
-			ORDER BY LOWER(source.org_name)
 		'''
 		return query
