@@ -192,3 +192,10 @@ class Report(object):
 
 	def whereExcludedUsers(self, users):
 		return self.andExcludedUsers(users, "WHERE")
+
+	def andExcludeMemberlessOrganizations(self, orgs):
+		query = ""
+		for excludedUser in self.configuration["memberlessOrganizations"]:
+			query += ' AND ' + orgs + '.login NOT LIKE "' + excludedUser + '" '
+		return query
+

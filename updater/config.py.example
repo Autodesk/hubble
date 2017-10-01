@@ -59,6 +59,14 @@ configuration = \
 	# "excludedEntities": "discarded-%",
 
 
+	# The collaboration metric calculates the membership of users to
+	# organizations based on the number of pushes. A user is called "a member
+	# of an organization" if the user has made the most pushes to that
+	# organization. Certain organizations are not supposed to have members in
+	# that sense (e.g. components organizations).
+	"memberlessOrganizations": []
+
+
 	# Help Links
 	#
 	# [1] https://help.github.com/enterprise/2.11/admin/guides/installation/administrative-shell-ssh-access/
