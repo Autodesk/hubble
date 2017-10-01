@@ -53,6 +53,12 @@ configuration = \
 	"excludedUsers": [],
 
 
+	# Certain entities (organizations or repositories) might exist only for
+	# backup purposes. If you have a special naming scheme for them, then
+	# define that here to exclude them from all kinds of statistics.
+	# "excludedEntities": "discarded-%",
+
+
 	# Help Links
 	#
 	# [1] https://help.github.com/enterprise/2.11/admin/guides/installation/administrative-shell-ssh-access/

@@ -29,14 +29,13 @@ class ReportForksToOrgs(ReportDaily):
 				users AS parentOrgs,
 				repositories AS parentRepos
 			WHERE
-				orgs.login not LIKE "discarded%" AND
 				orgs.type = "organization" AND
 				repos.owner_id = orgs.id AND
-				repos.name not LIKE "discarded%" AND
-				parentOrgs.login not LIKE "discarded%" AND
 				parentOrgs.type = "organization" AND
 				parentRepos.owner_id = parentOrgs.id AND
 				parentRepos.id = repos.parent_id
+				''' + self.andExcludedEntities("orgs", "repos") \
+					+ self.andExcludedEntities("parentOrgs", "parentRepos") + '''
 			ORDER BY
 				repos.created_at DESC
 		'''
