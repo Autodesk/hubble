@@ -372,8 +372,8 @@ function drawCoord(orgs, matrix) {
 		var tip = d.source.value + " " + orgs[d.source.index] + " member" +
 			(d.source.value > 1 ? "s" : "") + " contributed to " + orgs[d.target.index] + ".";
 		if (d.target.value > 0) {
-			tip = tip + "\n" + " " + orgs[d.target.index] + " member" +
-			(d.source.value > 1 ? "s" : "") + " contributed to " + orgs[d.source.index] + ".";
+			tip = tip + "\n" + d.target.value + " " + orgs[d.target.index] + " member" +
+			(d.target.value > 1 ? "s" : "") + " contributed to " + orgs[d.source.index] + ".";
 		}
 		return tip;
 	}
