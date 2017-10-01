@@ -382,6 +382,22 @@ function drawCoord(orgs, matrix) {
 		return orgs[d.index];
 	}
 
+	// Remove all organizations that have no connections
+	var i = orgs.length - 1;
+	while (i >= 0) {
+		count =   matrix.reduce(function(a, b) { return a + b[i]; }, 0)
+		        + matrix[i].reduce(function(a, b) { return a + b; }, 0);
+		if (count == 0) {
+			matrix.splice(i,1);
+			matrix.map(function(x) { return x.splice(i,1); });
+			orgs.splice(i, 1);
+		}
+		i--;
+	}
+
+	// Remove all existing elements below the SVG element
+	d3.select("svg").selectAll("*").remove();
+
 	var pad = 90;
 	var svg = d3.select("svg"),
 		width = +svg.attr("width")-2*pad,
@@ -456,6 +472,38 @@ function drawCoord(orgs, matrix) {
 		.text(function(d) { return ribbonTip(d); });
 }
 
+function visualizeOrgsWithTopConnections(orgs, matrix, quota) {
+	// Calculate the number of connections that we would need to visualize
+	// if we only visualize connections larger than the threshold
+	var threshold = 0;
+	do {
+		var lastConnections = connections;
+		var connections = matrix
+			.map(function(x) { return x.map(function(y) { return y > threshold ? 1 : 0; }) })
+			.reduce(function(xa, xb) {
+				if (isNaN(xa)) xa = xa.reduce(function(ya, yb) { return ya + yb; }, 0);
+				if (isNaN(xb)) xb = xb.reduce(function(ya, yb) { return ya + yb; }, 0);
+				return xa + xb
+			}, 0);
+		threshold++;
+	} while (connections > quota && lastConnections != connections)
+
+	// Clear all organizations that with a connections count less than the threshold
+	matrix = matrix.map(function(x) { return x.map(function(y) { return y >= threshold ? y : 0; }) });
+
+	drawCoord(orgs, matrix);
+}
+
+function visualizeSingleOrg(orgs, matrix, orgID) {
+	for (var x = matrix.length - 1; x >= 0; x--) {
+		for (var y = matrix[0].length - 1; y >= 0; y--) {
+			if (x != orgID && y != orgID)
+				matrix[x][y] = 0;
+		}
+	}
+
+	drawCoord(orgs, matrix);
+}
 
 function createCollaborationChart(canvas)
 {
@@ -464,45 +512,36 @@ function createCollaborationChart(canvas)
 	d3.text(url,
 		function(text)
 		{
-			// Define number of visualized connections
-			var quota = 75;
-
+			const quota = 50;
 			var data = d3.tsvParseRows(text);
 			var orgs = data.shift();
 			var matrix = data.map(function(x) { return x.map(function(y) { return +y; }) });
 
-			// Calculate the number of connections that we would need to visualize
-			// if we only visualize connections larger than the threshold
-			var threshold = 0;
-			do {
-				var lastConnections = connections;
-				var connections = matrix
-					.map(function(x) { return x.map(function(y) { return y > threshold ? 1 : 0; }) })
-					.reduce(function(xa, xb) {
-						if (isNaN(xa)) xa = xa.reduce(function(ya, yb) { return ya + yb; }, 0);
-						if (isNaN(xb)) xb = xb.reduce(function(ya, yb) { return ya + yb; }, 0);
-						return xa + xb
-					}, 0);
-				threshold++;
-			} while (connections > quota && lastConnections != connections)
+			function menuChanged() {
+				var data = d3.tsvParseRows(text);
+				var orgs = data.shift();
+				var matrix = data.map(function(x) { return x.map(function(y) { return +y; }) });
 
-			// Clear all organizations that with a connections count less than the threshold
-			matrix = matrix.map(function(x) { return x.map(function(y) { return y >= threshold ? y : 0; }) });
-
-			// Remove all organizations that are cleared out
-			var i = orgs.length - 1;
-			while (i >= 0) {
-				count =   matrix.reduce(function(a, b) { return a + b[i]; }, 0)
-				        + matrix[i].reduce(function(a, b) { return a + b; }, 0);
-				if (count == 0) {
-					matrix.splice(i,1);
-					matrix.map(function(x) { return x.splice(i,1); });
-					orgs.splice(i, 1);
+				if (d3.event && +d3.event.target.value >= 0) {
+					visualizeSingleOrg(orgs, matrix, +d3.event.target.value);
+				} else {
+					visualizeOrgsWithTopConnections(orgs, matrix, quota);
 				}
-				i--;
 			}
 
-			drawCoord(orgs, matrix);
+			var menuItems = [{ value:-1, name:`Top ${quota} Connections` }].concat(
+				orgs.map(function(x, i) { return { value:i, name:x }; })
+			);
+			var select = d3.select("select")
+				.attr("class","select")
+				.on("change", menuChanged)
+				.selectAll("option")
+				.data(menuItems).enter()
+				.append("option")
+					.attr("value", function (d) { return d.value; })
+					.text(function (d) { return d.name; })
+
+			menuChanged();
 		}
 	);
 }
