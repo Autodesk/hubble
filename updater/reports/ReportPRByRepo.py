@@ -26,15 +26,7 @@ class ReportPRByRepo(Report):
 				pull_requests
 				join repositories on repositories.id = pull_requests.repository_id
 				join users on users.id = repositories.owner_id
-		'''
-
-		if (len(self.configuration["excludedUsers"]) > 0):
-			delimiter = ' WHERE '
-			for excludedUser in self.configuration["excludedUsers"]:
-				query += delimiter + 'users.login NOT LIKE "' + excludedUser + '"'
-				delimiter = ' AND '
-
-		query += '''
+		''' + self.whereExcludedUsers("users") + '''
 			GROUP BY
 				repositories.id
 			ORDER BY

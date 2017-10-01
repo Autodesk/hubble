@@ -182,3 +182,13 @@ class Report(object):
 				query += ' AND ' + repo + '.name not LIKE "' + \
 				         self.configuration["excludedEntities"] +'" '
 		return query
+
+	def andExcludedUsers(self, users, delimiter = "AND"):
+		query = ""
+		for excludedUser in self.configuration["excludedUsers"]:
+			query += " " + delimiter + " " + users + '.login NOT LIKE "' + excludedUser + '" '
+			delimiter = "AND"
+		return query
+
+	def whereExcludedUsers(self, users):
+		return self.andExcludedUsers(users, "WHERE")

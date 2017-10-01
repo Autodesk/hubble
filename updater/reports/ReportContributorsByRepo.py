@@ -27,12 +27,7 @@ class ReportContributorsByRepo(Report):
 				JOIN users on users.id = repositories.owner_id
 			WHERE
 				pull_requests.created_at IS NOT NULL AND CAST(pull_requests.created_at AS date) BETWEEN "''' + str(timeRange[0]) + '''" AND "''' + str(timeRange[1]) + '''"
-		'''
-
-		for excludedUser in self.configuration["excludedUsers"]:
-			query += ' AND users.login NOT LIKE "' + excludedUser + '"'
-
-		query += '''
+		''' + self.andExcludedUsers("users") + '''
 			GROUP BY
 				repositories.id
 			ORDER BY

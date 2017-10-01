@@ -27,12 +27,7 @@ class ReportPRHistory(ReportDaily):
 			WHERE
 				CAST(pull_requests.''' + type + ''' AS date) BETWEEN "''' + str(timeRange[0]) + '''" AND "''' + str(timeRange[1]) + '''" AND
 				pull_requests.user_id = users.id
-		'''
-
-		for excludedUser in self.configuration["excludedUsers"]:
-			query += ' AND users.login NOT LIKE "' + excludedUser + '"'
-
-		query += '''
+		''' + self.andExcludedUsers("users") + '''
 			GROUP BY
 				date_format(pull_requests.''' + type + ''', "%Y-%m-%d")
 			ORDER BY

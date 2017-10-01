@@ -24,11 +24,7 @@ class ReportUsers(ReportDaily):
 				JOIN users ON users.id = pushes.pusher_id
 			WHERE
 				CAST(pushes.created_at AS DATE) BETWEEN "''' + str(timeRange[0]) + '''" AND "''' + str(timeRange[1]) + '''"
-		'''
-
-		for excludedUser in self.configuration["excludedUsers"]:
-			query += ' AND users.login NOT LIKE "' + excludedUser + '"'
-
+		''' + self.andExcludedUsers("users")
 		return query
 
 	# Collects the number of users who currently use up a seat
