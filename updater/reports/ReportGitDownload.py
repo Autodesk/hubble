@@ -7,7 +7,7 @@ class ReportGitDownload(ReportDaily):
 
 	def updateDailyData(self):
 		self.detailedHeader, newData = self.parseData(
-			self.executeScript(os.path.join("scripts", "git-download.sh"))
+			self.executeScript(self.scriptPath("git-download.sh"))
 		)
 		if len(self.data) == 0:
 			self.header = [

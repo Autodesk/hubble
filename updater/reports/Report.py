@@ -69,6 +69,14 @@ class Report(object):
 
 		return [twoYearsAgo, self.yesterday()]
 
+	def scriptPath(self, script):
+		return os.path.join(
+			os.path.dirname(os.path.realpath(__file__)),
+			"..",
+			"scripts",
+			script
+		)
+
 	# Executes a script but prints stderr and returns stdout only
 	def executeScript(self, script, stdin = None):
 		if self.configuration["remoteRun"]["enabled"]:

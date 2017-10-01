@@ -7,7 +7,7 @@ class ReportGitRequests(ReportDaily):
 
 	def updateDailyData(self):
 		self.detailedHeader, newData = self.parseData(
-			self.executeScript(os.path.join("scripts", "git-requests.sh"))
+			self.executeScript(self.scriptPath("git-requests.sh"))
 		)
 		if len(self.data) == 0:
 			self.header = ["date", "Git Requests/Day"]
