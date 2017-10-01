@@ -21,16 +21,13 @@ class ReportPRByOrg(Report):
 			SELECT
 				users.login AS organization,
 				COUNT(
-					CASE
-						WHEN pull_requests.merged_at IS NOT NULL AND CAST(pull_requests.merged_at AS date) BETWEEN "''' + str(timeRange[0]) + '''" AND "''' + str(timeRange[1]) + '''"
-						THEN 1 ELSE NULL
-					END
+					CASE WHEN pull_requests.merged_at IS NOT NULL AND CAST(pull_requests.merged_at AS date) BETWEEN "''' + str(timeRange[0]) + '''" AND "''' + str(timeRange[1]) + '''"
+					THEN 1 ELSE NULL END
 				) AS merged,
 				COUNT(
-					CASE
-						WHEN pull_requests.created_at IS NOT NULL AND CAST(pull_requests.created_at AS date) BETWEEN "''' + str(timeRange[0]) + '''" AND "''' + str(timeRange[1]) + '''"
-						THEN 1 ELSE NULL
-					END) AS new
+					CASE WHEN pull_requests.created_at IS NOT NULL AND CAST(pull_requests.created_at AS date) BETWEEN "''' + str(timeRange[0]) + '''" AND "''' + str(timeRange[1]) + '''"
+					THEN 1 ELSE NULL END
+				) AS new
 			FROM
 				pull_requests
 				JOIN repositories ON repositories.id = pull_requests.repository_id

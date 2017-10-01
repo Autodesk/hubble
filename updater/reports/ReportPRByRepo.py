@@ -18,13 +18,19 @@ class ReportPRByRepo(Report):
 	# Collects the number of merged and new pull requests per repository
 	def query(self, timeRange):
 		query = '''
-			select
-				concat(users.login, "/", repositories.name) as repository,
-				count(case when pull_requests.merged_at is not null and cast(pull_requests.merged_at as date) between "''' + str(timeRange[0]) + '''" and "''' + str(timeRange[1]) + '''" then 1 else null end) as merged,
-				count(case when pull_requests.created_at is not null and cast(pull_requests.created_at as date) between "''' + str(timeRange[0]) + '''" and "''' + str(timeRange[1]) + '''" then 1 else null end) as new
-			from
+			SELECT
+				CONCAT(users.login, "/", repositories.name) as repository,
+				COUNT(
+					CASE WHEN pull_requests.merged_at IS NOT NULL AND CAST(pull_requests.merged_at as date) between "''' + str(timeRange[0]) + '''" AND "''' + str(timeRange[1]) + '''"
+					THEN 1 ELSE NULL END
+				) AS merged,
+				COUNT(
+					CASE WHEN pull_requests.created_at IS NOT NULL AND CAST(pull_requests.created_at as date) between "''' + str(timeRange[0]) + '''" AND "''' + str(timeRange[1]) + '''"
+					THEN 1 ELSE NULL END
+				) AS new
+			FROM
 				pull_requests
-				join repositories on repositories.id = pull_requests.repository_id
+				join repositories ON repositories.id = pull_requests.repository_id
 				join users on users.id = repositories.owner_id
 		''' + self.whereExcludedUsers("users") + '''
 			GROUP BY

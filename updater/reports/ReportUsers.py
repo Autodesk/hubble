@@ -38,7 +38,6 @@ class ReportUsers(ReportDaily):
 				users.type = "User" AND
 				users.suspended_at IS NULL
 		'''
-
 		return query
 
 	# Collects the number of pushing users and users using a seat
