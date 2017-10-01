@@ -21,23 +21,23 @@ class ReportForksToOrgs(ReportDaily):
 	def query(self):
 		query = '''
 			SELECT
-				CONCAT(organizations.login, "/", repositories.name) AS "Fork",
-				CAST(repositories.created_at AS date) AS "Creation Date"
+				CONCAT(orgs.login, "/", repos.name) AS "Fork",
+				CAST(repos.created_at AS date) AS "Creation Date"
 			FROM
-				users AS organizations,
-				repositories,
-				users AS parentOrganizations,
-				repositories AS parentRepositories
+				users AS orgs,
+				repositories AS repos,
+				users AS parentOrgs,
+				repositories AS parentRepos
 			WHERE
-				organizations.login not LIKE "discarded%" AND
-				organizations.type = "organization" AND
-				repositories.owner_id = organizations.id AND
-				repositories.name not LIKE "discarded%" AND
-				parentOrganizations.login not LIKE "discarded%" AND
-				parentOrganizations.type = "organization" AND
-				parentRepositories.owner_id = parentOrganizations.id AND
-				parentRepositories.id = repositories.parent_id
+				orgs.login not LIKE "discarded%" AND
+				orgs.type = "organization" AND
+				repos.owner_id = orgs.id AND
+				repos.name not LIKE "discarded%" AND
+				parentOrgs.login not LIKE "discarded%" AND
+				parentOrgs.type = "organization" AND
+				parentRepos.owner_id = parentOrgs.id AND
+				parentRepos.id = repos.parent_id
 			ORDER BY
-				repositories.created_at DESC
+				repos.created_at DESC
 		'''
 		return query
