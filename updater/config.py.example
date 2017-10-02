@@ -64,7 +64,7 @@ configuration = \
 	# of an organization" if the user has made the most pushes to that
 	# organization. Certain organizations are not supposed to have members in
 	# that sense (e.g. components organizations).
-	"memberlessOrganizations": []
+	"memberlessOrganizations": [],
 
 
 	# Help Links
