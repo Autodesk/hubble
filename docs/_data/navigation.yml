@@ -27,5 +27,5 @@
       url: "/housekeeping-api-requests"
     - title: "Forks"
       url: "/housekeeping-forks"
-- title: "Harmful Behavior"
-  url: "/harmful-behavior"
+- title: "Recommendations"
+  url: "/recommendations"
