@@ -44,25 +44,6 @@ class ReportOrgCollaboration(Report):
 		self.header = orgs
 		self.data = matrix
 
-	# Calculates a table with all "org, pusher" combinations for the given time range
-	def pushersToOrgQuery(self, timeRange):
-		query = '''
-			SELECT orgs.login as org_name,
-			       orgs.id as org_id,
-			       pushes.pusher_id
-			FROM users AS orgs,
-			     repositories,
-			     pushes
-			WHERE orgs.type = "organization"
-			  AND orgs.id = repositories.owner_id
-			  AND repositories.id = pushes.repository_id
-			  AND cast(pushes.created_at AS DATE) BETWEEN "''' + str(timeRange[0]) + '''" and "''' + str(timeRange[1]) + '''"
-			  ''' + self.andExcludedEntities("orgs", "repositories") + '''
-			GROUP BY orgs.id,
-			         pushes.pusher_id
-		'''
-		return query
-
 	def pushCountQuery(self, timeRange):
 		query = '''
 			SELECT orgs.login AS org_name, orgs.id AS org_id, pusher_id, COUNT(*) AS push_count
@@ -92,6 +73,44 @@ class ReportOrgCollaboration(Report):
 				+ self.andExcludedUsers("users")
 		return query
 
+	# Calculates a table that contains all users that have contributed to a
+	# given organization. The contributions could have been made via direct
+	# pushes or via merged pull requests.
+	def contributorsToOrgQuery(self, timeRange):
+		query = '''
+			SELECT org_name, org_id, contributor_id
+			FROM (
+				SELECT orgs.login AS org_name,
+				       orgs.id AS org_id,
+				       pushes.pusher_id AS contributor_id
+				FROM users AS orgs,
+				     repositories,
+				     pushes
+				WHERE orgs.type = "organization"
+				  AND orgs.id = repositories.owner_id
+				  AND repositories.id = pushes.repository_id
+				  AND cast(pushes.created_at AS DATE) BETWEEN "''' + str(timeRange[0]) + '''" and "''' + str(timeRange[1]) + '''"
+				  ''' + self.andExcludedEntities("orgs", "repositories") + '''
+
+				UNION
+
+				SELECT orgs.login AS org_name,
+				       orgs.id AS org_id,
+				       pull_requests.user_id AS contributor_id
+				FROM users AS orgs,
+				     repositories,
+				     pull_requests
+				WHERE orgs.type = "organization"
+				  AND orgs.id = repositories.owner_id
+				  AND repositories.id = pull_requests.repository_id
+				  AND pull_requests.merged_at IS NOT NULL
+				  AND cast(pull_requests.created_at AS DATE) BETWEEN "''' + str(timeRange[0]) + '''" and "''' + str(timeRange[1]) + '''"
+				  ''' + self.andExcludedEntities("orgs", "repositories") + '''
+			) contributors
+			GROUP BY org_id, contributor_id
+		'''
+		return query
+
 	def query(self, date):
 		query = '''
 			SELECT source.org_name AS source,
@@ -99,8 +118,8 @@ class ReportOrgCollaboration(Report):
 			       COUNT(*) AS org_count
 			FROM
 				(''' + self.homeOrgQuery(self.timeRangeTotal()) + ''') AS source
-				LEFT JOIN (''' + self.pushersToOrgQuery(self.timeRangeTotal()) + ''') AS target
-					ON source.pusher_id = target.pusher_id
+				LEFT JOIN (''' + self.contributorsToOrgQuery(self.timeRangeTotal()) + ''') AS target
+					ON source.pusher_id = target.contributor_id
 			WHERE source.org_id != target.org_id
 			GROUP BY source.org_id,
 			         target.org_id
