@@ -23,7 +23,7 @@ The updater can run in one of two modes:
 
 #### Installation
 1. Download the [latest release](https://github.com/Autodesk/hubble/releases/latest) from GitHub.
-1. Check the SHA256 hash of the downloaded package against the value of  [latest page](https://github.com/autodeks/hubble/releases/latest):
+1. Check the SHA256 hash of the downloaded package against the value published on the release page:
 	```sh
 	sha256sum hubble-enterprise_x.y.z_all.deb
 	```
