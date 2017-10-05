@@ -55,18 +55,37 @@ a {
       margin-left: 0; } }
 
 .page-header {
+  display: flex;
   color: #fff;
-  text-align: center;
-  background-color: #00c4c8;
+  justify-content: center;
+  width: 100%;
+  background-color: #383e41;
+}
+
+.project-logo {
+  width: 3rem;
+  height: 3rem;
+  background-image: url("../images/logo-title.svg");
+  background-size: 3rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+  align-self: center;
+  margin-right: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .project-name {
-  margin-top: 0;
-  margin-bottom: 0.1rem;
-  padding-top: 0.1rem;
-   padding-bottom: 0.1rem;
-  font-size: 1.5rem;
-  font-weight: normal;
+  position: relative;
+  top: -0.1rem;
+  display: inline-block;
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  align-self: center;
+  color: #f3f6fa;
 }
 
 .project-tagline {
