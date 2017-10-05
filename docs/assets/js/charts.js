@@ -529,7 +529,10 @@ function createCollaborationChart(canvas)
 				}
 			}
 
-			var menuItems = [{ value:-1, name:`Top ${quota} Connections` }].concat(
+			var menuItems = [
+					{ value:-1, name:`Top ${quota} Connections` },
+					{ value:-1, name:"---" },
+				].concat(
 				orgs.map(function(x, i) { return { value:i, name:x }; })
 			);
 			var select = d3.select("select")
