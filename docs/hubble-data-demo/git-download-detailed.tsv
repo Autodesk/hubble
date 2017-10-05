@@ -1,4 +1,26 @@
-Repository	User	Cloning?	Requests/Day	Download in Bytes/Day
-org/repo	larsxschneider	true	45	48820113738
-foo/bar	service-user	true	10	45950294195
-some/thing	pluehne	false	46	40051382164
+Repository	User	Cloning?	Requests/Day	Download in GB/Day
+someOrg512/repo131	someUser5322	true	7	67
+someOrg708/repo891	someUser5337	true	44	36
+someOrg708/repo806	someUser276	true	40	34
+someOrg71/repo046	someUser8267	true	27	28
+someOrg312/repo889	someUser1992	true	35	26
+someOrg116/repo666	someUser2706	true	110	23
+someOrg576/repo771	someUser5302	true	27	22
+someOrg116/repo818	someUser5337	true	80	21
+someOrg/repo221	someUser5337	true	139	18
+someOrg347/repo558	someUser5337	true	76	16
+someOrg347/repo383	someUser5337	true	74	11
+someOrg238/repo400	someUser3589	true	10	10
+someOrg644/repo312	someUser5134	true	33	9
+someOrg152/repo932	someUser1528	true	63	9
+someOrg/repo047	someUser5337	true	43	7
+someOrg71/repo059	someUser2064	true	6	6
+someOrg708/repo509	someUser276	true	40	6
+someOrg576/repo076	someUser5550	true	7	6
+someOrg740/repo313	someUser5337	true	129	6
+someOrg360/repo305	someUser2434	true	20	6
+someOrg116/repo010	someUser3526	true	21	6
+someOrg643/repo344	someUser	true	62	6
+someOrg224/repo895	someUser5337	false	29	5
+someOrg71/repo782	someUser1992	true	68	5
+someOrg71/repo740	someUser1992	true	33	5
