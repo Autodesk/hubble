@@ -369,7 +369,7 @@ function drawCoord(orgs, matrix) {
 	}
 
 	function ribbonTip(d) {
-		var tip = d.source.value + " " + orgs[d.source.index] + " member" +
+		let tip = d.source.value + " " + orgs[d.source.index] + " member" +
 			(d.source.value > 1 ? "s" : "") + " contributed to " + orgs[d.target.index] + ".";
 		if (d.target.value > 0) {
 			tip = tip + "\n" + d.target.value + " " + orgs[d.target.index] + " member" +
@@ -383,7 +383,7 @@ function drawCoord(orgs, matrix) {
 	}
 
 	// Remove all organizations that have no connections
-	var i = orgs.length - 1;
+	let i = orgs.length - 1;
 	while (i >= 0) {
 		count =   matrix.reduce(function(a, b) { return a + b[i]; }, 0)
 		        + matrix[i].reduce(function(a, b) { return a + b; }, 0);
@@ -398,33 +398,33 @@ function drawCoord(orgs, matrix) {
 	// Remove all existing elements below the SVG element
 	d3.select("svg").selectAll("*").remove();
 
-	var pad = 90;
-	var svg = d3.select("svg"),
+	const pad = 90;
+	const svg = d3.select("svg"),
 		width = +svg.attr("width")-2*pad,
 		height = +svg.attr("height")-2*pad,
 		outerRadius = Math.min(width, height) * 0.5 - 65,
 		innerRadius = outerRadius - 50;
 
-	var color = d3.scaleOrdinal(d3.schemeCategory20);
+	const color = d3.scaleOrdinal(d3.schemeCategory20);
 
 	//Initialize chord diagram
-	var chord = d3.chord()
+	const chord = d3.chord()
 		.padAngle(0.05)
 		.sortSubgroups(d3.descending);
 
-	var g = svg.append("g")
+	const g = svg.append("g")
 		.attr("transform", "translate(" + (width / 2 + pad) + "," + (height / 2 + pad) + ")")
 		.datum(chord(matrix));
 
 	// Defines each "group" in the chord diagram
-	var group = g.append("g")
+	const group = g.append("g")
 		.attr("class", "groups")
 		.selectAll("g")
 		.data(function(chords) { return chords.groups; })
 		.enter().append("g")
 
 	// Draw the radial arcs for each group
-	var arc = d3.arc()
+	const arc = d3.arc()
 		.innerRadius(innerRadius)
 		.outerRadius(outerRadius);
 
@@ -444,8 +444,8 @@ function drawCoord(orgs, matrix) {
 		.attr("transform", function(d,i) {
 			d.angle = (d.startAngle + d.endAngle) / 2;
 			d.name = orgs[i];
-			var degree = d.angle * 180 / Math.PI;
-			var flip = (degree > 180 ? 90 : -90);
+			const degree = d.angle * 180 / Math.PI;
+			const flip = (degree > 180 ? 90 : -90);
 			return "rotate(" + degree + ")" +
 				"translate(0," + -1 * (outerRadius + 5) + ")" +
 				"rotate(" + flip + ")";
@@ -454,10 +454,10 @@ function drawCoord(orgs, matrix) {
 		.text(function(d) { return d.name; });
 
 	// Draw the ribbons that go from group to group
-	var ribbon = d3.ribbon()
+	const ribbon = d3.ribbon()
 		.radius(innerRadius);
 
-	var ribbons = g.append("g")
+	const ribbons = g.append("g")
 		.attr("class", "ribbons")
 		.selectAll("path")
 		.data(function(chords) { return chords; })
@@ -475,15 +475,17 @@ function drawCoord(orgs, matrix) {
 function visualizeOrgsWithTopConnections(orgs, matrix, quota) {
 	// Calculate the number of connections that we would need to visualize
 	// if we only visualize connections larger than the threshold
-	var threshold = 0;
+	let threshold = 0;
+	let connections = 0;
+	let lastConnections;
 	do {
-		var lastConnections = connections;
-		var connections = matrix
-			.map(function(x) { return x.map(function(y) { return y > threshold ? 1 : 0; }) })
-			.reduce(function(xa, xb) {
-				if (isNaN(xa)) xa = xa.reduce(function(ya, yb) { return ya + yb; }, 0);
-				if (isNaN(xb)) xb = xb.reduce(function(ya, yb) { return ya + yb; }, 0);
-				return xa + xb
+		lastConnections = connections;
+		connections = matrix
+			.map(function(x) {
+				return x.map(function(y) { return y > threshold ? 1 : 0; })
+			})
+			.reduce(function(sumX, x) {
+				return sumX + x.reduce(function(sumY, y) { return sumY + y; }, 0);
 			}, 0);
 		threshold++;
 	} while (connections > quota && lastConnections != connections)
@@ -495,8 +497,8 @@ function visualizeOrgsWithTopConnections(orgs, matrix, quota) {
 }
 
 function visualizeSingleOrg(orgs, matrix, orgID) {
-	for (var x = matrix.length - 1; x >= 0; x--) {
-		for (var y = matrix[0].length - 1; y >= 0; y--) {
+	for (let x = matrix.length - 1; x >= 0; x--) {
+		for (let y = matrix[0].length - 1; y >= 0; y--) {
 			if (x != orgID && y != orgID)
 				matrix[x][y] = 0;
 		}
@@ -507,15 +509,15 @@ function visualizeSingleOrg(orgs, matrix, orgID) {
 
 function createCollaborationChart(canvas)
 {
-	var url = $(canvas).data("url");
+	const url = $(canvas).data("url");
+	const quota = 50;
 
 	d3.text(url,
 		function(text)
 		{
-			const quota = 50;
-			var data = d3.tsvParseRows(text);
-			var orgs = data.shift();
-			var matrix = data.map(function(x) { return x.map(function(y) { return +y; }) });
+			const data = d3.tsvParseRows(text);
+			const orgs = data.shift();
+			const matrix = data.map(function(x) { return x.map(function(y) { return +y; }) });
 
 			function menuChanged() {
 				var data = d3.tsvParseRows(text);
@@ -529,13 +531,13 @@ function createCollaborationChart(canvas)
 				}
 			}
 
-			var menuItems = [
+			const menuItems = [
 					{ value:-1, name:`Top ${quota} Connections` },
 					{ value:-1, name:"---" },
 				].concat(
 				orgs.map(function(x, i) { return { value:i, name:x }; })
 			);
-			var select = d3.select("select")
+			const select = d3.select("select")
 				.attr("class","select")
 				.on("change", menuChanged)
 				.selectAll("option")
