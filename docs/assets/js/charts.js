@@ -520,14 +520,15 @@ function createCollaborationChart(canvas)
 			const matrix = data.map(function(x) { return x.map(function(y) { return +y; }) });
 
 			function menuChanged() {
-				var data = d3.tsvParseRows(text);
-				var orgs = data.shift();
-				var matrix = data.map(function(x) { return x.map(function(y) { return +y; }) });
+				// The rendering functions are going to adjust the org and
+				// matrix array. Therefore, we create a deep copy here.
+				const orgsCopy = orgs.slice(0);
+				const matrixCopy = matrix.map(function(x) { return x.slice(0); });
 
 				if (d3.event && +d3.event.target.value >= 0) {
-					visualizeSingleOrg(orgs, matrix, +d3.event.target.value);
+					visualizeSingleOrg(orgsCopy, matrixCopy, +d3.event.target.value);
 				} else {
-					visualizeOrgsWithTopConnections(orgs, matrix, quota);
+					visualizeOrgsWithTopConnections(orgsCopy, matrixCopy, quota);
 				}
 			}
 
