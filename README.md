@@ -1,6 +1,6 @@
 # Hubble Enterprise
 
-_Hubble Enterprise_ visualizes [GitHub Enterprise](https://enterprise.github.com) usage and health data. Explore our [interactive demo](https://autodesk.github.io/hubble/index.html) to learn more!
+_Hubble Enterprise_ visualizes [GitHub Enterprise](https://enterprise.github.com) collaboration, usage, and health data. Explore our [interactive demo](https://autodesk.github.io/hubble/index.html) to learn more!
 
 > :warning: **Attention**: Hubble Enterprise is not supported by or affiliated with GitHub. Use it at your own risk! Autodesk assumes no responsibility for any data loss or hardship incurred directly or indirectly by using Hubble Enterprise.
 >
