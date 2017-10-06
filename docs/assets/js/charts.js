@@ -490,8 +490,14 @@ function visualizeOrgsWithTopConnections(orgs, matrix, quota) {
 		threshold++;
 	} while (connections > quota && lastConnections != connections)
 
-	// Clear all organizations that with a connections count less than the threshold
-	matrix = matrix.map(function(x) { return x.map(function(y) { return y >= threshold ? y : 0; }) });
+	// Clear all organizations relationships that have less than threshold
+	// count connections in both (!) directions
+	for (let x = matrix.length - 1; x >= 0; x--) {
+		for (let y = matrix[0].length - 1; y >= 0; y--) {
+			if (matrix[x][y] < threshold && matrix[y][x] < threshold)
+				matrix[x][y] = 0;
+		}
+	}
 
 	drawCoord(orgs, matrix);
 }
