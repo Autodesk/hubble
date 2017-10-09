@@ -12,7 +12,7 @@
 - title: "Pull Requests"
   url: "/pr-usage"
   subnavigation:
-    - title: "Usage %"
+    - title: "Usage [%]"
       url: "/pr-usage"
     - title: "Total"
       url: "/pr-total"
