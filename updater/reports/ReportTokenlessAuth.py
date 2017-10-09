@@ -10,7 +10,7 @@ class ReportTokenlessAuth(ReportDaily):
 			self.executeScript(self.scriptPath("tokenless-auth.sh"))
 		)
 		if len(self.data) == 0:
-			self.header = ["date", "Tokenless Authentications/Day"]
+			self.header = ["date", "tokenless authentications/day"]
 		self.data.append(
 			[str(self.yesterday()),
 			sum(map(lambda x: int(x[2] if len(x) > 1 else 0), newData))]

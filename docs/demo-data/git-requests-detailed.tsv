@@ -1,4 +1,4 @@
-Repository	Source IP	Requests/Day
+repository	source IP	requests/day
 org/repo	12.13.14.15	31050
 foo/bar	10.11.87.145	27446
 some/thing	10.11.87.145	22527
