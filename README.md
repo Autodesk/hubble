@@ -51,9 +51,8 @@ Review [the contributing guidelines](CONTRIBUTING.md) before you consider workin
 
 These are the humans that form the core team of Hubble Enterprise, in alphabetical order:
 
-| [@larsxschneider](https://github.com/larsxschneider/) | [@pluehne](https://github.com/pluehne) |
+| [![](https://avatars3.githubusercontent.com/u/477434?v=4&s=100)](https://github.com/larsxschneider)<br><sub>[@larsxschneider](https://github.com/larsxschneider/)</sub> | [![](https://avatars1.githubusercontent.com/u/3244280?v=4&s=100)](https://github.com/pluehne)<br><sub>[@pluehne](https://github.com/pluehne)</sub> |
 |---|---|
-| [![](https://avatars3.githubusercontent.com/u/477434?v=4&s=100)](https://github.com/larsxschneider) | [![](https://avatars1.githubusercontent.com/u/3244280?v=4&s=100)](https://github.com/pluehne) |
 
 ## License
 
