@@ -1,6 +1,6 @@
 [![Logo Banner](logo-banner.svg)](https://autodesk.github.io/hubble/)
 
-# Hubble Enterprise
+# Hubble Enterprise [![GitHub Release](https://img.shields.io/github/release/autodesk/hubble.svg?maxAge=3600)](https://github.com/autodesk/hubble/releases)
 
 _Hubble Enterprise_ visualizes [GitHub Enterprise](https://enterprise.github.com) collaboration, usage, and health data.
 
