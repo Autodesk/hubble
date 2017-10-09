@@ -59,7 +59,9 @@ a {
   color: #fff;
   justify-content: center;
   width: 100%;
-  background-color: #383e41;
+  background-color: #252b32;
+  background-image: url("../images/header-background.svg");
+  background-size: 120rem 10rem;
 }
 
 .project-logo {
@@ -67,8 +69,8 @@ a {
   height: 3rem;
   align-self: center;
   margin-right: 2rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
 .project-name {
@@ -79,7 +81,6 @@ a {
   font-size: 1.35rem;
   font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 0.05rem;
   align-self: center;
   color: #f3f6fa;
 }
