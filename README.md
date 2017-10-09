@@ -3,6 +3,7 @@
 # Hubble Enterprise
 
 _Hubble Enterprise_ visualizes [GitHub Enterprise](https://enterprise.github.com) collaboration, usage, and health data.
+
 Explore our [interactive demo](https://autodesk.github.io/hubble/) to learn more!
 
 > :warning: **Attention:**
