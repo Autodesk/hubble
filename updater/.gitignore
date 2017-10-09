@@ -1,2 +1,4 @@
+__pycache__
+config.py
 packaging/debian/build/
 packaging/debian/package/
