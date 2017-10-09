@@ -62,6 +62,7 @@ a {
   background-color: #252b32;
   background-image: url("../images/header-background.svg");
   background-size: 120rem 10rem;
+  background-position: 50% 0%;
 }
 
 .project-logo {
