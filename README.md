@@ -25,7 +25,7 @@ The **docs** component visualizes the collected data with [GitHub Pages](https:/
 1. Create a new, initialized, public repository for Hubble’s data on your GitHub Enterprise appliance (for instance, `https://git.company.com/scm/hubble-data`).
 1. Publish Hubble’s [data repository on GitHub Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages).
    Go to the repository settings, *options* tab, *GitHub Pages* section, then choose *master branch* as *source*, and click *save*.
-   GitHub Enterprise will now tell you the URL of the published data pages (for instance, `https://pages.git.company.com/scm/hubble-data`).
+   GitHub Enterprise will now tell you the URL of the published data pages (for instance, `https://pages.git.company.com/scm/hubble-data` if you have [subdomain isolation enabled](https://help.github.com/enterprise/2.1/admin/articles/configuring-dns-ssl-and-subdomain-settings/#enabling-subdomain-isolation)).
    Please be aware that this is a *GitHub Pages URL* and not just the repository’s URL.
    Note this URL down as `dataURL`, as you will need it later.
 1. Create a new, uninitialized, public repository for Hubble on your GitHub Enterprise appliance (for instance, `https://git.company.com/scm/hubble`).
