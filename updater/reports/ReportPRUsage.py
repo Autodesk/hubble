@@ -35,8 +35,8 @@ class ReportPRUsage(ReportDaily):
 		query = '''
 			SELECT
 				"''' + str(date) + '''" AS date,
-				ROUND(100*COUNT(pr.repository_id)/COUNT(active.repository_id)) AS "Pull request usage in %",
-				ROUND(100*COUNT(status.repository_id)/COUNT(active.repository_id)) AS "Status usage in %"
+				ROUND(100*COUNT(pr.repository_id)/COUNT(active.repository_id)) AS "pull request usage [%]",
+				ROUND(100*COUNT(status.repository_id)/COUNT(active.repository_id)) AS "status usage [%]"
 			FROM
 				(
 					SELECT repository_id

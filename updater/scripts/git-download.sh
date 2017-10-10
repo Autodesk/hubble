@@ -2,7 +2,7 @@
 #
 # Calculate download traffic per day
 #
-echo -e "Repository\tUser\tCloning?\tRequests/Day\tDownload in Bytes/Day"
+echo -e "repository\tuser\tcloning?\trequests/day\tdownload/day [B]"
 
 zcat -f /var/log/github/audit.log.1* |
     perl -ne 'print if s/.*"program":"upload-pack".*"repo_name":"([^"]+).*"user_login":"([^"]+).*"cloning":([^,]+).*"uploaded_bytes":([^ ]+).*/\1\t\2\t\3\t\4/' |

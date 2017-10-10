@@ -1,4 +1,4 @@
-date	Clones/Day	Fetches/Day	Clone Traffic GB/Day	Fetch Traffic GB/Day
+date	clones/day	fetches/day	clone traffic/day [GB]	fetch traffic/day [GB]
 2017-10-04	17272	22348	672	25
 2017-10-03	18067	21223	587	28
 2017-10-02	15605	20744	502	20

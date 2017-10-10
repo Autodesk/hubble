@@ -1,4 +1,4 @@
-Resource	Type	Source IP	Request/Day
+resource	type	source IP	requests/day
 foo/bar	repos	10.11.12.13	35498
 some/code	repos	10.21.11.33	27384
 some/other-code	repos	10.21.11.33	24212

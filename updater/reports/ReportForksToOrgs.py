@@ -12,7 +12,7 @@ class ReportForksToOrgs(ReportDaily):
 	def updateDailyData(self):
 		self.detailedHeader, self.detailedData = self.parseData(self.executeQuery(self.query()))
 		if len(self.data) == 0:
-			self.header = ["date", "forks"]
+			self.header = ["date", "forks to organizations"]
 		self.data.append([str(self.yesterday()), len(self.detailedData)])
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()
@@ -21,8 +21,8 @@ class ReportForksToOrgs(ReportDaily):
 	def query(self):
 		query = '''
 			SELECT
-				CONCAT(orgs.login, "/", repos.name) AS "Fork",
-				CAST(repos.created_at AS date) AS "Creation Date"
+				CONCAT(orgs.login, "/", repos.name) AS fork
+				CAST(repos.created_at AS date) AS "creation date"
 			FROM
 				users AS orgs,
 				repositories AS repos,

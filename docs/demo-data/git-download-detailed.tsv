@@ -1,4 +1,4 @@
-Repository	User	Cloning?	Requests/Day	Download in GB/Day
+repository	user	cloning?	requests/day	download/day [GB]
 someOrg512/repo131	someUser5322	true	7	67
 someOrg708/repo891	someUser5337	true	44	36
 someOrg708/repo806	someUser276	true	40	34
