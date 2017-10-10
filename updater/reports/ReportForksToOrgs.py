@@ -21,7 +21,7 @@ class ReportForksToOrgs(ReportDaily):
 	def query(self):
 		query = '''
 			SELECT
-				CONCAT(orgs.login, "/", repos.name) AS fork
+				CONCAT(orgs.login, "/", repos.name) AS fork,
 				CAST(repos.created_at AS date) AS "creation date"
 			FROM
 				users AS orgs,
