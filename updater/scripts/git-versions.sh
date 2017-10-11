@@ -4,7 +4,7 @@
 #
 echo -e "Git version\tusers"
 
-zgrep -hF '||git/' /var/log/haproxy.log.1* |
+zgrep -hF '||git/' /var/log/haproxy.log* |
 	perl -lape 's/.* (.*):.* \[.*\|\|git\/(\d+(?:\.\d+){0,2}).*/$1 $2/' |
 	sort |
 	uniq |

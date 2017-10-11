@@ -5,7 +5,7 @@
 #
 echo -e "user\trepository\ttokenless authentications/day"
 
-zcat -f /var/log/github/gitauth.log.1* |
+zcat -f /var/log/github/gitauth.log* |
     perl -ne 'print if s/.*status=OK member="?([^ "]+) hashed_token=nil.*path=([^ ]+)\.git .*proto=http.*/\1 \2/' |
     sort |
     uniq -c |
