@@ -194,8 +194,8 @@ a
 	font-size: 1.5rem;
 	color: #21a0a7;
 	font-weight: normal;
-	margin-bottom: 2rem;
-	margin-top: 6rem;
+	margin-bottom: 1rem;
+	margin-top: 4rem;
 }
 
 .main-content p
@@ -444,7 +444,7 @@ a
 	{
 		margin: 0 auto;
 		width: 96rem;
-		padding: 2rem 4rem;
+		padding: 2.5rem 4rem;
 	}
 
 	.row
@@ -482,7 +482,7 @@ a
 		{
 			margin: 0 auto;
 			width: 64rem;
-			padding: 2rem 4rem;
+			padding: 2.5rem 4rem;
 		}
 	}
 }
@@ -494,7 +494,7 @@ a
 	{
 		.main-content
 		{
-			padding: 2rem 4rem;
+			padding: 2.5rem 4rem;
 		}
 	}
 }
@@ -504,7 +504,7 @@ a
 {
 	.main-content
 	{
-		padding: 2rem 1rem;
+		padding: 1.5rem 1rem;
 	}
 }
 
