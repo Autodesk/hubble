@@ -478,7 +478,7 @@ function drawCoord(orgs, matrix) {
 		.data(function(chords) { return chords.groups; })
 		.enter().append("g")
 
-		// Draw the radial arcs for each group
+	// Draw the radial arcs for each group
 	const arc = d3.arc()
 		.innerRadius(innerRadius)
 		.outerRadius(outerRadius);
