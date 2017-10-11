@@ -21,7 +21,7 @@
 		<link rel="apple-touch-icon" sizes="180x180" href="{{ site.baseurl }}/apple-touch-icon-180x180.png?version=7c4fcab">
 		<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/normalize.css?version=7c4fcab" media="screen">
 		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" media="screen">
-		<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/stylesheet.css?version=58a5c44" media="screen">
+		<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/stylesheet.css?version=13422f9" media="screen">
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
@@ -30,14 +30,13 @@
 	</head>
 	<body>
 		<section class="page-header">
-			<a href="https://github.com/Autodesk/hubble">
-				<img style="position: absolute; top: 0; right: 0; border: 0;"
-				src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67"
-				alt="Fork me on GitHub"
-				data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png">
+			<a href="https://github.com/Autodesk/hubble" class="fork-banner">
+				<img alt="Fork me on GitHub" src="{{ site.baseurl }}/assets/images/fork-banner.png">
 			</a>
-			<img src="{{ site.baseurl }}/assets/images/logo-title.svg" class="project-logo" width="3rem" height="3rem">
-			<h1 class="project-name"><script type="text/javascript">document.write(gheHostname())</script> Statistics</h1>
+			<a href="{{ site.baseurl }}/" alt="Hubble Enterprise">
+				<img src="{{ site.baseurl }}/assets/images/logo-title.svg" class="project-logo" width="3rem" height="3rem">
+				<h1 class="project-name"><script type="text/javascript">document.write(gheHostname())</script> Statistics</h1>
+			</a>
 		</section>
 		{% include navigation.html %}
 		<section class="main-content">

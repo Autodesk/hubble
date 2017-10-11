@@ -89,19 +89,29 @@ a
 	background-image: url("../images/header-background.svg");
 	background-position: 50% 0%;
 	background-size: 120rem 10rem;
-	color: #fff;
 	display: flex;
 	justify-content: center;
 	width: 100%;
+}
+
+.fork-banner
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.page-header a
+{
+	display: inline-flex;
+	text-decoration: none;
 }
 
 .project-logo
 {
 	align-self: center;
 	height: 3rem;
-	margin-bottom: 1.25rem;
-	margin-right: 2rem;
-	margin-top: 1.25rem;
+	margin: 1.25rem 2rem;
 	width: 3rem;
 }
 
@@ -112,7 +122,7 @@ a
 	display: inline-block;
 	font-size: 1.35rem;
 	font-weight: bold;
-	margin: 0;
+	margin: 0 2rem 0 0;
 	position: relative;
 	text-transform: uppercase;
 	top: -0.1rem;
