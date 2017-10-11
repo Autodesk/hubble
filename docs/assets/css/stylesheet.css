@@ -427,9 +427,14 @@ a
 	font-size: 1rem;
 }
 
+.info-box p:first-child
+{
+	padding-top: 0.75rem;
+}
+
 .info-box p:last-child
 {
-	padding-bottom: 1rem;
+	padding-bottom: 0.75rem;
 }
 
 /* Large size (lg) */
