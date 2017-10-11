@@ -577,8 +577,8 @@ function createCollaborationChart(canvas)
 			}
 
 			const menuItems = [
-					{ value:-1, name:`Top ${quota} Connections` },
-					{ value:-1, name:"---" },
+					{ value:-1, name:`Top ${quota} connections` },
+					{ value:-1, name:"—" },
 				].concat(
 				orgs.map(function(x, i) { return { value:i, name:x }; })
 			);
