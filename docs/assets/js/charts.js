@@ -12,6 +12,35 @@ var chartColors =
 	grey: [201, 203, 207],
 };
 
+var extendedChartColors =
+[
+	"#ff5e4d",
+	"#ffa71a",
+	"#ffce00",
+	"#f8f535",
+	"#b0f20a",
+	"#16e94d",
+	"#6aedc7",
+	"#39c2c9",
+	"#998ce3",
+	"#f866b9",
+	"#ff7845",
+	"#ffbf1a",
+	"#ffe300",
+	"#dfff4d",
+	"#8bea12",
+	"#19dc80",
+	"#10d9be",
+	"#4c99e5",
+	"#c87adf",
+	"#f86189",
+];
+
+function extendedChartColor(i)
+{
+	return extendedChartColors[(i + 3) % extendedChartColors.length];
+}
+
 var chartColorSequence =
 [
 	chartColors.blue,
@@ -405,8 +434,6 @@ function drawCoord(orgs, matrix) {
 		outerRadius = Math.min(width, height) * 0.5 - 65,
 		innerRadius = outerRadius - 50;
 
-	const color = d3.scaleOrdinal(d3.schemeCategory20);
-
 	//Initialize chord diagram
 	const chord = d3.chord()
 		.padAngle(0.05)
@@ -429,8 +456,9 @@ function drawCoord(orgs, matrix) {
 		.outerRadius(outerRadius);
 
 	group.append("path")
-		.style("fill", function(d) { return color(d.index); })
-		.style("stroke", function(d) { return d3.rgb(color(d.index)).darker(); })
+		.style("fill", function(d) { return extendedChartColor(d.index); })
+		.style("stroke", function(d) { return d3.rgb(extendedChartColor(d.index)).darker(); })
+		.style("stroke-width", 1.75)
 		.attr("d", arc)
 		.on("mouseover", fadeRibbonsWithSameSource(.1))
 		.on("mouseout", fadeRibbonsWithSameSource(1))
@@ -463,8 +491,9 @@ function drawCoord(orgs, matrix) {
 		.data(function(chords) { return chords; })
 		.enter().append("path")
 			.attr("d", ribbon)
-			.style("fill", function(d) { return color(d.source.index); })
-			.style("stroke", function(d) { return d3.rgb(color(d.source.index)).darker(); })
+			.style("fill", function(d) { return extendedChartColor(d.source.index); })
+			.style("stroke-width", 1.75)
+			.style("stroke", function(d) { return d3.rgb(extendedChartColor(d.source.index)).darker(); })
 			.on("mouseover", fadeRibbon(.1))
 			.on("mouseout", fadeRibbon(1));
 
