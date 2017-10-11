@@ -1,31 +1,32 @@
+{% include environment.html %}
 <!doctype html>
 <html lang="en-us">
 	<head>
 		<meta charset="UTF-8">
 		<title>Hubble Enterprise{% if page.title %}: {{ page.title }}{% endif %}</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="icon" sizes="256x256" href="favicon-256x256.png?version=7c4fcab">
-		<link rel="icon" sizes="192x192" href="favicon-192x192.png?version=7c4fcab">
-		<link rel="icon" sizes="128x128" href="favicon-128x128.png?version=7c4fcab">
-		<link rel="icon" sizes="96x96" href="favicon-96x96.png?version=7c4fcab">
-		<link rel="icon" sizes="64x64" href="favicon-64x64.png?version=7c4fcab">
-		<link rel="icon" sizes="48x48" href="favicon-48x48.png?version=7c4fcab">
-		<link rel="icon" sizes="32x32" href="favicon-32x32.png?version=7c4fcab">
-		<link rel="icon" sizes="16x16" href="favicon-16x16.png?version=7c4fcab">
-		<link rel="apple-touch-icon" sizes="57x57" href="apple-touch-icon-57x57.png?version=7c4fcab">
-		<link rel="apple-touch-icon" sizes="76x76" href="apple-touch-icon-76x76.png?version=7c4fcab">
-		<link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-120x120.png?version=7c4fcab">
-		<link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152x152.png?version=7c4fcab">
-		<link rel="apple-touch-icon" sizes="167x167" href="apple-touch-icon-167x167.png?version=7c4fcab">
-		<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180x180.png?version=7c4fcab">
-		<link rel="stylesheet" type="text/css" href="assets/css/normalize.css?version=7c4fcab" media="screen">
+		<link rel="icon" sizes="256x256" href="{{ site.baseurl }}/favicon-256x256.png?version=7c4fcab">
+		<link rel="icon" sizes="192x192" href="{{ site.baseurl }}/favicon-192x192.png?version=7c4fcab">
+		<link rel="icon" sizes="128x128" href="{{ site.baseurl }}/favicon-128x128.png?version=7c4fcab">
+		<link rel="icon" sizes="96x96" href="{{ site.baseurl }}/favicon-96x96.png?version=7c4fcab">
+		<link rel="icon" sizes="64x64" href="{{ site.baseurl }}/favicon-64x64.png?version=7c4fcab">
+		<link rel="icon" sizes="48x48" href="{{ site.baseurl }}/favicon-48x48.png?version=7c4fcab">
+		<link rel="icon" sizes="32x32" href="{{ site.baseurl }}/favicon-32x32.png?version=7c4fcab">
+		<link rel="icon" sizes="16x16" href="{{ site.baseurl }}/favicon-16x16.png?version=7c4fcab">
+		<link rel="apple-touch-icon" sizes="57x57" href="{{ site.baseurl }}/apple-touch-icon-57x57.png?version=7c4fcab">
+		<link rel="apple-touch-icon" sizes="76x76" href="{{ site.baseurl }}/apple-touch-icon-76x76.png?version=7c4fcab">
+		<link rel="apple-touch-icon" sizes="120x120" href="{{ site.baseurl }}/apple-touch-icon-120x120.png?version=7c4fcab">
+		<link rel="apple-touch-icon" sizes="152x152" href="{{ site.baseurl }}/apple-touch-icon-152x152.png?version=7c4fcab">
+		<link rel="apple-touch-icon" sizes="167x167" href="{{ site.baseurl }}/apple-touch-icon-167x167.png?version=7c4fcab">
+		<link rel="apple-touch-icon" sizes="180x180" href="{{ site.baseurl }}/apple-touch-icon-180x180.png?version=7c4fcab">
+		<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/normalize.css?version=7c4fcab" media="screen">
 		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" media="screen">
-		<link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css?version=58a5c44" media="screen">
+		<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/stylesheet.css?version=58a5c44" media="screen">
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
-		<script src="assets/js/charts.js?version=58a5c44"></script>
+		<script src="{{ site.baseurl }}/assets/js/charts.js?version=58a5c44"></script>
 	</head>
 	<body>
 		<section class="page-header">
@@ -35,7 +36,7 @@
 				alt="Fork me on GitHub"
 				data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png">
 			</a>
-			<img src="assets/images/logo-title.svg" class="project-logo" width="3rem" height="3rem">
+			<img src="{{ site.baseurl }}/assets/images/logo-title.svg" class="project-logo" width="3rem" height="3rem">
 			<h1 class="project-name"><script type="text/javascript">document.write(gheHostname())</script> Statistics</h1>
 		</section>
 		{% include navigation.html %}
