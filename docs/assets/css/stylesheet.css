@@ -18,12 +18,6 @@ body
 a
 {
 	color: #404040;
-	text-decoration: none;
-}
-
-a:hover
-{
-	text-decoration: underline;
 }
 
 .btn
@@ -171,6 +165,13 @@ a:hover
 .main-content > *:last-child
 {
 	margin-bottom: 0;
+}
+
+.main-content a
+{
+	color: #14989f;
+	text-decoration: none;
+	border-bottom: solid #39c2c9 2px;
 }
 
 .main-content img
