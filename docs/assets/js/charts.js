@@ -431,7 +431,7 @@ function drawCoord(orgs, matrix) {
 	const svg = d3.select("svg"),
 		width = +svg.attr("width")-2*pad,
 		height = +svg.attr("height")-2*pad,
-		outerRadius = Math.min(width, height) * 0.5 - 65,
+		outerRadius = Math.min(width, height) * 0.5 - 200,
 		innerRadius = outerRadius - 50;
 
 	//Initialize chord diagram
