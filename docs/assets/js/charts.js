@@ -398,7 +398,7 @@ function drawCoord(orgs, matrix) {
 	// Remove all existing elements below the SVG element
 	d3.select("svg").selectAll("*").remove();
 
-	const pad = 90;
+	const pad = 0;
 	const svg = d3.select("svg"),
 		width = +svg.attr("width")-2*pad,
 		height = +svg.attr("height")-2*pad,
