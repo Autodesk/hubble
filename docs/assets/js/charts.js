@@ -33,7 +33,7 @@ var extendedChartColors =
 	"#10d9be",
 	"#4c99e5",
 	"#c87adf",
-	"#ff5a86",
+	"#ff5a99",
 ];
 
 function extendedChartColor(i)
@@ -443,6 +443,34 @@ function drawCoord(orgs, matrix) {
 		.attr("transform", "translate(" + (width / 2 + pad) + "," + (height / 2 + pad) + ")")
 		.datum(chord(matrix));
 
+	// Draw the ribbons that go from group to group
+	const ribbon = d3.ribbon()
+		.radius(innerRadius);
+
+	const ribbons = g.append("g")
+		.attr("class", "ribbons")
+		.selectAll("path")
+		.data(function(chords) { return chords; })
+		.enter().append("g")
+		.on("mouseover", fadeRibbon(.1))
+		.on("mouseout", fadeRibbon(1));
+
+	ribbons
+		.append("path")
+		.attr("d", ribbon)
+		.style("stroke-width", 6.0)
+		.style("stroke", function(d) { return "#ffffff"; });
+
+	ribbons
+		.append("path")
+		.attr("d", ribbon)
+		.style("fill", function(d) { return extendedChartColor(d.source.index); })
+		.style("stroke-width", 2.0)
+		.style("stroke", function(d) { return extendedChartColor(d.source.index); });
+
+	ribbons.append("title")
+		.text(function(d) { return ribbonTip(d); });
+
 	// Defines each "group" in the chord diagram
 	const group = g.append("g")
 		.attr("class", "groups")
@@ -450,7 +478,7 @@ function drawCoord(orgs, matrix) {
 		.data(function(chords) { return chords.groups; })
 		.enter().append("g")
 
-	// Draw the radial arcs for each group
+		// Draw the radial arcs for each group
 	const arc = d3.arc()
 		.innerRadius(innerRadius)
 		.outerRadius(outerRadius);
@@ -480,34 +508,6 @@ function drawCoord(orgs, matrix) {
 		})
 		.style("text-anchor", function(d) { return d.angle > Math.PI ? "end" : null; })
 		.text(function(d) { return d.name; });
-
-	// Draw the ribbons that go from group to group
-	const ribbon = d3.ribbon()
-		.radius(innerRadius);
-
-	const ribbons = g.append("g")
-		.attr("class", "ribbons")
-		.selectAll("path")
-		.data(function(chords) { return chords; })
-		.enter().append("g")
-		.on("mouseover", fadeRibbon(.1))
-		.on("mouseout", fadeRibbon(1));
-
-	ribbons
-		.append("path")
-		.attr("d", ribbon)
-		.style("stroke-width", 6.0)
-		.style("stroke", function(d) { return "#ffffff"; });
-
-	ribbons
-		.append("path")
-		.attr("d", ribbon)
-		.style("fill", function(d) { return extendedChartColor(d.source.index); })
-		.style("stroke-width", 2.0)
-		.style("stroke", function(d) { return extendedChartColor(d.source.index); });
-
-	ribbons.append("title")
-		.text(function(d) { return ribbonTip(d); });
 }
 
 function visualizeOrgsWithTopConnections(orgs, matrix, quota) {
