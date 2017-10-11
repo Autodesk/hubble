@@ -458,7 +458,7 @@ function drawCoord(orgs, matrix) {
 	ribbons
 		.append("path")
 		.attr("d", ribbon)
-		.style("stroke-width", 6.0)
+		.style("stroke-width", 5.0)
 		.style("stroke", function(d) { return "#ffffff"; });
 
 	ribbons
