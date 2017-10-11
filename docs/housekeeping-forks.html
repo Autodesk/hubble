@@ -5,20 +5,29 @@ permalink: /housekeeping-forks
 ---
 <h3>Forks to Organizations</h3>
 
-<div class="chart-container">
-	<canvas
-		class="chart"
-		data-url="{{ site.dataURL }}/forks-to-organizations.tsv"
-		data-type="history"
-	></canvas>
+<div class="row">
+	<div class="col-main">
+		<div class="chart-container">
+			<canvas
+				class="chart"
+				data-url="{{ site.dataURL }}/forks-to-organizations.tsv"
+				data-type="history"
+			></canvas>
+		</div>
+	</div>
+	<div class="col-aside">
+		<div class="info-box">
+			<p>
+				Forks to personal user accounts are a great way to contribute code.
+				Forks to organizations can be troublesome as they promote multiple
+				(sometimes even incompatibility) versions of the same component within
+				a company. Therefore, you should try to reduce them. See <a href="https://medium.com/@larsxschneider/talk-dont-fork-743a1253b8d5">
+				this blog post</a> for more information.
+			</p>
+		</div>
+	</div>
 </div>
-<p>
-	Forks to personal user accounts are a great way to contribute code.
-	Forks to organizations can be troublesome as they promote multiple
-	(sometimes even incompatibility) versions of the same component within
-	a company. Therefore, you should try to reduce them. See <a href="https://medium.com/@larsxschneider/talk-dont-fork-743a1253b8d5">
-	this blog post</a> for more information.
-</p>
+
 <table
 	class="table"
 	data-url="{{ site.dataURL }}/forks-to-organizations-detailed.tsv"

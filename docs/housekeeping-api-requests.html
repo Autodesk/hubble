@@ -5,19 +5,29 @@ permalink: /housekeeping-api-requests
 ---
 
 <h3>API Requests</h3>
-<div class="chart-container">
-	<canvas
-		class="chart"
-		data-url="{{ site.dataURL }}/api-requests.tsv"
-		data-type="history"
-	></canvas>
+
+<div class="row">
+	<div class="col-main">
+		<div class="chart-container">
+			<canvas
+				class="chart"
+				data-url="{{ site.dataURL }}/api-requests.tsv"
+				data-type="history"
+			></canvas>
+		</div>
+	</div>
+	<div class="col-aside">
+		<div class="info-box">
+			<p>
+				Visualizes the total number of <a href="https://developer.github.com/">GitHub API requests</a>.
+				High numbers usually indicate unfavorable configured CI processes.
+				The table below lists the resources requested via API that accounted
+				for the majority of request yesterday.
+			</p>
+		</div>
+	</div>
 </div>
-<p>
-	Visualizes the total number of <a href="https://developer.github.com/">GitHub API requests</a>.
-	High numbers usually indicate unfavorable configured CI processes.
-	The table below lists the resources requested via API that accounted
-	for the majority of request yesterday.
-</p>
+
 <table
 	class="table"
 	data-url="{{ site.dataURL }}/api-requests-detailed.tsv"

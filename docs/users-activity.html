@@ -5,31 +5,38 @@ permalink: /users-activity
 ---
 <h3>Users (Active/Using License)</h3>
 
-<div class="chart-container">
-	<canvas
-		class="chart"
-		data-url="{{ site.dataURL }}/users.tsv"
-		data-type="history"
-		data-config='{
-			"series": [
-				"using license",
-				"pushing commits (last month)",
-				"pushing commits (last week)",
-				"pushing commits (last day)"
-			],
-			"visibleSeries": [
-				"using license",
-				"pushing commits (last month)"
-			]
-		}'
-	></canvas>
+<div class="row">
+	<div class="col-main">
+		<div class="chart-container">
+			<canvas
+				class="chart"
+				data-url="{{ site.dataURL }}/users.tsv"
+				data-type="history"
+				data-config='{
+					"series": [
+						"using license",
+						"pushing commits (last month)",
+						"pushing commits (last week)",
+						"pushing commits (last day)"
+					],
+					"visibleSeries": [
+						"using license",
+						"pushing commits (last month)"
+					]
+				}'
+			></canvas>
+		</div>
+	</div>
+	<div class="col-aside">
+		<div class="info-box">
+			<p>
+				<i>Using license</i> shows you how many GitHub Enterprise licenses you
+				use on a given day. <i>Pushing commits</i> shows you how many different
+				people pushed commits to your appliance in the last month/week/day.
+				The gap to <i>using license</i> indicates the amount of people that
+				have either not logged in or that have not pushed code (e.g. people
+				that only read/comment code).
+			</p>
+		</div>
+	</div>
 </div>
-
-<p>
-	<i>Using license</i> shows you how many GitHub Enterprise licenses you
-	use on a given day. <i>Pushing commits</i> shows you how many different
-	people pushed commits to your appliance in the last month/week/day.
-	The gap to <i>using license</i> indicates the amount of people that
-	have either not logged in or that have not pushed code (e.g. people
-	that only read/comment code).
-</p>

@@ -6,24 +6,31 @@ permalink: /recommendations
 
 <h3>Tokenless Authentication Requests</h3>
 
-<div class="chart-container">
-	<canvas
-		class="chart"
-		data-url="{{ site.dataURL }}/tokenless-authentication.tsv"
-		data-type="history"
-	></canvas>
+<div class="row">
+	<div class="col-main">
+		<div class="chart-container">
+			<canvas
+				class="chart"
+				data-url="{{ site.dataURL }}/tokenless-authentication.tsv"
+				data-type="history"
+			></canvas>
+		</div>
+	</div>
+	<div class="col-aside">
+		<div class="info-box">
+			<p>
+				If your GitHub Enterprise appliance is configured to use <a href="https://help.github.com/enterprise/2.11/admin/guides/user-management/using-ldap/">LDAP for authentication</a>,
+				then every request against GitHub requires an additional
+				request against LDAP. At best, this will delay the GitHub request because
+				GitHub needs to wait for the LDAP request first. At worst, the GitHub request
+				will fail if the LDAP request fails (e.g. because the LDAP server is overloaded with requests).
+				To avoid these problems users should use <a href="https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/">Personal Access Tokens (HTTPS)</a>
+				or <a href="https://help.github.com/articles/connecting-to-github-with-ssh/">SSH keys</a>
+				to authenticate. GitHub can check those without an additional request.
+			</p>
+		</div>
+	</div>
 </div>
-
-<p>
-If your GitHub Enterprise appliance is configured to use <a href="https://help.github.com/enterprise/2.11/admin/guides/user-management/using-ldap/">LDAP for authentication</a>,
-then every request against GitHub requires an additional
-request against LDAP. At best, this will delay the GitHub request because
-GitHub needs to wait for the LDAP request first. At worst, the GitHub request
-will fail if the LDAP request fails (e.g. because the LDAP server is overloaded with requests).
-To avoid these problems users should use <a href="https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/">Personal Access Tokens (HTTPS)</a>
-or <a href="https://help.github.com/articles/connecting-to-github-with-ssh/">SSH keys</a>
-to authenticate. GitHub can check those without an additional request.
-</p>
 
 <table
 	class="table"

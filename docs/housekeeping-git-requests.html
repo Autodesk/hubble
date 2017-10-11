@@ -5,19 +5,29 @@ permalink: /housekeeping-git-requests
 ---
 
 <h3>Git Requests</h3>
-<div class="chart-container">
-	<canvas
-		class="chart"
-		data-url="{{ site.dataURL }}/git-requests.tsv"
-		data-type="history"
-	></canvas>
+
+<div class="row">
+	<div class="col-main">
+		<div class="chart-container">
+			<canvas
+				class="chart"
+				data-url="{{ site.dataURL }}/git-requests.tsv"
+				data-type="history"
+			></canvas>
+		</div>
+	</div>
+	<div class="col-aside">
+		<div class="info-box">
+			<p>
+				Visualizes the total number of Git requests (includes pushes, fetches, and
+				clones). High numbers usually indicate unfavorable configured CI processes.
+				The table below lists the repositories that accounted for the majority of
+				requests yesterday.
+			</p>
+		</div>
+	</div>
 </div>
-<p>
-	Visualizes the total number of Git requests (includes pushes, fetches, and
-	clones). High numbers usually indicate unfavorable configured CI processes.
-	The table below lists the repositories that accounted for the majority of
-	requests yesterday.
-</p>
+
 <table
 	class="table"
 	data-url="{{ site.dataURL }}/git-requests-detailed.tsv"

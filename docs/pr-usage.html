@@ -5,22 +5,33 @@ permalink: /pr-usage
 ---
 
 <h3>Pull Request Usage</h3>
-<div class="chart-container">
-	<canvas
-		class="chart"
-		data-url="{{ site.dataURL }}/pull-request-usage.tsv"
-		data-type="history"
-	></canvas>
+
+<div class="row">
+	<div class="col-main">
+		<div class="chart-container">
+			<canvas
+				class="chart"
+				data-url="{{ site.dataURL }}/pull-request-usage.tsv"
+				data-type="history"
+			></canvas>
+		</div>
+	</div>
+	<div class="col-aside">
+		<div class="info-box">
+			<p>
+				Visualizes the percentage of active repositories, located in organizations,
+				having more than one contributor, that use pull requests for contributions.
+				"Active" means repositories with at least two pushes in the last 4 weeks.
+				High pull request usage can indicate a high number of code reviews. In
+				addition the percentage of status usage in these pull requests is visualized.
+				High status usage can indicate a high usage of CI.
+			</p>
+		</div>
+		<div class="info-box">
+			<p>
+				Repositories in personal accounts and repositories with a single contributor
+				are ignored as pull request usage is less likely for them.
+			</p>
+		</div>
+	</div>
 </div>
-<p>
-	Visualizes the percentage of active repositories, located in organizations,
-	having more than one contributor, that use pull requests for contributions.
-	"Active" means repositories with at least two pushes in the last 4 weeks.
-	High pull request usage can indicate a high number of code reviews. In
-	addition the percentage of status usage in these pull requests is visualized.
-	High status usage can indicate a high usage of CI.
-</p>
-<p>
-	Repositories in personal accounts and repositories with a single contributor
-	are ignored as pull request usage is less likely for them.
-</p>

@@ -5,76 +5,102 @@ permalink: /pr-total
 ---
 
 <h3>Pull Requests (Total, by Week)</h3>
-<div class="chart-container">
-	<canvas
-		class="chart"
-		data-url="{{ site.dataURL }}/pull-request-history.tsv"
-		data-type="history"
-		data-config='{
-			"series": [
-				"merged",
-				"new"
-			],
-			"visibleSeries": [
-				"merged"
-			],
-			"aggregate": "weekly"
-		}'
-		></canvas>
-</div>
-<p>
-	Visualizes the total number of merged/new pull requests.
-</p>
 
+<div class="row">
+	<div class="col-main">
+		<div class="chart-container">
+			<canvas
+				class="chart"
+				data-url="{{ site.dataURL }}/pull-request-history.tsv"
+				data-type="history"
+				data-config='{
+					"series": [
+						"merged",
+						"new"
+					],
+					"visibleSeries": [
+						"merged"
+					],
+					"aggregate": "weekly"
+				}'
+				></canvas>
+		</div>
+	</div>
+	<div class="col-aside">
+		<div class="info-box">
+			<p>
+				Visualizes the total number of merged/new pull requests.
+			</p>
+		</div>
+	</div>
+</div>
 
 <h3>Pull Requests (Last Month, by Repository)</h3>
-<div class="chart-container">
-	<canvas
-		class="chart"
-		data-url="{{ site.dataURL }}/pull-requests-by-repository.tsv"
-		data-type="list"
-		data-config='{
-			"series": [
-				"merged",
-				"new"
-			],
-			"visibleSeries": [
-				"merged"
-			],
-			"sliceData": [
-				0,
-				20
-			]
-		}'
-		></canvas>
+
+<div class="row">
+	<div class="col-main">
+		<div class="chart-container">
+			<canvas
+				class="chart"
+				data-url="{{ site.dataURL }}/pull-requests-by-repository.tsv"
+				data-type="list"
+				data-config='{
+					"series": [
+						"merged",
+						"new"
+					],
+					"visibleSeries": [
+						"merged"
+					],
+					"sliceData": [
+						0,
+						20
+					]
+				}'
+				></canvas>
+		</div>
+	</div>
+	<div class="col-aside">
+		<div class="info-box">
+			<p>
+				Lists the top 20 of all repositories that have the largest number of
+				merged/new pull requests in the last month.
+			</p>
+		</div>
+	</div>
 </div>
-<p>
-	Lists the top 20 of all repositories that have the largest number of
-	merged/new pull requests in the last month.
-</p>
 
 <h3>Pull Requests (Last Month, by Organization)</h3>
-<div class="chart-container">
-	<canvas
-		class="chart"
-		data-url="{{ site.dataURL }}/pull-requests-by-organization.tsv"
-		data-type="list"
-		data-config='{
-				"series": [
-				"merged",
-				"new"
-			],
-			"visibleSeries": [
-				"merged"
-			],
-			"sliceData": [
-				0,
-				20
-			]
-		}'
-		></canvas>
+
+<div class="row">
+	<div class="col-main">
+		<div class="chart-container">
+			<canvas
+				class="chart"
+				data-url="{{ site.dataURL }}/pull-requests-by-organization.tsv"
+				data-type="list"
+				data-config='{
+						"series": [
+						"merged",
+						"new"
+					],
+					"visibleSeries": [
+						"merged"
+					],
+					"sliceData": [
+						0,
+						20
+					]
+				}'
+				></canvas>
+		</div>
+	</div>
+	<div class="col-aside">
+		<div class="info-box">
+			<p>
+				Lists the top 20 of all organizations that have the largest number of
+				merged/new pull requests in the last month.
+			</p>
+		</div>
+	</div>
 </div>
-<p>
-	Lists the top 20 of all organizations that have the largest number of
-	merged/new pull requests in the last month.
-</p>
