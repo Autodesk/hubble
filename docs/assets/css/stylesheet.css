@@ -330,6 +330,18 @@ a
 	padding: 0.5rem 1rem;
 }
 
+.main-content table a
+{
+	color: #404040;
+	text-decoration: none;
+	border-bottom: none;
+}
+
+.main-content table a:hover
+{
+	border-bottom: solid #606c71 2px;
+}
+
 .main-content dl
 {
 	padding: 0;
