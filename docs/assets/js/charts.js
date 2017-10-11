@@ -33,7 +33,7 @@ var extendedChartColors =
 	"#10d9be",
 	"#4c99e5",
 	"#c87adf",
-	"#f86189",
+	"#ff5a86",
 ];
 
 function extendedChartColor(i)
@@ -457,8 +457,8 @@ function drawCoord(orgs, matrix) {
 
 	group.append("path")
 		.style("fill", function(d) { return extendedChartColor(d.index); })
-		.style("stroke", function(d) { return d3.rgb(extendedChartColor(d.index)).darker(); })
-		.style("stroke-width", 1.75)
+		.style("stroke-width", 2.0)
+		.style("stroke", function(d) { return extendedChartColor(d.index); })
 		.attr("d", arc)
 		.on("mouseover", fadeRibbonsWithSameSource(.1))
 		.on("mouseout", fadeRibbonsWithSameSource(1))
@@ -489,13 +489,22 @@ function drawCoord(orgs, matrix) {
 		.attr("class", "ribbons")
 		.selectAll("path")
 		.data(function(chords) { return chords; })
-		.enter().append("path")
-			.attr("d", ribbon)
-			.style("fill", function(d) { return extendedChartColor(d.source.index); })
-			.style("stroke-width", 1.75)
-			.style("stroke", function(d) { return d3.rgb(extendedChartColor(d.source.index)).darker(); })
-			.on("mouseover", fadeRibbon(.1))
-			.on("mouseout", fadeRibbon(1));
+		.enter().append("g")
+		.on("mouseover", fadeRibbon(.1))
+		.on("mouseout", fadeRibbon(1));
+
+	ribbons
+		.append("path")
+		.attr("d", ribbon)
+		.style("stroke-width", 6.0)
+		.style("stroke", function(d) { return "#ffffff"; });
+
+	ribbons
+		.append("path")
+		.attr("d", ribbon)
+		.style("fill", function(d) { return extendedChartColor(d.source.index); })
+		.style("stroke-width", 2.0)
+		.style("stroke", function(d) { return extendedChartColor(d.source.index); });
 
 	ribbons.append("title")
 		.text(function(d) { return ribbonTip(d); });
