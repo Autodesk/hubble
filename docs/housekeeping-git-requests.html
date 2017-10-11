@@ -19,9 +19,10 @@ permalink: /housekeeping-git-requests
 	<div class="col-aside">
 		<div class="info-box">
 			<p>
-				Visualizes the total number of Git requests (includes pushes, fetches, and clones).
-				High numbers usually indicate unfavorable configured CI processes.
-				The table below lists the repositories that accounted for the majority of requests yesterday.
+				The total number of Git requests (includes pushes, fetches, and clones).
+			</p>
+			<p>
+				High numbers usually indicate unfavorably configured CI processes.
 			</p>
 		</div>
 	</div>
@@ -33,5 +34,12 @@ permalink: /housekeeping-git-requests
 			class="table"
 			data-url="{{ site.dataURL }}/git-requests-detailed.tsv"
 		></table>
+	</div>
+	<div class="col-aside">
+		<div class="info-box">
+			<p>
+				This table lists the repositories that accounted for the majority of Git requests yesterday.
+			</p>
+		</div>
 	</div>
 </div>

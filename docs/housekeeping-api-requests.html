@@ -19,9 +19,10 @@ permalink: /housekeeping-api-requests
 	<div class="col-aside">
 		<div class="info-box">
 			<p>
-				Visualizes the total number of <a href="https://developer.github.com/">GitHub API requests</a>.
-				High numbers usually indicate unfavorable configured CI processes.
-				The table below lists the resources requested via API that accounted for the majority of request yesterday.
+				The total number of <a href="https://developer.github.com/">GitHub API requests</a>.
+			</p>
+			<p>
+				High numbers usually indicate unfavorably configured CI processes.
 			</p>
 		</div>
 	</div>
@@ -33,5 +34,12 @@ permalink: /housekeeping-api-requests
 			class="table"
 			data-url="{{ site.dataURL }}/api-requests-detailed.tsv"
 		></table>
+	</div>
+	<div class="col-aside">
+		<div class="info-box">
+			<p>
+				This table lists the resources requested via the API that accounted for the majority of API requests yesterday.
+			</p>
+		</div>
 	</div>
 </div>
