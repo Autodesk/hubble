@@ -4,7 +4,7 @@
 #
 echo -e "resource\ttype\tsource IP\trequests/day"
 
-zcat -f /var/log/haproxy.log.1* |
+zcat -f /var/log/haproxy.log* |
     perl -ne 'print if s/.*: ([^:]+).*\/api\/v3\/([^\/\? ]+)\/([^\/\? ]+?(\/[^\/\? ]+)).*/\1 \2 \3/' |
     sort |
     uniq -c |
