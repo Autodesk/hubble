@@ -57,4 +57,4 @@ These are the humans that form the core team of Hubble Enterprise, in alphabetic
 
 ## LICENSE
 
-SPDX-License-Identifier: [MIT](LICENSE)
+SPDX-License-Identifier: [MIT](LICENSE.md)
