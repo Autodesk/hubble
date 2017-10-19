@@ -37,15 +37,12 @@ permalink: /housekeeping-git-traffic
 </div>
 
 <h3>Transferred Data</h3>
-
+<div class="info-box">
+	<p>
+		The amount of data transferred for clones and fetches.
+	</p>
+</div>
 <div class="row">
-  <div class="col-aside">
-		<div class="info-box">
-			<p>
-				The amount of data transferred for clones and fetches.
-			</p>
-    </div>
-  </div>
 	<div class="col-main">
 		<div class="chart-container">
 			<canvas
@@ -71,17 +68,17 @@ permalink: /housekeeping-git-traffic
 </div>
 
 <div class="row">
-  <div class="col-aside">
-		<div class="info-box">
-			<p>
-				This table lists the repositories that accounted for the majority of the traffic yesterday.
-			</p>
-		</div>
-	</div>
 	<div class="col-main">
 		<table
 			class="table"
 			data-url="{{ site.dataURL }}/git-download-detailed.tsv"
 		></table>
+	</div>
+	<div class="col-aside">
+		<div class="info-box">
+			<p>
+				This table lists the repositories that accounted for the majority of the traffic yesterday.
+			</p>
+		</div>
 	</div>
 </div>

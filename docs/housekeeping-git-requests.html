@@ -5,15 +5,12 @@ permalink: /housekeeping-git-requests
 ---
 
 <h3>Git Requests</h3>
-
+<div class="info-box">
+	<p>
+		The total number of Git requests (includes pushes, fetches, and clones).
+	</p>
+</div>
 <div class="row">
-  <div class="col-aside">
-		<div class="info-box">
-			<p>
-				The total number of Git requests (includes pushes, fetches, and clones).
-			</p>
-    </div>
-  </div>
 	<div class="col-main">
 		<div class="chart-container">
 			<canvas
@@ -33,17 +30,17 @@ permalink: /housekeeping-git-requests
 </div>
 
 <div class="row">
-  <div class="col-aside">
-		<div class="info-box">
-			<p>
-				This table lists the repositories that accounted for the majority of Git requests yesterday.
-			</p>
-		</div>
-	</div>
 	<div class="col-main">
 		<table
 			class="table"
 			data-url="{{ site.dataURL }}/git-requests-detailed.tsv"
 		></table>
+	</div>
+	<div class="col-aside">
+		<div class="info-box">
+			<p>
+				This table lists the repositories that accounted for the majority of Git requests yesterday.
+			</p>
+		</div>
 	</div>
 </div>
