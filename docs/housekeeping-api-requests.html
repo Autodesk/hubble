@@ -7,6 +7,13 @@ permalink: /housekeeping-api-requests
 <h3>API Requests</h3>
 
 <div class="row">
+  <div class="col-aside">
+		<div class="info-box">
+			<p>
+				The total number of <a href="https://developer.github.com/">GitHub API requests</a>.
+			</p>
+    </div>
+  </div>
 	<div class="col-main">
 		<div class="chart-container">
 			<canvas
@@ -19,9 +26,6 @@ permalink: /housekeeping-api-requests
 	<div class="col-aside">
 		<div class="info-box">
 			<p>
-				The total number of <a href="https://developer.github.com/">GitHub API requests</a>.
-			</p>
-			<p>
 				High numbers usually indicate unfavorably configured CI processes.
 			</p>
 		</div>
@@ -29,17 +33,17 @@ permalink: /housekeeping-api-requests
 </div>
 
 <div class="row">
-	<div class="col-main">
-		<table
-			class="table"
-			data-url="{{ site.dataURL }}/api-requests-detailed.tsv"
-		></table>
-	</div>
-	<div class="col-aside">
+  <div class="col-aside">
 		<div class="info-box">
 			<p>
 				This table lists the resources requested via the API that accounted for the majority of API requests yesterday.
 			</p>
 		</div>
+	</div>
+	<div class="col-main">
+		<table
+			class="table"
+			data-url="{{ site.dataURL }}/api-requests-detailed.tsv"
+		></table>
 	</div>
 </div>
