@@ -25,6 +25,8 @@
       url: "/housekeeping-git-requests"
     - title: "API Requests"
       url: "/housekeeping-api-requests"
+    - title: "Repositories"
+      url: "/housekeeping-repositories"
     - title: "Forks"
       url: "/housekeeping-forks"
 - title: "Recommendations"
