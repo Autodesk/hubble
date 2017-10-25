@@ -16,6 +16,8 @@
       url: "/pr-usage"
     - title: "Total"
       url: "/pr-total"
+- title: "Repositories"
+  url: "/repositories-total"
 - title: "Housekeeping"
   url: "/housekeeping-git-traffic"
   subnavigation:
