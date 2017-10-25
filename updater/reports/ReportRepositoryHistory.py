@@ -14,7 +14,7 @@ class ReportRepositoryHistory(ReportDaily):
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()
 
-	# Collects the number of active repositories for a user type (user/organization) given time range
+	# Collects the number of active repositories for a user type (user/organization) given a time range
 	def subquery(self, userType):
 		query = '''
 			SELECT
