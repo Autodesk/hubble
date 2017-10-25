@@ -31,14 +31,14 @@ class ReportRepositoryHistory(ReportDaily):
 
 		return query
 
-	# Collects the number of repositories in total, in organizations, and in user spaces
+	# Collects the number of repositories in total, in organizations, and in user accounts
 	def query(self):
 		query = '''
 			SELECT
 				"''' + str(self.yesterday()) + '''" AS date,
 				total.count AS total,
 				organizationSpace.count AS "in organizations",
-				userSpace.count AS "in user spaces"
+				userSpace.count AS "in user accounts"
 			FROM
 				(''' + self.subquery(None) + ''') AS total,
 				(''' + self.subquery("Organization") + ''') AS organizationSpace,
