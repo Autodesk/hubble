@@ -16,6 +16,8 @@
       url: "/pr-usage"
     - title: "Total"
       url: "/pr-total"
+- title: "Repositories"
+  url: "/repositories-total"
 - title: "Housekeeping"
   url: "/housekeeping-git-traffic"
   subnavigation:
@@ -25,8 +27,6 @@
       url: "/housekeeping-git-requests"
     - title: "API Requests"
       url: "/housekeeping-api-requests"
-    - title: "Repositories"
-      url: "/housekeeping-repositories"
     - title: "Forks"
       url: "/housekeeping-forks"
 - title: "Recommendations"
