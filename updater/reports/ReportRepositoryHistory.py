@@ -23,9 +23,7 @@ class ReportRepositoryHistory(ReportDaily):
 				repositories
 				JOIN users ON repositories.owner_id = users.id
 			WHERE
-				TRUE'''
-
-		query += self.andExcludedEntities("users", "repositories")
+				TRUE ''' + self.andExcludedEntities("users", "repositories")
 
 		if userType != None:
 			query += ''' AND
