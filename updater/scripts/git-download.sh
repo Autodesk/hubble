@@ -8,12 +8,12 @@ function ghe_greater_equal () {
         perl -sne '
             use version;
             my ($installed) = $_ =~ /RELEASE_VERSION="([0-9]+([.][0-9]+)+)"/;
-            exit (version->parse($installed) ge version->parse($required));
+            exit (version->parse($installed) lt version->parse($required));
         ' -- -required="$1"
     return $?
 }
 
-if ghe_greater_equal "2.11" ; then
+if ghe_greater_equal "2.11.0" ; then
     LOG_FILE="/var/log/github-audit.log"
 else
     LOG_FILE="/var/log/github/audit.log"
