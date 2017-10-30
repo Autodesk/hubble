@@ -548,6 +548,28 @@ function visualizeSingleOrg(orgs, matrix, orgID) {
 		}
 	}
 
+	// Make the single org the first entry in the matrix to ensure that it
+	// always gets the same color in the chart.
+	if (orgID != 0) {
+		let t = orgs[orgID];
+		orgs[orgID] = orgs[0];
+		orgs[0] = t;
+		for (let x = matrix.length - 1; x >= 0; x--) {
+			for (let y = matrix[0].length - 1; y >= 0; y--) {
+				if (x == orgID) {
+					let t = matrix[x][y];
+					matrix[x][y] = matrix[0][y];
+					matrix[0][y] = t;
+				}
+				if (y == orgID) {
+					let t = matrix[x][y];
+					matrix[x][y] = matrix[x][0];
+					matrix[x][0] = t;
+				}
+			}
+		}
+	}
+
 	drawCoord(orgs, matrix);
 }
 
