@@ -10,6 +10,7 @@
 ### Features
 
 - new chart: total number of repositories
+- new chart: repository activity
 - descriptive texts next to the charts
 - support for GitHub Enterprise 2.11
 
