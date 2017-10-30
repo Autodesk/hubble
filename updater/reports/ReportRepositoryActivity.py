@@ -1,7 +1,7 @@
 from .ReportDaily import *
 
 # Lists the number of active repositories in total, in organizations, and in
-# user spaces for the last day, week, and 4 weeks
+# user accounts for the last day, week, and 4 weeks
 class ReportRepositoryActivity(ReportDaily):
 	def name(self):
 		return "repository-activity"
@@ -44,7 +44,7 @@ class ReportRepositoryActivity(ReportDaily):
 
 		return query
 
-	# Collects the number of repositories in total, in organizations, and in user spaces
+	# Collects the number of repositories in total, in organizations, and in user accounts
 	def query(self):
 		oneDayAgo = self.yesterday()
 		oneWeekAgo = self.daysAgo(7)
@@ -59,9 +59,9 @@ class ReportRepositoryActivity(ReportDaily):
 				organizationSpaceLastFourWeeks.count AS "in organizations (last four weeks)",
 				organizationSpaceLastWeek.count AS "in organizations (last week)",
 				organizationSpaceLastDay.count AS "in organizations (last day)",
-				userSpaceLastFourWeeks.count AS "in user spaces (last four weeks)",
-				userSpaceLastWeek.count AS "in user spaces (last week)",
-				userSpaceLastDay.count AS "in user spaces (last day)"
+				userSpaceLastFourWeeks.count AS "in user accounts (last four weeks)",
+				userSpaceLastWeek.count AS "in user accounts (last week)",
+				userSpaceLastDay.count AS "in user accounts (last day)"
 			FROM
 				(''' + self.subquery(None, [fourWeeksAgo, oneDayAgo]) + ''') AS totalLastFourWeeks,
 				(''' + self.subquery(None, [oneWeekAgo, oneDayAgo]) + ''') AS totalLastWeek,
