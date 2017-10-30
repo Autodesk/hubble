@@ -14,31 +14,31 @@ var chartColors =
 
 var extendedChartColors =
 [
-	"#ff5e4d",
+	"#4c99e5",
 	"#ffa71a",
-	"#ffce00",
-	"#f8f535",
-	"#b0f20a",
-	"#16e94d",
 	"#6aedc7",
-	"#39c2c9",
-	"#998ce3",
-	"#f866b9",
-	"#ff7845",
-	"#ffbf1a",
-	"#ffe300",
-	"#dfff4d",
+	"#ff5e4d",
 	"#8bea12",
+	"#ffe300",
+	"#39c2c9",
+	"#ff7845",
+	"#16e94d",
+	"#998ce3",
+	"#ff5a99",
+	"#ffce00",
 	"#19dc80",
 	"#10d9be",
-	"#4c99e5",
+	"#b0f20a",
+	"#f8f535",
 	"#c87adf",
-	"#ff5a99",
+	"#ffbf1a",
+	"#f866b9",
+	"#dfff4d",
 ];
 
 function extendedChartColor(i)
 {
-	return extendedChartColors[(i + 3) % extendedChartColors.length];
+	return extendedChartColors[i % extendedChartColors.length];
 }
 
 var chartColorSequence =
