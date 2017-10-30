@@ -4,7 +4,14 @@
 
 ### Changes
 
+- switch to MIT license
 - updated stylesheet with new logo
+
+### Features
+
+- new chart: total number of repositories
+- descriptive texts next to the charts
+- support for GitHub Enterprise 2.11
 
 ## 0.1.0 (2017-10-05)
 
