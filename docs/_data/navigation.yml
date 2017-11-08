@@ -23,6 +23,8 @@
       url: "/repos-activity"
     - title: "Total"
       url: "/repos-total"
+- title: "Organizations"
+  url: "/org-owners"
 - title: "Housekeeping"
   url: "/housekeeping-git-traffic"
   subnavigation:
