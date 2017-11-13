@@ -14,6 +14,7 @@ from reports.ReportGitDownload import *
 from reports.ReportGitRequests import *
 from reports.ReportGitVersions import *
 from reports.ReportOrgCollaboration import *
+from reports.ReportOrgOwners import *
 from reports.ReportPRByOrg import *
 from reports.ReportPRByRepo import *
 from reports.ReportPRHistory import *
@@ -21,7 +22,6 @@ from reports.ReportPRUsage import *
 from reports.ReportRepositoryHistory import *
 from reports.ReportTokenlessAuth import *
 from reports.ReportUsers import *
-from reports.ReportOrgOwners import *
 
 def writeMeta(dataDirectory):
 	outputFilePath = os.path.join(dataDirectory, "meta.tsv")
@@ -76,6 +76,7 @@ def main():
 	ReportGitRequests(configuration, dataDirectory, metaStats).update()
 	ReportGitVersions(configuration, dataDirectory, metaStats).update()
 	ReportOrgCollaboration(configuration, dataDirectory, metaStats).update()
+	ReportOrgOwners(configuration, dataDirectory, metaStats).update()
 	ReportPRByOrg(configuration, dataDirectory, metaStats).update()
 	ReportPRByRepo(configuration, dataDirectory, metaStats).update()
 	ReportPRHistory(configuration, dataDirectory, metaStats).update()
@@ -83,7 +84,6 @@ def main():
 	ReportRepositoryHistory(configuration, dataDirectory, metaStats).update()
 	ReportTokenlessAuth(configuration, dataDirectory, metaStats).update()
 	ReportUsers(configuration, dataDirectory, metaStats).update()
-	ReportOrgOwners(configuration, dataDirectory, metaStats).update()
 
 	# Write meta infos
 	writeMeta(dataDirectory)
