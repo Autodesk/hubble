@@ -362,20 +362,28 @@ function createTable(table)
 				.enter()
 				.append("td")
 				.each(function(d, i) {
-					var cell = d3.select(this);
+					const cell = d3.select(this);
 					switch (data.columns[i].toLowerCase()) {
 						case "user":
 						case "organization":
 						case "repository":
 						case "resource":
 						case "fork":
-							cell = cell
-								.append("a")
-								.attr("target", "_blank")
-								.attr("href", gheUrl() + "/" + d);
-							break;
+						case "owners": {
+							const entries = d.split(",");
+							console.log(entries);
+							for (let i = 0; i < entries.length; i++) {
+								if (i > 0)
+									cell.innerHTML += ", ";
+								cell = cell
+									.append("a")
+									.attr("target", "_blank")
+									.attr("href", gheUrl() + "/" + entries[i]);
+								break;
+							}
+						}
 					}
-					cell.text(function(d) { return d; })
+					cell.text(function(d) { return d; });
 				});
 		});
 }
