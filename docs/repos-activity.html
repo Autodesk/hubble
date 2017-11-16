@@ -1,0 +1,47 @@
+---
+layout: default
+title: Repository Activity
+permalink: /repos-activity
+---
+
+<h3>Repositories (Active)</h3>
+
+<div class="row">
+	<div class="col-main">
+		<div class="chart-container">
+			<canvas
+				class="chart"
+				data-url="{{ site.dataURL }}/repository-activity.tsv"
+				data-type="history"
+				data-config='{
+					"series": [
+						"in organizations (last four weeks)",
+						"in user accounts (last four weeks)",
+						"in organizations (last week)",
+						"in user accounts (last week)",
+						"in organizations (last day)",
+						"in user accounts (last day)"
+					],
+					"visibleSeries": [
+						"in organizations (last four weeks)",
+						"in user accounts (last four weeks)"
+					]
+				}'
+				></canvas>
+		</div>
+	</div>
+	<div class="col-aside">
+		<div class="info-box">
+			<p>
+				Shows how many repositories are active in organizations and user
+				accounts.
+			</p>
+		</div>
+		<div class="info-box">
+			<p>
+				Repositories are counted as <em>active</em> if they received at
+				least one push within the respective time period.
+			</p>
+		</div>
+	</div>
+</div>

@@ -18,6 +18,7 @@ from reports.ReportPRByOrg import *
 from reports.ReportPRByRepo import *
 from reports.ReportPRHistory import *
 from reports.ReportPRUsage import *
+from reports.ReportRepoActivity import *
 from reports.ReportRepositoryHistory import *
 from reports.ReportTokenlessAuth import *
 from reports.ReportUsers import *
@@ -79,6 +80,7 @@ def main():
 	ReportPRByRepo(configuration, dataDirectory, metaStats).update()
 	ReportPRHistory(configuration, dataDirectory, metaStats).update()
 	ReportPRUsage(configuration, dataDirectory, metaStats).update()
+	ReportRepoActivity(configuration, dataDirectory, metaStats).update()
 	ReportRepositoryHistory(configuration, dataDirectory, metaStats).update()
 	ReportTokenlessAuth(configuration, dataDirectory, metaStats).update()
 	ReportUsers(configuration, dataDirectory, metaStats).update()
