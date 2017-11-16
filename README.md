@@ -44,6 +44,10 @@ The **docs** component visualizes the collected data with [GitHub Pages](https:/
    You may want to bookmark this URL to conveniently access the dashboard of Hubble Enterprise.
 1. [Configure the updater component](updater/README.md).
 
+## Known Issues
+
+* The [Git Traffic chart](https://autodesk.github.io/hubble/housekeeping-git-traffic) generates wrong results with GitHub Enterprise 2.11.0 as GitHub changed the rotation of the relevant log file from daily to weekly. We reported the problem and hope they fix it soon.
+
 ## Contributing
 
 Review [the contributing guidelines](CONTRIBUTING.md) before you consider working on Hubble Enterprise and proposing contributions.
