@@ -71,7 +71,7 @@ class ReportOrgCollaboration(Report):
 				        OR (a.push_count = b.push_count AND a.pusher_id != b.pusher_id)
 				       )
 			WHERE b.push_count is NULL AND a.pusher_id = users.id ''' \
-				+ self.andExcludedUsers("users")
+				+ self.andExcludedUsers("users.login")
 		return query
 
 	# Calculates a table that contains all users that have contributed to a

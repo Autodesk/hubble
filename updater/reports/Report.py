@@ -186,15 +186,15 @@ class Report(object):
 			query += " " + delimiter + " " + column + ' NOT LIKE "' + self.configuration["excludedEntities"] + '" '
 		return query
 
-	def andExcludedUsers(self, users, delimiter = "AND"):
+	def andExcludedUsers(self, column, delimiter = "AND"):
 		query = ""
 		for excludedUser in self.configuration["excludedUsers"]:
-			query += " " + delimiter + " " + users + '.login NOT LIKE "' + excludedUser + '" '
+			query += " " + delimiter + " " + column + ' NOT LIKE "' + excludedUser + '" '
 			delimiter = "AND"
 		return query
 
-	def whereExcludedUsers(self, users):
-		return self.andExcludedUsers(users, "WHERE")
+	def whereExcludedUsers(self, column):
+		return self.andExcludedUsers(column, "WHERE")
 
 	def andExcludeMemberlessOrganizations(self, orgs):
 		query = ""

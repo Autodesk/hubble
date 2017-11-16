@@ -32,7 +32,7 @@ class ReportPRByOrg(Report):
 				pull_requests
 				JOIN repositories ON repositories.id = pull_requests.repository_id
 				JOIN users ON users.id = repositories.owner_id
-		''' + self.whereExcludedUsers("users") + '''
+		''' + self.whereExcludedUsers("users.login") + '''
 			GROUP BY
 				users.id
 			ORDER BY
