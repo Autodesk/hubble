@@ -100,6 +100,15 @@ class Report(object):
 
 		return stdout
 
+	def executeGHEConsole(self, rubyCode):
+		escapedRubyCode = rubyCode.replace('\\t', '\\\\t') \
+		                          .replace('\\n', '\\\\n') \
+		                          .replace('"', '\\"')
+		return self.executeScript(
+			["bash -s", "--"],
+			"github-env bin/runner -e production \"'" + escapedRubyCode + "'\""
+		)
+
 	# Executes a database query, given as a string
 	def executeQuery(self, query):
 		return self.executeScript(self.configuration["databaseCommand"], stdin = query)
