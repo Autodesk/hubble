@@ -383,11 +383,13 @@ a
 .row
 {
 	width: 100%;
+	margin-bottom: 1rem;
 }
 
 .row .col-main
 {
 	width: 100%;
+	margin-bottom: 1rem;
 }
 
 .row .col-main svg
@@ -400,7 +402,14 @@ a
 .row .col-aside
 {
 	margin-top: 1rem;
+	margin-bottom: 1rem;
 	width: 100%;
+	clear: both;
+}
+
+.row .col-aside :last-child
+{
+	margin-bottom: 0;
 }
 
 .info-box
@@ -408,16 +417,6 @@ a
 	background-color: #f5f5f5;
 	border-radius: 0.5rem;
 	margin-bottom: 1rem;
-}
-
-.info-box:last-child
-{
-	margin-bottom: 0;
-}
-
-.row .col-aside:last-child
-{
-	margin-bottom: 0;
 }
 
 .info-box p
@@ -449,27 +448,43 @@ a
 
 	.row
 	{
-		display: flex;
-		align-items: flex-start;
+		clear: both;
 	}
 
-	.row-centered
+	.row::after
 	{
-		align-items: center;
+		content: "";
+		clear: both;
+		display: table;
 	}
 
 	.row .col-main
 	{
+		float: left;
+		clear: left;
 		width: 75%;
+		vertical-align: middle;
 		padding-right: 0.5rem;
 	}
 
 	.row .col-aside
 	{
+		vertical-align: top;
+		float: right;
+		clear: right;
 		width: 25%;
 		margin-top: 0;
 		padding-top: 0;
 		padding-left: 0.5rem;
+	}
+
+	.row-centered
+	{
+	}
+
+	.row-centered .col-aside
+	{
+		vertical-align: middle;
 	}
 }
 
