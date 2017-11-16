@@ -34,8 +34,10 @@ class ReportForksToOrgs(ReportDaily):
 				parentOrgs.type = "organization" AND
 				parentRepos.owner_id = parentOrgs.id AND
 				parentRepos.id = repos.parent_id
-				''' + self.andExcludedEntities("orgs", "repos") \
-					+ self.andExcludedEntities("parentOrgs", "parentRepos") + '''
+				''' + self.andExcludedEntities("orgs.login") \
+					+ self.andExcludedEntities("repos.name") \
+					+ self.andExcludedEntities("parentOrgs.login") \
+					+ self.andExcludedEntities("parentRepos.name") + '''
 			ORDER BY
 				repos.created_at DESC
 		'''
