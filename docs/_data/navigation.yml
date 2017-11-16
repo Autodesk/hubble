@@ -17,12 +17,12 @@
     - title: "Total"
       url: "/pr-total"
 - title: "Repositories"
-  url: "/repositories-activity"
+  url: "/repos-activity"
   subnavigation:
     - title: "Activity"
-      url: "/repositories-activity"
+      url: "/repos-activity"
     - title: "Total"
-      url: "/repositories-total"
+      url: "/repos-total"
 - title: "Housekeeping"
   url: "/housekeeping-git-traffic"
   subnavigation:

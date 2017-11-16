@@ -2,7 +2,7 @@ from .ReportDaily import *
 
 # Lists the number of active repositories in total, in organizations, and in
 # user accounts for the last day, week, and 4 weeks
-class ReportRepositoryActivity(ReportDaily):
+class ReportRepoActivity(ReportDaily):
 	def name(self):
 		return "repository-activity"
 
