@@ -9,6 +9,8 @@
       url: "/users-activity"
     - title: "Git Versions"
       url: "/users-git-versions"
+    - title: "Organization Owners"
+      url: "/org-owners"
 - title: "Pull Requests"
   url: "/pr-usage"
   subnavigation:

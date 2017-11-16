@@ -14,6 +14,7 @@ from reports.ReportGitDownload import *
 from reports.ReportGitRequests import *
 from reports.ReportGitVersions import *
 from reports.ReportOrgCollaboration import *
+from reports.ReportOrgOwners import *
 from reports.ReportPRByOrg import *
 from reports.ReportPRByRepo import *
 from reports.ReportPRHistory import *
@@ -76,6 +77,7 @@ def main():
 	ReportGitRequests(configuration, dataDirectory, metaStats).update()
 	ReportGitVersions(configuration, dataDirectory, metaStats).update()
 	ReportOrgCollaboration(configuration, dataDirectory, metaStats).update()
+	ReportOrgOwners(configuration, dataDirectory, metaStats).update()
 	ReportPRByOrg(configuration, dataDirectory, metaStats).update()
 	ReportPRByRepo(configuration, dataDirectory, metaStats).update()
 	ReportPRHistory(configuration, dataDirectory, metaStats).update()
