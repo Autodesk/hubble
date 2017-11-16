@@ -31,7 +31,8 @@ class ReportRepoActivity(ReportDaily):
 				WHERE
 					CAST(pushes.created_at AS DATE) BETWEEN "''' + str(timeRange[0]) + '''" AND "''' + str(timeRange[1]) + '''"'''
 
-		query += self.andExcludedEntities("users", "repositories")
+		query +=   self.andExcludedEntities("users.login") \
+		         + self.andExcludedEntities("repositories.name")
 
 		if userType != None:
 			query += ''' AND

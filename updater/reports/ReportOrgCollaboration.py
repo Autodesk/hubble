@@ -52,7 +52,8 @@ class ReportOrgCollaboration(Report):
 			  AND orgs.id = repositories.owner_id
 			  AND repositories.id = pushes.repository_id
 			  AND cast(pushes.created_at AS DATE) BETWEEN "''' + str(timeRange[0]) + '''" and "''' + str(timeRange[1]) + '''"
-			  ''' + self.andExcludedEntities("orgs", "repositories") \
+			  ''' + self.andExcludedEntities("orgs.login") \
+			      + self.andExcludedEntities("repositories.name") \
 			      + self.andExcludeMemberlessOrganizations("orgs") + '''
 			GROUP BY org_id, pusher_id
 		'''
@@ -90,7 +91,8 @@ class ReportOrgCollaboration(Report):
 				  AND orgs.id = repositories.owner_id
 				  AND repositories.id = pushes.repository_id
 				  AND cast(pushes.created_at AS DATE) BETWEEN "''' + str(timeRange[0]) + '''" and "''' + str(timeRange[1]) + '''"
-				  ''' + self.andExcludedEntities("orgs", "repositories") + '''
+				  ''' + self.andExcludedEntities("orgs.login") \
+				      + self.andExcludedEntities("repositories.name") + '''
 
 				UNION
 
@@ -105,7 +107,8 @@ class ReportOrgCollaboration(Report):
 				  AND repositories.id = pull_requests.repository_id
 				  AND pull_requests.merged_at IS NOT NULL
 				  AND cast(pull_requests.created_at AS DATE) BETWEEN "''' + str(timeRange[0]) + '''" and "''' + str(timeRange[1]) + '''"
-				  ''' + self.andExcludedEntities("orgs", "repositories") + '''
+				  ''' + self.andExcludedEntities("orgs.login") \
+				      + self.andExcludedEntities("repositories.name") + '''
 			) contributors
 			GROUP BY org_id, contributor_id
 		'''

@@ -179,16 +179,11 @@ class Report(object):
 		print("Finished update of " + self.name() + ".tsv (runtime: " + str(timeElapsed) + " s)", file = sys.stderr)
 		sys.stderr.flush()
 
-	def andExcludedEntities(self, org, repo):
+	def andExcludedEntities(self, column, delimiter = "AND"):
 		query = ""
 		if ("excludedEntities" in self.configuration and
 		   len(self.configuration["excludedEntities"]) > 0):
-			if org:
-				query += ' AND ' + org + '.login not LIKE "' + \
-				         self.configuration["excludedEntities"] + '" '
-			if repo:
-				query += ' AND ' + repo + '.name not LIKE "' + \
-				         self.configuration["excludedEntities"] +'" '
+			query += " " + delimiter + " " + column + ' NOT LIKE "' + self.configuration["excludedEntities"] + '" '
 		return query
 
 	def andExcludedUsers(self, users, delimiter = "AND"):
