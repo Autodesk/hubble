@@ -2,12 +2,11 @@
 #
 # Get the owners for each org. Exclude site admins and suspended users.
 #
-echo -e "organization\towner"
+echo -e "organization\towners"
 
 github-env bin/runner -e production "'
-    User.where(:type => \"Organization\").each do |o|
-        o.admins.where(:disabled => false, :gh_role => nil).each do |m|
-            puts \"#{o.login}\\t#{m.name}\\n\"
-        end
-    end
+	User.where(:type => \"Organization\").each do |o|
+		owners = o.admins.where(:disabled => false, :gh_role => nil).join(\",\")
+		puts \"#{o.login}\\t#{owners}\\n\"
+	end
 '"
