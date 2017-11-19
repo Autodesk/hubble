@@ -25,6 +25,11 @@
       url: "/repos-total"
 - title: "Organizations"
   url: "/org-owners"
+  subnavigation:
+    - title: "Owners"
+      url: "/org-owners"
+    - title: "Total"
+      url: "/org-total"
 - title: "Housekeeping"
   url: "/housekeeping-git-traffic"
   subnavigation:
