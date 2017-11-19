@@ -24,7 +24,14 @@
     - title: "Total"
       url: "/repos-total"
 - title: "Organizations"
-  url: "/org-owners"
+  url: "/orgs-total"
+  subnavigation:
+    - title: "Total"
+      url: "/orgs-total"
+    - title: "Owners"
+      url: "/org-owners"
+    - title: "Teams"
+      url: "/teams-total"
 - title: "Housekeeping"
   url: "/housekeeping-git-traffic"
   subnavigation:

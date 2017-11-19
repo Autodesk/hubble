@@ -58,7 +58,7 @@ configuration = \
 	# then define that here to exclude them from all kinds of statistics.
 	# "github-enterprise" is a default organization in GitHub Enterprise that
 	# we exclude here, too (Note: this also excludes repositories with the name
-	" "github-enterprise").
+	# "github-enterprise").
 	"excludedEntities":
 	[
 		"github-enterprise",
