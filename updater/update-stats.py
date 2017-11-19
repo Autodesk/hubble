@@ -15,12 +15,14 @@ from reports.ReportGitRequests import *
 from reports.ReportGitVersions import *
 from reports.ReportOrgCollaboration import *
 from reports.ReportOrgOwners import *
+from reports.ReportOrgsTotal import *
 from reports.ReportPRByOrg import *
 from reports.ReportPRByRepo import *
 from reports.ReportPRHistory import *
 from reports.ReportPRUsage import *
 from reports.ReportRepoActivity import *
 from reports.ReportRepositoryHistory import *
+from reports.ReportTeamsTotal import *
 from reports.ReportTokenlessAuth import *
 from reports.ReportUsers import *
 
@@ -78,12 +80,14 @@ def main():
 	ReportGitVersions(configuration, dataDirectory, metaStats).update()
 	ReportOrgCollaboration(configuration, dataDirectory, metaStats).update()
 	ReportOrgOwners(configuration, dataDirectory, metaStats).update()
+	ReportOrgsTotal(configuration, dataDirectory, metaStats).update()
 	ReportPRByOrg(configuration, dataDirectory, metaStats).update()
 	ReportPRByRepo(configuration, dataDirectory, metaStats).update()
 	ReportPRHistory(configuration, dataDirectory, metaStats).update()
 	ReportPRUsage(configuration, dataDirectory, metaStats).update()
 	ReportRepoActivity(configuration, dataDirectory, metaStats).update()
 	ReportRepositoryHistory(configuration, dataDirectory, metaStats).update()
+	ReportTeamsTotal(configuration, dataDirectory, metaStats).update()
 	ReportTokenlessAuth(configuration, dataDirectory, metaStats).update()
 	ReportUsers(configuration, dataDirectory, metaStats).update()
 
