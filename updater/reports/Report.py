@@ -77,22 +77,32 @@ class Report(object):
 			script
 		)
 
-	# Executes a script but prints stderr and returns stdout only
+	# Executes a script but prints stderr and returns stdout only.
+	# A script is either a path to a file or a list of strings with bash
+	# commands.
+	# In case of a remote run (IOW: scripts run via SSH), the script is
+	# executed by passing its content via stdin to `bash -s --`. This
+	# method only works if the script has no stdin not set already.
 	def executeScript(self, script, stdin = None):
 		if self.configuration["remoteRun"]["enabled"]:
-			try:
-				with open(script) as f:
-					assert(stdin == None)
-					stdin = f.read()
-				command = ["bash -s", "--"]
-			except:
-				command = script
+			if not stdin:
+				try:
+					# If the script is a file, then read its content as-is into stdin
+					with open(script) as f:
+						stdin = f.read()
+				except:
+					# If the script is a list of strings, then escape the content and set it to stdin
+					stdin = " ".join(map(lambda x: '"' + x.replace('\\"', '\\\\"').replace('"', '\\"') + '"', script))
+				script = ["bash -s", "--"]
+
+			# Execute the script via SSH
 			script = [
-				"ssh",
-				"-i", self.configuration["remoteRun"]["sshKey"],
-				"-p", "122",
-				"admin@" + self.configuration["remoteRun"]["gheHost"],
-			] +	command
+					"ssh",
+					"-i", self.configuration["remoteRun"]["sshKey"],
+					"-p", "122",
+					"admin@" + self.configuration["remoteRun"]["gheHost"]
+				] + script
+
 		stdout, stderr = executeCommand(script, stdin)
 
 		print(stderr.decode("utf-8"), file = sys.stderr)
@@ -101,12 +111,9 @@ class Report(object):
 		return stdout
 
 	def executeGHEConsole(self, rubyCode):
-		escapedRubyCode = rubyCode.replace('\\t', '\\\\t') \
-		                          .replace('\\n', '\\\\n') \
-		                          .replace('"', '\\"')
+		escapedRubyCode = rubyCode.replace('\\t', '\\\\t').replace('\\n', '\\\\n')
 		return self.executeScript(
-			["bash -s", "--"],
-			"github-env bin/runner -e production \"'" + escapedRubyCode + "'\""
+			["github-env", "bin/runner", "-e", "production", "'" + escapedRubyCode + "'"]
 		)
 
 	# Executes a database query, given as a string
