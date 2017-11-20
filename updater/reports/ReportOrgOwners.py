@@ -14,11 +14,11 @@ class ReportOrgOwners(Report):
 			self.executeGHEConsole('''
 				puts "organization\towner(s)\n"
 				User.where(:type => "Organization")
-				    .where("''' + self.andExcludedEntities("login", "").replace('"', '\\\\"') + '''")
+				    .where("''' + self.andExcludedEntities("login", "").replace('"', '\\"') + '''")
 				    .order("login")
 				    .each do |org|
 					owners = org.admins.where(:disabled => false, :gh_role => nil)
-					                   .where("''' +  self.andExcludedUsers("login", "").replace('"', '\\\\"') + '''")
+					                   .where("''' +  self.andExcludedUsers("login", "").replace('"', '\\"') + '''")
 					                   .order("login")
 					                   .join(",")
 					puts "#{org.login}\t#{owners}\n"
