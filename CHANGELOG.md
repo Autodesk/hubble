@@ -1,6 +1,6 @@
 # Change Log
 
-## (unreleased)
+## 0.1.1 (2017-11-20)
 
 Please adjust your `config.py` after this upgrade (see below).
 
