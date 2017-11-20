@@ -80,6 +80,11 @@ var timeSeriesChartDefaults =
 			}
 		]
 	},
+	tooltips:
+	{
+		mode: "x",
+		intersect: false,
+	},
 };
 
 var barChartDefaults =
