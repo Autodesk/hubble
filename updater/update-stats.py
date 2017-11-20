@@ -48,6 +48,10 @@ def main():
 	if len(sys.argv) > 1 and sys.argv[1] == "--dry-run":
 		configuration["dryRun"] = True
 
+	# Make excludedEntities a list if it isn’t already (for backward compatibility)
+	if not isinstance(configuration["excludedEntities"], list):
+		configuration["excludedEntities"] = [configuration["excludedEntities"]]
+
 	print("Preparing update of GitHub usage statistics", file = sys.stderr)
 	sys.stderr.flush()
 
