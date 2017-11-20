@@ -4,11 +4,13 @@
 
 ### Changes
 
+- configuration: `excludedEntities` is now a list of strings
 - switch to MIT license
 - update stylesheet with new logo
 
 ### Features
 
+- new chart: total number of organizations and teams ([@toddocon](https://github.com/toddocon))
 - new chart: total number of repositories
 - new chart: repository activity
 - new list: organization owners ([@mlbright](https://github.com/mlbright))
