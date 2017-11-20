@@ -197,9 +197,9 @@ class Report(object):
 
 	def andExcludedEntities(self, column, delimiter = "AND"):
 		query = ""
-		if ("excludedEntities" in self.configuration and
-		   len(self.configuration["excludedEntities"]) > 0):
-			query += " " + delimiter + " " + column + ' NOT LIKE "' + self.configuration["excludedEntities"] + '" '
+		for excludedEntity in self.configuration["excludedEntities"]:
+			query += " " + delimiter + " " + column + ' NOT LIKE "' + excludedEntity + '" '
+			delimiter = "AND"
 		return query
 
 	def andExcludedUsers(self, column, delimiter = "AND"):
