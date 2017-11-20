@@ -305,10 +305,6 @@ a
 	overflow: auto;
 	word-break: keep-all;
 	word-break: normal;
-}
-
-.main-content table
-{
 	border-top: 4px solid #e9ebec;
 	border-bottom: 4px solid #e9ebec;
 }
