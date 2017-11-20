@@ -1,2 +1,4 @@
 _site
-demo-data
+
+# You can clone your "hubble-data" repository to this location for debugging
+hubble-data
