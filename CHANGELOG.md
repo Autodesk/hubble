@@ -5,12 +5,13 @@
 ### Changes
 
 - switch to MIT license
-- updated stylesheet with new logo
+- update stylesheet with new logo
 
 ### Features
 
 - new chart: total number of repositories
 - new chart: repository activity
+- new list: organization owners
 - descriptive texts next to the charts
 - support for GitHub Enterprise 2.11
 
