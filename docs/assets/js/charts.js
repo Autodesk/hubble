@@ -392,7 +392,7 @@ function createTable(table)
 
 								break;
 							default:
-								cell.append().text(entry);
+								cell.text(entry);
 						}
 					}
 				});
