@@ -383,7 +383,7 @@ function createTable(table)
 									.text(entry);
 								break;
 							default:
-							 	cell.append().text(entry);
+								cell.append().text(entry);
 						}
 					}
 				});
