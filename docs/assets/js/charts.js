@@ -377,10 +377,19 @@ function createTable(table)
 							case "repository":
 							case "resource":
 							case "user":
-								cell.append("a")
+								let a = cell.append("a").text(entry)
 									.attr("target", "_blank")
 									.attr("href", gheUrl() + "/" + entry)
 									.text(entry);
+
+								const tableID = d3.select(table).attr("id");
+								const prefix = (tableID ? (tableID + "-") : "");
+
+								// Add anchors, but only for the first column,
+								// which is usually unique
+								if (i == 0)
+									a.attr("id", prefix + entry);
+
 								break;
 							default:
 								cell.append().text(entry);
