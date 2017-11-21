@@ -2,6 +2,8 @@
 
 ## (unreleased)
 
+Please adjust your `config.py` after this upgrade (see below).
+
 ### Changes
 
 - configuration: `excludedEntities` is now a list of strings
