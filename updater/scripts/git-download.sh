@@ -14,20 +14,22 @@ function ghe_greater_equal () {
 }
 
 if ghe_greater_equal "2.11.0" ; then
-    LOG_FILE="/var/log/github-audit.log"
+    # check the two most recent log files
+    CAT_LOG_FILE="zcat -f /var/log/github-audit.log{,.1*}"
     # The "github-audit.log" log file introduced in GHE 2.11.0 is only rolled
     # once a week. This was reported as a bug and is likely fixed in an
     # upcoming version. In the meantime we grep for all log entries that have
     # been written yesterday.
     GREP_YESTERDAY="grep -F '$(date --date='yesterday' +'%b %d')'"
 else
-    LOG_FILE="/var/log/github/audit.log"
+    # check yesterday’s log file
+    CAT_LOG_FILE="zcat -f /var/log/github/audit.log.1*"
     GREP_YESTERDAY="tee"
 fi
 
 echo -e "repository\tuser\tcloning?\trequests/day\tdownload/day [B]"
 
-zcat -f $LOG_FILE.1* |
+eval "$CAT_LOG_FILE" |
     eval "$GREP_YESTERDAY" |
     perl -ne 'print if s/.*"program":"upload-pack".*"repo_name":"([^"]+).*"user_login":"([^"]+).*"cloning":([^,]+).*"uploaded_bytes":([^ ]+).*/\1\t\2\t\3\t\4/' |
     sort |
