@@ -6,20 +6,19 @@ Please adjust your `config.py` after this upgrade (see below).
 
 ### Changes
 
-- configuration: `excludedEntities` is now a list of strings
 - switch to MIT license
-- update stylesheet with new logo
+- [`config.py`](https://github.com/Autodesk/hubble/blob/master/updater/config.py.example): `excludedEntities` in is now a list of strings
 
 ### Features
 
-- new chart: total number of organizations and teams ([@toddocon](https://github.com/toddocon))
-- new chart: total number of repositories
-- new chart: repository activity
-- new list: organization owners ([@mlbright](https://github.com/mlbright))
-- descriptive texts next to the charts
 - support for GitHub Enterprise 2.11
+- new chart: total number of [organizations](https://autodesk.github.io/hubble/orgs-total) and [teams](https://autodesk.github.io/hubble/teams-total) ([@toddocon](https://github.com/toddocon))
+- new chart: [total number of repositories](https://autodesk.github.io/hubble/repos-total)
+- new chart: [repository activity](https://autodesk.github.io/hubble/repos-activity)
+- new list: [organization owners](https://autodesk.github.io/hubble/org-owners) ([@mlbright](https://github.com/mlbright))
 - remove inline JavaScript from page header ([@GitHugop](https://github.com/GitHugop))
-
+- descriptive texts next to the charts
+- add stylesheet with new logo
 ## 0.1.0 (2017-10-05)
 
 Initial release
