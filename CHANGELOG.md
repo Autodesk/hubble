@@ -19,6 +19,7 @@ Please adjust your `config.py` after this upgrade (see below).
 - remove inline JavaScript from page header ([@GitHugop](https://github.com/GitHugop))
 - descriptive texts next to the charts
 - add stylesheet with new logo
+
 ## 0.1.0 (2017-10-05)
 
 Initial release
