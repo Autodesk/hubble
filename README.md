@@ -42,7 +42,7 @@ The **docs** component visualizes the collected data with [GitHub Pages](https:/
    git commit -m "Adjusting dataURL to our own instance"
    git push
    ```
-1. Publish Hubble’s [docs component on GitHub Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch).
+1. Publish Hubble’s [docs folder on GitHub Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch).
    Go to the repository settings, *options* tab, *GitHub Pages* section, then choose *master branch/docs folder* as *source*, and click *save*.
    GitHub Enterprise will now tell the URL of the published dashboard pages.
    You may want to bookmark this URL to conveniently access the dashboard of Hubble Enterprise.
