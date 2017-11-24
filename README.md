@@ -36,8 +36,12 @@ The **docs** component visualizes the collected data with [GitHub Pages](https:/
    git remote add ghe https://git.company.com/scm/hubble
    git push -u ghe master
    ```
-1. Open [`docs/_config.yml`](docs/_config.yml) in your editor and set the `dataURL` that you noted earlier.
-   Commit and push the change to your Hubble repository.
+1. Open [`docs/_config.yml`](docs/_config.yml) in your editor and set the `dataURL` that you noted earlier. Commit and push the change to your Hubble repository:
+   ```sh
+   git add docs/_config.yml
+   git commit -m "Adjusting dataURL to our own instance"
+   git push
+   ```
 1. Publish Hubble’s [docs component on GitHub Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch).
    Go to the repository settings, *options* tab, *GitHub Pages* section, then choose *master branch/docs folder* as *source*, and click *save*.
    GitHub Enterprise will now tell the URL of the published dashboard pages.
