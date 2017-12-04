@@ -10,5 +10,4 @@ zcat -f /var/log/github/gitauth.log.1* |
     sort |
     uniq -c |
     sort -rn |
-    awk '{printf("%s\t%s\t%s\n",$2,$3,$1)}' |
-    awk '{gsub(/[_.]/, "-", $1)}1'
+    awk '{gsub(/[_.]/, "-", $2); printf("%s\t%s\t%s\n",$2,$3,$1)}'
