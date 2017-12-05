@@ -19,7 +19,7 @@ if ghe_greater_equal "2.11.0" ; then
     # upcoming version. In the meantime, we grep for all log entries in the two
     # most recent log files (because the information from yesterday may or not
     # be rotated already).
-    CAT_LOG_FILE="zcat -f /var/log/github-audit.log{,.1*} | grep -F '$(date --date='yesterday' +'%b %_d')'"
+    CAT_LOG_FILE="zcat -f /var/log/github-audit.{log.1*,log} | grep -F '$(date --date='yesterday' +'%b %_d')'"
 else
     # check yesterday’s log file
     CAT_LOG_FILE="zcat -f /var/log/github/audit.log.1*"
