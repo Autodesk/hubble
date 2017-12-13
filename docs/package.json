@@ -1,0 +1,31 @@
+{
+  "name": "hubble-web-application",
+  "description": "",
+  "version": "0.0.1",
+  "scripts": {
+    "lint": "eslint .",
+    "start": "echo \"is there jekyll for node?\"",
+    "test": "karma start spec/karma.conf.js",
+    "cover": "istanbul cover --root lib --print detail jasmine"
+  },
+  "devDependencies": {
+    "eslint": "^4.10.0",
+    "istanbul": "^0.4.5",
+    "jasmine": "^2.8.0",
+    "karma": "^1.7.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.1",
+    "phantomjs-prebuilt": "^2.1.16"
+  },
+  "engines": {
+    "node": ">= 6.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/autodesk/hubble.git"
+  },
+  "bugs": {
+    "url": "https://github.com/autodesk/hubble/issues"
+  },
+  "license": "MIT"
+}
