@@ -115,10 +115,18 @@ var stackedBarChartDefaults =
 	maintainAspectRatio: false
 };
 
+function createSpinner(canvas)
+{
+	var parent = $("<div style=\"position:absolute;height:100%;width:100%;\"></div>");
+	parent.insertBefore($(canvas));
+	return new Spinner().spin(parent[0]);
+}
+
 function createHistoryChart(canvas)
 {
 	var url = $(canvas).data("url");
 
+	var spinner = createSpinner(canvas);
 	d3.tsv(url,
 		function(row)
 		{
@@ -228,6 +236,8 @@ function createHistoryChart(canvas)
 					},
 					options: timeSeriesChartDefaults
 				});
+		}).on("load.spinner", function() {
+			spinner.stop();
 		});
 }
 
@@ -235,6 +245,7 @@ function createList(canvas)
 {
 	var url = $(canvas).data("url");
 
+	var spinner = createSpinner(canvas);
 	d3.tsv(url,
 		function(row)
 		{
@@ -312,6 +323,8 @@ function createList(canvas)
 					},
 					options: options
 				});
+		}).on("load.spinner", function() {
+			spinner.stop();
 		});
 }
 
@@ -327,6 +340,7 @@ function createTable(table)
 {
 	var url = $(table).data("url");
 
+	var spinner = createSpinner(table);
 	d3.tsv(url,
 		function(error, data)
 		{
@@ -396,6 +410,8 @@ function createTable(table)
 						}
 					}
 				});
+		}).on("load.spinner", function() {
+			spinner.stop();
 		});
 }
 
@@ -596,6 +612,7 @@ function createCollaborationChart(canvas)
 {
 	const url = $(canvas).data("url");
 	const quota = 50;
+	var spinner = createSpinner(canvas);
 
 	d3.text(url,
 		function(text)
@@ -634,7 +651,9 @@ function createCollaborationChart(canvas)
 
 			menuChanged();
 		}
-	);
+	).on("load.spinner", function() {
+		spinner.stop();
+	});
 }
 
 $(window).bind("load", function()
