@@ -13,7 +13,7 @@ In general, contributors should develop on branches based off of `master` and pu
 1. [Fork](https://github.com/Autodesk/hubble/fork) and clone the repository.
 1. Create a new branch based on `master`: `git checkout -b <my-branch-name> master`.
 1. Make your changes, add tests, and make sure the tests still pass.
-  - Changes to the web app (i.e. anything under `docs/`) can be validated by [running the web app tests](docs/README.md#running-tests).
+  - Changes to the web app (i.e. anything under `docs/`) can be validated by [running the web app tests](docs/README.md#tests).
   - Changes to the updater component (i.e. anything under `updater/`) can't be validated yet, since we need a test suite there :).
 1. Push to your fork and [submit a pull request](https://github.com/Autodesk/hubble/compare) from your branch to `master`.
 1. Pat yourself on the back and wait for your pull request to be reviewed.
