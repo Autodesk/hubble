@@ -382,6 +382,7 @@ a
 
 .row .col-main
 {
+	position: relative;
 	width: 100%;
 }
 
