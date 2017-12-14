@@ -5,7 +5,8 @@
     "extends": "eslint:recommended",
     "rules": {
         "quotes": ["error", "double"],
-        "indent": ["error", "tab"],
-        "no-var": ["error"]
+        "indent": ["error", "tab", { "SwitchCase": 1 }],
+        "no-var": ["error"],
+        "no-case-declarations": ["off"]
     }
 }
