@@ -19,8 +19,8 @@ Explore our [interactive demo](https://autodesk.github.io/hubble/) or watch the 
 ## Getting Started
 
 Hubble Enterprise consists of two components.
-The **updater** component queries relevant data from a GitHub Enterprise appliance and stores the results in a Git repository once a day.
-The **docs** component visualizes the collected data with [GitHub Pages](https://pages.github.com/).
+The **updater** component is a Python script that queries relevant data from a GitHub Enterprise appliance and stores the results in a Git repository once a day. Check out its [README.md](updater/README.md) for more details.
+The **docs** component is a web application that visualizes the collected data and is hosted with [GitHub Pages](https://pages.github.com/). Check out its [README.md](docs/README.md) for more details.
 
 1. Create a new, initialized, public repository for Hubble’s data on your GitHub Enterprise appliance (for instance, `https://git.company.com/scm/hubble-data`).
 1. Publish Hubble’s [data repository on GitHub Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages).
