@@ -25,6 +25,7 @@ module.exports = function(config) {
       'assets/js/vendor/d3.v4.min.js',
       'assets/js/vendor/moment-with-locales.min.js',
       'assets/js/vendor/Chart-2.7.1.min.js',
+      'assets/js/vendor/spin-2.3.2.min.js',
       'assets/js/charts.js',
       'spec/*.js'
     ],
