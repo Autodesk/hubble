@@ -117,9 +117,15 @@ var stackedBarChartDefaults =
 
 function createSpinner(canvas)
 {
-	let parent = $("<div style=\"position:absolute;height:100%;width:100%;\"></div>");
+	let parent = $("<div style=\"position:absolute;height:100%;width:100%;\" class=\"spinner-container\"></div>");
 	parent.insertBefore($(canvas));
-	return new Spinner().spin(parent[0]);
+	let spinner = new Spinner().spin(parent[0]);
+	return {
+		stop: function() {
+			spinner.stop();
+			parent.remove();
+		}
+	};
 }
 
 function createHistoryChart(canvas)
