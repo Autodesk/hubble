@@ -40,7 +40,3 @@ During local development, it may be nice to keep the test runner running in the 
 get immediate feedback. This mode will re-run the tests every time a source or test file changes. To run in this mode:
 
     $ npm test -- --no-single-run --auto-watch
-
-### Linting
-
-    $ npm run lint
