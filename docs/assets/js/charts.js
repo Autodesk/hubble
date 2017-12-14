@@ -1,6 +1,4 @@
-var parseDate = d3.timeParse("%Y-%m");
-
-var chartColors =
+const chartColors =
 {
 	red: [255, 94, 77],
 	orange: [255, 167, 26],
@@ -12,7 +10,7 @@ var chartColors =
 	grey: [201, 203, 207],
 };
 
-var extendedChartColors =
+const extendedChartColors =
 [
 	"#4c99e5",
 	"#ffa71a",
@@ -41,7 +39,7 @@ function extendedChartColor(i)
 	return extendedChartColors[i % extendedChartColors.length];
 }
 
-var chartColorSequence =
+const chartColorSequence =
 [
 	chartColors.blue,
 	chartColors.green,
@@ -52,9 +50,9 @@ var chartColorSequence =
 	chartColors.purple,
 ];
 
-var barWidth = 35;
+const barWidth = 35;
 
-var timeSeriesChartDefaults =
+const timeSeriesChartDefaults =
 {
 	scales:
 	{
@@ -82,7 +80,7 @@ var timeSeriesChartDefaults =
 	},
 };
 
-var barChartDefaults =
+const barChartDefaults =
 {
 	legend:
 	{
@@ -91,7 +89,7 @@ var barChartDefaults =
 	maintainAspectRatio: false
 };
 
-var stackedBarChartDefaults =
+const stackedBarChartDefaults =
 {
 	scales:
 	{
@@ -130,7 +128,7 @@ function createSpinner(canvas)
 
 function createHistoryChart(canvas)
 {
-	var url = $(canvas).data("url");
+	const url = $(canvas).data("url");
 
 	let spinner = createSpinner(canvas);
 	d3.tsv(url,
@@ -152,22 +150,22 @@ function createHistoryChart(canvas)
 			if (error)
 				throw error;
 
-			var context = canvas.getContext("2d");
+			const context = canvas.getContext("2d");
 
 			if ($(canvas).data("config") && "aggregate" in $(canvas).data("config") && $(canvas).data("config").aggregate == "weekly")
 			{
-				aggregatedData = Array();
+				let aggregatedData = Array();
 				data.sort(
 					function(row1, row2)
 					{
-						var date1 = new Date(row1["date"]);
-						var date2 = new Date(row2["date"]);
+						let date1 = new Date(row1["date"]);
+						let date2 = new Date(row2["date"]);
 						return date1 - date2;
 					});
 
-				currentRow = Object();
+				let currentRow = Object();
 
-				for (var i = 0; i < data.length; i++)
+				for (let i = 0; i < data.length; i++)
 				{
 					if (i % 7 == 0)
 						$.each(Object.keys(data[i]).slice(1),
@@ -195,30 +193,31 @@ function createHistoryChart(canvas)
 			if ($(canvas).data("config") && "sliceData" in $(canvas).data("config"))
 				data = data.slice($(canvas).data("config").sliceData[0], $(canvas).data("config").sliceData[1]);
 
-			var originalDataSeries = Object.keys(data[0]).slice(1);
+			const originalDataSeries = Object.keys(data[0]).slice(1);
 
+			let dataSeries, visibleDataSeries;
 			if ($(canvas).data("config") && "series" in $(canvas).data("config"))
-				var dataSeries = $(canvas).data("config").series;
+				dataSeries = $(canvas).data("config").series;
 			else
-				var dataSeries = originalDataSeries;
+				dataSeries = originalDataSeries;
 
 			if ($(canvas).data("config") && "visibleSeries" in $(canvas).data("config"))
-				var visibleDataSeries = $(canvas).data("config").visibleSeries;
+				visibleDataSeries = $(canvas).data("config").visibleSeries;
 			else
-				var visibleDataSeries = originalDataSeries;
+				visibleDataSeries = originalDataSeries;
 
-			var chartData = Array();
+			let chartData = Array();
 
-			var index = 0;
+			let index = 0;
 
 			$.each(dataSeries,
 				function(dataSeriesID, dataSeries)
 				{
-					var color = chartColorSequence[index % chartColorSequence.length];
-					var backgroundColorString = "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 0.25)";
-					var borderColorString = "rgb(" + color[0] + ", " + color[1] + ", " + color[2] + ")";
+					const color = chartColorSequence[index % chartColorSequence.length];
+					const backgroundColorString = "rgba(" + color[0] + ", " + color[1] + ", " + color[2] + ", 0.25)";
+					const borderColorString = "rgb(" + color[0] + ", " + color[1] + ", " + color[2] + ")";
 
-					var seriesData =
+					let seriesData =
 					{
 						label: dataSeries,
 						backgroundColor: backgroundColorString,
@@ -233,7 +232,7 @@ function createHistoryChart(canvas)
 					index++;
 				});
 
-			var chart = new Chart(context,
+			new Chart(context,
 				{
 					type: "line",
 					data:
@@ -242,14 +241,16 @@ function createHistoryChart(canvas)
 					},
 					options: timeSeriesChartDefaults
 				});
-		}).on("load.spinner", function() {
-			spinner.stop();
-		});
+		}
+	).on("load.spinner", function()
+	{
+		spinner.stop();
+	});
 }
 
 function createList(canvas)
 {
-	var url = $(canvas).data("url");
+	const url = $(canvas).data("url");
 
 	let spinner = createSpinner(canvas);
 	d3.tsv(url,
@@ -271,32 +272,33 @@ function createList(canvas)
 			if (data.length == 0)
 				return;
 
-			var context = canvas.getContext("2d");
+			const context = canvas.getContext("2d");
 
 			if ($(canvas).data("config") && "sliceData" in $(canvas).data("config"))
 				data = data.slice($(canvas).data("config").sliceData[0], $(canvas).data("config").sliceData[1]);
 
+			let types, visibleTypes;
 			if ($(canvas).data("config") && "series" in $(canvas).data("config"))
-				var types = $(canvas).data("config").series;
+				types = $(canvas).data("config").series;
 			else
-				var types = Object.keys(data[0]).slice(1);
+				types = Object.keys(data[0]).slice(1);
 
 			if ($(canvas).data("config") && "visibleSeries" in $(canvas).data("config"))
-				var visibleTypes = $(canvas).data("config").visibleSeries;
+				visibleTypes = $(canvas).data("config").visibleSeries;
 			else
-				var visibleTypes = types;
+				visibleTypes = types;
 
-			var chartData = Array();
+			let chartData = Array();
 
-			var index = 0;
+			let index = 0;
 
 			$.each(types,
 				function(typeID, type)
 				{
-					var color = chartColorSequence[index % chartColorSequence.length];
-					var colorString = "rgb(" + color[0] + ", " + color[1] + ", " + color[2] + ")";
+					const color = chartColorSequence[index % chartColorSequence.length];
+					const colorString = "rgb(" + color[0] + ", " + color[1] + ", " + color[2] + ")";
 
-					var seriesData =
+					let seriesData =
 					{
 						label: type,
 						backgroundColor: colorString,
@@ -311,15 +313,15 @@ function createList(canvas)
 					index++;
 				});
 
-			var repositories = data.map(function(row) {return Object.values(row)[0];});
+			const repositories = data.map(function(row) {return Object.values(row)[0];});
 
 			$(canvas).attr("height", data.length * barWidth);
 
-			var isStacked = $(canvas).data("config") && "stacked" in $(canvas).data("config") && $(canvas).data("config").stacked;
-			var options = isStacked ? stackedBarChartDefaults : barChartDefaults;
+			const isStacked = $(canvas).data("config") && "stacked" in $(canvas).data("config") && $(canvas).data("config").stacked;
+			let options = isStacked ? stackedBarChartDefaults : barChartDefaults;
 			options["legend"]["display"] = (types.length > 1);
 
-			var chart = new Chart(context,
+			new Chart(context,
 				{
 					type: "horizontalBar",
 					data:
@@ -329,9 +331,11 @@ function createList(canvas)
 					},
 					options: options
 				});
-		}).on("load.spinner", function() {
-			spinner.stop();
-		});
+		}
+	).on("load.spinner", function()
+	{
+		spinner.stop();
+	});
 }
 
 function gheHostname() {
@@ -344,7 +348,7 @@ function gheUrl() {
 
 function createTable(table)
 {
-	var url = $(table).data("url");
+	const url = $(table).data("url");
 
 	let spinner = createSpinner(table);
 	d3.tsv(url,
@@ -356,23 +360,23 @@ function createTable(table)
 			if (data.length == 0)
 				return;
 
-			var header = d3.select(table)
+			d3.select(table)
 				.append("thead")
 				.append("tr")
 				.selectAll("th")
-					.data(data.columns)
-					.enter()
-					.append("th")
-					.text(function(d) { return d; });
+				.data(data.columns)
+				.enter()
+				.append("th")
+				.text(function(d) { return d; });
 
-			var rows = d3.select(table)
+			let rows = d3.select(table)
 				.append("tbody")
 				.selectAll("tr")
-					.data(data)
-					.enter()
-					.append("tr");
+				.data(data)
+				.enter()
+				.append("tr");
 
-			var cells = rows.selectAll("td")
+			rows.selectAll("td")
 				.data(function(row) {
 					return d3.range(Object.keys(row).length).map(
 						function(column, i) {
@@ -405,6 +409,7 @@ function createTable(table)
 								const tableID = d3.select(table).attr("id");
 								const prefix = (tableID ? (tableID + "-") : "");
 
+
 								// Add anchors, but only for the first column,
 								// which is usually unique
 								if (i == 0)
@@ -416,14 +421,16 @@ function createTable(table)
 						}
 					}
 				});
-		}).on("load.spinner", function() {
-			spinner.stop();
-		});
+		}
+	).on("load.spinner", function()
+	{
+		spinner.stop();
+	});
 }
 
 function drawCoord(orgs, matrix) {
 	function fadeRibbon(opacity) {
-		return function(active_ribbon, i) {
+		return function(active_ribbon) {
 			ribbons.filter(function(d) { return d != active_ribbon; })
 				.transition()
 				.style("opacity", opacity);
@@ -453,10 +460,10 @@ function drawCoord(orgs, matrix) {
 	}
 
 	// Remove all organizations that have no connections
-	let i = orgs.length - 1;
+	let i = orgs.length - 1, count;
 	while (i >= 0) {
 		count =   matrix.reduce(function(a, b) { return a + b[i]; }, 0)
-		        + matrix[i].reduce(function(a, b) { return a + b; }, 0);
+				+ matrix[i].reduce(function(a, b) { return a + b; }, 0);
 		if (count == 0) {
 			matrix.splice(i,1);
 			matrix.map(function(x) { return x.splice(i,1); });
@@ -500,7 +507,7 @@ function drawCoord(orgs, matrix) {
 		.append("path")
 		.attr("d", ribbon)
 		.style("stroke-width", 5.0)
-		.style("stroke", function(d) { return "#ffffff"; });
+		.style("stroke", function() { return "#ffffff"; });
 
 	ribbons
 		.append("path")
@@ -641,19 +648,19 @@ function createCollaborationChart(canvas)
 			}
 
 			const menuItems = [
-					{ value:-1, name:`Top ${quota} connections` },
-					{ value:-1, name:"—" },
-				].concat(
+				{ value:-1, name:`Top ${quota} connections` },
+				{ value:-1, name:"—" },
+			].concat(
 				orgs.map(function(x, i) { return { value:i, name:x }; })
 			);
-			const select = d3.select("select")
+			d3.select("select")
 				.attr("class","select")
 				.on("change", menuChanged)
 				.selectAll("option")
 				.data(menuItems).enter()
 				.append("option")
-					.attr("value", function (d) { return d.value; })
-					.text(function (d) { return d.name; })
+				.attr("value", function (d) { return d.value; })
+				.text(function (d) { return d.name; })
 
 			menuChanged();
 		}
@@ -666,7 +673,7 @@ $(window).bind("load", function()
 {
 	Chart.defaults.global.defaultFontFamily = "'Open Sans', sans-serif";
 
-	var charts = $(".chart");
+	const charts = $(".chart");
 
 	charts.each(
 		function(index, canvas)
@@ -683,7 +690,7 @@ $(window).bind("load", function()
 
 $(window).bind("load", function()
 {
-	var tables = $(".table");
+	const tables = $(".table");
 	tables.each(
 		function(index, table)
 		{
@@ -693,7 +700,7 @@ $(window).bind("load", function()
 
 $(window).bind("load", function()
 {
-	var collabs = $(".collaboration");
+	const collabs = $(".collaboration");
 
 	collabs.each(
 		function(index, collab)
