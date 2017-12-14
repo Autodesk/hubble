@@ -5,7 +5,8 @@
   "scripts": {
     "lint": "eslint .",
     "start": "echo \"is there jekyll for node?\"",
-    "test": "karma start spec/karma.conf.js"
+    "unit-test": "karma start spec/karma.conf.js",
+    "test": "npm run unit-test && npm run lint"
   },
   "devDependencies": {
     "eslint": "^4.10.0",
