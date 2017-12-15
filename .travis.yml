@@ -1,0 +1,20 @@
+matrix:
+  include:
+    - language: python
+      python: "3.6"
+      before_script:
+        - cd updater
+      script:
+        - echo 'we should add updater tests'
+
+    - language: node_js
+      node_js:
+        - "node"
+      cache:
+        directories:
+          - $HOME/.npm
+      before_script:
+        - cd docs
+        - npm install
+      script:
+        - npm test
