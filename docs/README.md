@@ -32,14 +32,18 @@ as the testing / assertion library. The tests are implemented as `.js` files und
 
 ### Running the Tests
 
-To run the tests once:
+To run the tests and linter:
 
     $ npm test
+
+To run just the unit tests once:
+
+    $ npm run unit-test
 
 During local development, it may be nice to keep the test runner running in the background as one makes changes to the JavaScript source files (under `assets/js/`), or the test files (under `spec/`) so as to
 get immediate feedback. This mode will re-run the tests every time a source or test file changes. To run in this mode:
 
-    $ npm test -- --no-single-run --auto-watch
+    $ npm run unit-test -- --no-single-run --auto-watch
 
 #### Linting JavaScript
 
