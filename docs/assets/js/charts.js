@@ -55,61 +55,61 @@ const barWidth = 35;
 const timeSeriesChartDefaults =
 {
     scales:
-	{
-	    xAxes:
-		[
-		    {
-		        type: 'time',
-		        time:
-				{
-				    format: 'YYYY-MM-DD',
-				    tooltipFormat: 'D MMMM YYYY',
-				    minUnit: 'day',
-				}
-		    }
-		],
-	    yAxes:
-		[
-		    {
-		        ticks:
-				{
-				    beginAtZero: true
-				}
-		    }
-		]
-	},
+    {
+        xAxes:
+        [
+            {
+                type: 'time',
+                time:
+                {
+                    format: 'YYYY-MM-DD',
+                    tooltipFormat: 'D MMMM YYYY',
+                    minUnit: 'day',
+                }
+            }
+        ],
+        yAxes:
+        [
+            {
+                ticks:
+                    {
+                        beginAtZero: true
+                    }
+            }
+        ]
+    },
 };
 
 const barChartDefaults =
 {
     legend:
-	{
-	    display: true
-	},
+    {
+        display: true
+    },
     maintainAspectRatio: false
 };
 
 const stackedBarChartDefaults =
 {
     scales:
-	{
-	    xAxes:
-		[
-		    {
-		        stacked: true
-		    }
-		],
-	    yAxes:
-		[
-		    {
-		        stacked: true
-		    }
-		]
-	},
+    {
+        xAxes:
+        [
+            {
+                stacked: true
+            }
+        ],
+        yAxes:
+        [
+            {
+                stacked: true
+            }
+        ]
+    },
     legend:
-	{
-	    display: true
-	},
+    {
+        display: true
+    },
     maintainAspectRatio: false
 };
 
@@ -153,7 +153,8 @@ function createHistoryChart(canvas)
 
             const context = canvas.getContext('2d');
 
-            if ($(canvas).data('config') && 'aggregate' in $(canvas).data('config') && $(canvas).data('config').aggregate == 'weekly')
+            if ($(canvas).data('config') && 'aggregate' in $(canvas).data('config') &&
+                $(canvas).data('config').aggregate == 'weekly')
             {
                 let aggregatedData = Array();
                 data.sort(
@@ -215,17 +216,18 @@ function createHistoryChart(canvas)
                 function(dataSeriesID, dataSeries)
                 {
                     const color = chartColorSequence[index % chartColorSequence.length];
-                    const backgroundColorString = 'rgba(' + color[0] + ', ' + color[1] + ', ' + color[2] + ', 0.25)';
+                    const backgroundColorString = 'rgba(' + color[0] + ', ' + color[1] + ', ' + color[2] +
+                        ', 0.25)';
                     const borderColorString = 'rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ')';
 
                     let seriesData =
-					{
-					    label: dataSeries,
-					    backgroundColor: backgroundColorString,
-					    borderColor: borderColorString,
-					    fill: true,
-					    hidden: (visibleDataSeries.indexOf(dataSeries) == -1) ? true : false,
-					};
+                    {
+                        label: dataSeries,
+                        backgroundColor: backgroundColorString,
+                        borderColor: borderColorString,
+                        fill: true,
+                        hidden: (visibleDataSeries.indexOf(dataSeries) == -1) ? true : false,
+                    };
 
                     seriesData.data = data.map(function(row)
                     {
@@ -240,9 +242,9 @@ function createHistoryChart(canvas)
                 {
                     type: 'line',
                     data:
-					{
-					    datasets: chartData
-					},
+                    {
+                        datasets: chartData
+                    },
                     options: timeSeriesChartDefaults
                 });
         }
@@ -303,13 +305,13 @@ function createList(canvas)
                     const colorString = 'rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ')';
 
                     let seriesData =
-					{
-					    label: type,
-					    backgroundColor: colorString,
-					    borderColor: colorString,
-					    fill: true,
-					    hidden: (visibleTypes.indexOf(type) == -1) ? true : false,
-					};
+                    {
+                        label: type,
+                        backgroundColor: colorString,
+                        borderColor: colorString,
+                        fill: true,
+                        hidden: (visibleTypes.indexOf(type) == -1) ? true : false,
+                    };
 
                     seriesData.data = data.map(function(row)
                     {
@@ -327,7 +329,8 @@ function createList(canvas)
 
             $(canvas).attr('height', data.length * barWidth);
 
-            const isStacked = $(canvas).data('config') && 'stacked' in $(canvas).data('config') && $(canvas).data('config').stacked;
+            const isStacked = $(canvas).data('config') && 'stacked' in $(canvas).data('config') &&
+                $(canvas).data('config').stacked;
             let options = isStacked ? stackedBarChartDefaults : barChartDefaults;
             options['legend']['display'] = (types.length > 1);
 
@@ -335,10 +338,10 @@ function createList(canvas)
                 {
                     type: 'horizontalBar',
                     data:
-					{
-					    labels: repositories,
-					    datasets: chartData
-					},
+                    {
+                        labels: repositories,
+                        datasets: chartData
+                    },
                     options: options
                 });
         }
@@ -452,11 +455,11 @@ function drawCoord(orgs, matrix)
 {
     function fadeRibbon(opacity)
     {
-        return function(active_ribbon)
+        return function(activeRibbon)
         {
             ribbons.filter(function(d)
             {
-                return d != active_ribbon;
+                return d != activeRibbon;
             })
                 .transition()
                 .style('opacity', opacity);
@@ -497,14 +500,14 @@ function drawCoord(orgs, matrix)
     let i = orgs.length - 1, count;
     while (i >= 0)
     {
-        count =   matrix.reduce(function(a, b)
+        count = matrix.reduce(function(a, b)
         {
             return a + b[i];
         }, 0)
-				+ matrix[i].reduce(function(a, b)
-				{
-				    return a + b;
-				}, 0);
+            + matrix[i].reduce(function(a, b)
+            {
+                return a + b;
+            }, 0);
         if (count == 0)
         {
             matrix.splice(i, 1);
