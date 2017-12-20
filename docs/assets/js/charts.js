@@ -482,11 +482,11 @@ function drawCoord(orgs, matrix)
     function ribbonTip(d)
     {
         let tip = d.source.value + ' ' + orgs[d.source.index] + ' member' +
-			(d.source.value > 1 ? 's' : '') + ' contributed to ' + orgs[d.target.index] + '.';
+            (d.source.value > 1 ? 's' : '') + ' contributed to ' + orgs[d.target.index] + '.';
         if (d.target.value > 0)
         {
             tip = tip + '\n' + d.target.value + ' ' + orgs[d.target.index] + ' member' +
-			(d.target.value > 1 ? 's' : '') + ' contributed to ' + orgs[d.source.index] + '.';
+                (d.target.value > 1 ? 's' : '') + ' contributed to ' + orgs[d.source.index] + '.';
         }
         return tip;
     }
@@ -627,8 +627,8 @@ function drawCoord(orgs, matrix)
             const degree = d.angle * 180 / Math.PI;
             const flip = (degree > 180 ? 90 : -90);
             return 'rotate(' + degree + ')' +
-				'translate(0,' + -1 * (outerRadius + 5) + ')' +
-				'rotate(' + flip + ')';
+                'translate(0,' + -1 * (outerRadius + 5) + ')' +
+                'rotate(' + flip + ')';
         })
         .style('text-anchor', function(d)
         {

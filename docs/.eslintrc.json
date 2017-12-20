@@ -5,6 +5,7 @@
     "extends": "eslint:recommended",
     "rules": {
         "semi": ["error", "always"],
+        "no-tabs": ["error"],
         "quotes": ["error", "single"],
         "comma-spacing": ["error", { "before": false, "after": true }],
         "key-spacing": ["error", { "beforeColon": false, "afterColon": true }],
