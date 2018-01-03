@@ -2,7 +2,7 @@ all: # nothing to build
 
 PKGNAME = hubble-enterprise
 INSTALLDIR = $(DESTDIR)/opt/autodesk/$(PKGNAME)
-SYSTEMDDIR = $(DESTDIR)/home/admin/.local/share/systemd/user
+SYSTEMDDIR = $(DESTDIR)/usr/lib/systemd/system
 BASEDIR=../../../..
 
 install:

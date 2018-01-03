@@ -1,10 +1,11 @@
 [Unit]
 Description=Runs Hubble Enterprise updater periodically
+Requires=github-enterprise.target
+After=github-enterprise.target
 
 [Timer]
 OnCalendar=7:30
 Persistent=true
-Unit=hubble-enterprise.service
 
 [Install]
-WantedBy=default.target
+WantedBy=github-enterprise.target

@@ -1,8 +1,14 @@
 [Unit]
 Description=Hubble Enterprise updater
-After=mysql.service
+Requires=github-enterprise.target
+After=github-enterprise.target
 
 [Service]
 Type=simple
 ExecStart=/usr/bin/python3 /opt/autodesk/hubble-enterprise/update-stats.py
 WorkingDirectory=/opt/autodesk/hubble-enterprise/
+User=admin
+Group=admin
+
+[Install]
+WantedBy=github-enterprise.target
