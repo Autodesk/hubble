@@ -32,11 +32,29 @@ as the testing / assertion library. The tests are implemented as `.js` files und
 
 ### Running the Tests
 
-To run the tests once:
+To run the tests and linter:
 
     $ npm test
+
+To run just the unit tests once:
+
+    $ npm run unit-test
 
 During local development, it may be nice to keep the test runner running in the background as one makes changes to the JavaScript source files (under `assets/js/`), or the test files (under `spec/`) so as to
 get immediate feedback. This mode will re-run the tests every time a source or test file changes. To run in this mode:
 
-    $ npm test -- --no-single-run --auto-watch
+    $ npm run unit-test -- --no-single-run --auto-watch
+
+#### Linting JavaScript
+
+This project has formalized a JS style using the [ESLint tool](https://eslint.org). To run the linter, ensure you have dependencies installed via `npm install`, then run:
+
+    $ npm run lint
+
+ESLint allows for [cascading rules](https://eslint.org/docs/user-guide/configuring#configuration-cascading-and-hierarchy) to be in place, which this project leverages:
+
+- There is one "global" ESLint config defined in [`.eslintrc.json`](.eslintrc.json), where we house the main stylistic rules.
+- We also have a browser-context-specific config defined in [`assets/js/.eslintrc.json`](assets/js/.eslintrc.json).
+- Finally, we have a test-context-specific config defined in [`spec/.eslintrc.json`](spec/.eslintrc.json).
+
+The [`.eslintignore` file](.eslintignore) defines what directories and files we should not lint.

@@ -1,0 +1,14 @@
+{
+    "parserOptions": {
+        "ecmaVersion": 6
+    },
+    "env": {
+        "browser": true,
+        "jquery": true
+    },
+    "globals": {
+        "Chart": false,
+        "d3": false,
+        "Spinner": false
+    }
+}
