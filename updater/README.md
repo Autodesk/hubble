@@ -34,12 +34,12 @@ The updater may be run in two modes:
 1. Create a config file in `/opt/autodesk/hubble-enterprise/config.py` (based on `[config.py.example](config.py.example)`).
 1. Enable and start the **periodic** updater process (persistently, survives reboots):
 	```sh
-	systemctl --user enable hubble-enterprise.timer
-	systemctl --user start hubble-enterprise.timer
+	sudo systemctl enable hubble-enterprise.timer
+	sudo systemctl start hubble-enterprise.timer
 	```
 1. Optionally, you may **trigger** the updater process (just once):
 	```sh
-	systemctl --user start hubble-enterprise.service
+	sudo systemctl start hubble-enterprise.service
 	```
 
 #### Upgrading
@@ -54,14 +54,14 @@ The updater may be run in two modes:
 	```
 1. If the `systemd` files (the service or timer file) have changed, let systemd adapt to the changes:
 	```sh
-	systemctl --user daemon-reexec
+	sudo systemctl daemon-reexec
 	```
 
 #### Uninstallation
 
 1. Disable the **periodic** updater process:
 	```sh
-	systemctl --user disable hubble-enterprise.timer
+	sudo systemctl disable hubble-enterprise.timer
 	```
 1. Remove the package:
 	```sh
@@ -72,7 +72,7 @@ The updater may be run in two modes:
 
 The updater’s log is accessible as follows:
 ```sh
-journalctl -f --user-unit hubble-enterprise.service
+journalctl -fu hubble-enterprise.service
 ```
 
 #### Debian Packaging
