@@ -5,17 +5,15 @@
   "scripts": {
     "lint": "eslint .",
     "start": "echo \"is there jekyll for node?\"",
-    "test": "karma start spec/karma.conf.js",
-    "cover": "istanbul cover --root lib --print detail jasmine"
+    "test": "karma start spec/karma.conf.js"
   },
   "devDependencies": {
     "eslint": "^4.10.0",
-    "istanbul": "^0.4.5",
     "jasmine": "^2.8.0",
     "karma": "^1.7.1",
     "karma-chrome-launcher": "^2.2.0",
-    "karma-jasmine": "^1.1.1",
-    "phantomjs-prebuilt": "^2.1.16"
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.1.1"
   },
   "engines": {
     "node": ">= 6.0.0"

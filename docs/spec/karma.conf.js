@@ -14,6 +14,7 @@ module.exports = function(config) {
 
     plugins: [
       'karma-chrome-launcher',
+      'karma-coverage',
       'karma-jasmine'
     ],
 
@@ -39,14 +40,18 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'assets/js/*.js': ['coverage']
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
 
+    coverageReporter: {
+      type : 'text-summary'
+    },
 
     // web server port
     port: 9876,
