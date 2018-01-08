@@ -6,5 +6,8 @@
         "node": true,
         "jasmine": true,
         "jquery": true
+    },
+    "globals": {
+        "d3": false
     }
 }
