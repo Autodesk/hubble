@@ -21,7 +21,7 @@ if ghe_greater_equal "2.11.0" ; then
     # be rotated already).
     CAT_LOG_FILE="zcat -f /var/log/github-audit.{log.1*,log} | grep -F '$(date --date='yesterday' +'%b %_d')'"
 else
-    # check yesterday’s log file
+    # check yesterday's log file
     CAT_LOG_FILE="zcat -f /var/log/github/audit.log.1*"
 fi
 
