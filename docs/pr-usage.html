@@ -4,43 +4,35 @@ title: Pull Request usage in %
 permalink: /pr-usage
 ---
 
-<h3>Pull Request Usage</h3>
-
-<div class="row">
-	<div class="col-main">
-		<div class="chart-container">
-			<canvas
-				class="chart"
-				data-url="{{ site.dataURL }}/pull-request-usage.tsv"
-				data-type="history"
-			></canvas>
-		</div>
+<div class="chart-placeholder">
+	<h3>Pull Request Usage</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/pull-request-usage.tsv"
+		data-type="history"
+	></canvas>
+	<div class="info-box">
+		<p>
+			The percentage of active repositories located in organizations, having more than one contributor, and using pull requests for contributions.
+		</p>
+		<p>
+			In this context, <em>active</em> designates repositories with at least two users that have pushed commits in the last four weeks.
+			The rationale behind this is that pull request usage is most important in a collaborative environment.
+		</p>
+		<p>
+			High pull request usage might indicate a high number of code reviews.
+		</p>
 	</div>
-	<div class="col-aside">
-		<div class="info-box">
-			<p>
-				The percentage of active repositories located in organizations, having more than one contributor, and using pull requests for contributions.
-			</p>
-			<p>
-				In this context, <em>active</em> designates repositories with at least two users that have pushed commits in the last four weeks.
-				The rationale behind this is that pull request usage is most important in a collaborative environment.
-			</p>
-			<p>
-				High pull request usage might indicate a high number of code reviews.
-			</p>
-		</div>
-		<div class="info-box">
-			<p>
-				For reference, the percentage of status usage in these pull requests is visualized.
-			</p>
-			<p>
-				High status usage might indicate high CI usage.
-			</p>
-		</div>
-		<div class="info-box">
-			<p>
-				Repositories in personal accounts and repositories with a single contributor are ignored, as they are less likely to use pull requests.
-			</p>
-		</div>
+	<div class="info-box">
+		<p>
+			For reference, the percentage of status usage in these pull requests is visualized.
+		</p>
+		<p>
+			High status usage might indicate high CI usage.
+		</p>
+	</div>
+	<div class="info-box">
+		<p>
+			Repositories in personal accounts and repositories with a single contributor are ignored, as they are less likely to use pull requests.
+		</p>
 	</div>
 </div>

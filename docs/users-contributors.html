@@ -3,46 +3,31 @@ layout: default
 title: Contributors
 permalink: /users-contributors
 ---
-<h3>Contributors (Last Month, by Repository)</h3>
 
-<div class="row">
-	<div class="col-main">
-		<div class="chart-container">
-			<canvas
-				class="chart"
-				data-url="{{ site.dataURL }}/contributors-by-repository.tsv"
-				data-type="list"
-				data-config='{"sliceData": [0, 20]}'
-			></canvas>
-		</div>
-	</div>
-	<div class="col-aside">
-		<div class="info-box">
-			<p>
-				The top 20 repositories with the most contributors.
-			</p>
-		</div>
+<div class="chart-placeholder">
+	<h3>Contributors (Last Month, by Repository)</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/contributors-by-repository.tsv"
+		data-type="list"
+		data-config='{"sliceData": [0, 20]}'
+	></canvas>
+	<div class="info-box">
+		<p>
+			The top 20 repositories with the most contributors.
+		</p>
 	</div>
 </div>
 
-<h3>Contributors (Last Month, by Organization)</h3>
-
-<div class="row">
-	<div class="col-main">
-		<div class="chart-container">
-			<canvas
-				class="chart"
-				data-url="{{ site.dataURL }}/contributors-by-organization.tsv"
-				data-type="list"
-				data-config='{"sliceData": [0, 20]}'
-			></canvas>
-		</div>
-	</div>
-	<div class="col-aside">
-		<div class="info-box">
-			<p>
-				The top 20 organizations with the most contributors.
-			</p>
-		</div>
+<div class="chart-placeholder">
+	<h3>Contributors (Last Month, by Organization)</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/contributors-by-organization.tsv"
+		data-type="list"
+		data-config='{"sliceData": [0, 20]}'
+	></canvas>
+	<div class="info-box">
+		<p>
+			The top 20 organizations with the most contributors.
+		</p>
 	</div>
 </div>
