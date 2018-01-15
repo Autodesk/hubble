@@ -3,23 +3,16 @@ layout: default
 title: Git
 permalink: /users-git-versions
 ---
-<h3>Git Versions</h3>
 
-<div class="row">
-	<div class="col-main">
-		<div class="chart-container">
-			<canvas
-				class="chart"
-				data-url="{{ site.dataURL }}/git-versions.tsv"
-				data-type="list"
-			></canvas>
-		</div>
-	</div>
-	<div class="col-aside">
-		<div class="info-box">
-			<p>
-				Shows how many users signed in with which Git version.
-			</p>
-		</div>
+<div class="chart-placeholder">
+	<h3>Git Versions</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/git-versions.tsv"
+		data-type="list"
+	></canvas>
+	<div class="info-box">
+		<p>
+			Shows how many users signed in with which Git version.
+		</p>
 	</div>
 </div>

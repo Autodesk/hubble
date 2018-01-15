@@ -798,38 +798,48 @@ $(window).bind('load', function()
 {
     Chart.defaults.global.defaultFontFamily = '\'Open Sans\', sans-serif';
 
-    const charts = $('.chart');
+    const chartPlaceholders = $('.chart-placeholder');
 
-    charts.each(
-        function(index, canvas)
+    chartPlaceholders.each(
+        function(index, chartPlaceholder)
         {
-            switch ($(canvas).attr('data-type'))
-            {
-                case 'history':
-                    return createHistoryChart(canvas);
-                case 'list':
-                    return createList(canvas);
-            }
-        });
-});
+            const titles = $(chartPlaceholder).find('h3');
+            const charts = $(chartPlaceholder).find('canvas, svg, table');
+            const canvases = $(chartPlaceholder).find('canvas, svg');
+            const tables = $(chartPlaceholder).find('table');
+            const infoBoxes = $(chartPlaceholder).find('.info-box');
 
-$(window).bind('load', function()
-{
-    const tables = $('.table');
-    tables.each(
-        function(index, table)
-        {
-            return createTable(table);
-        });
-});
+            // Draw the title before the chart container
+            titles.insertBefore(chartPlaceholder);
 
-$(window).bind('load', function()
-{
-    const collabs = $('.collaboration');
+            // Turn the placeholder into a proper layout row
+            $(chartPlaceholder).removeClass('chart-placeholder');
+            $(chartPlaceholder).addClass('row');
 
-    collabs.each(
-        function(index, collab)
-        {
-            return createCollaborationChart(collab);
+            // Put the canvas into the main column
+            $(charts).wrapAll('<div class="col-main"><div class="chart-container"></div></div>');
+            // Put all the info boxes into the aside column
+            infoBoxes.wrapAll('<div class="col-aside"></div>');
+
+            // Create the actual charts
+            canvases.each(
+                function(index, canvas)
+                {
+                    switch ($(canvas).attr('data-type'))
+                    {
+                        case 'history':
+                            return createHistoryChart(canvas);
+                        case 'list':
+                            return createList(canvas);
+                        case 'collaboration':
+                            return createCollaborationChart(canvas);
+                    }
+                });
+
+            tables.each(
+                function(index, table)
+                {
+                    return createTable(table);
+                });
         });
 });

@@ -3,43 +3,36 @@ layout: default
 title: User Activity
 permalink: /users-activity
 ---
-<h3>Users (Active/Using License)</h3>
 
-<div class="row">
-	<div class="col-main">
-		<div class="chart-container">
-			<canvas
-				class="chart"
-				data-url="{{ site.dataURL }}/users.tsv"
-				data-type="history"
-				data-config='{
-					"series": [
-						"using license",
-						"pushing commits (last month)",
-						"pushing commits (last week)",
-						"pushing commits (last day)"
-					],
-					"visibleSeries": [
-						"using license",
-						"pushing commits (last month)"
-					]
-				}'
-			></canvas>
-		</div>
+<div class="chart-placeholder">
+	<h3>Users (Active/Using License)</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/users.tsv"
+		data-type="history"
+		data-config='{
+			"series": [
+				"using license",
+				"pushing commits (last month)",
+				"pushing commits (last week)",
+				"pushing commits (last day)"
+			],
+			"visibleSeries": [
+				"using license",
+				"pushing commits (last month)"
+			]
+		}'
+	></canvas>
+	<div class="info-box">
+		<p>
+			<i>Using license</i> shows how many GitHub Enterprise licenses were used at a given date.
+		</p>
+		<p>
+			<i>Pushing commits</i> corresponds to how many different people pushed commits to the appliance in the last month, week, or day.
+		</p>
 	</div>
-	<div class="col-aside">
-		<div class="info-box">
-			<p>
-				<i>Using license</i> shows how many GitHub Enterprise licenses were used at a given date.
-			</p>
-			<p>
-				<i>Pushing commits</i> corresponds to how many different people pushed commits to the appliance in the last month, week, or day.
-			</p>
-		</div>
-		<div class="info-box">
-			<p>
-				The gap to <i>using license</i> indicates the number of people who didn’t log in or push code (for example, people who only read or comment code).
-			</p>
-		</div>
+	<div class="info-box">
+		<p>
+			The gap to <i>using license</i> indicates the number of people who didn’t log in or push code (for example, people who only read or comment code).
+		</p>
 	</div>
 </div>

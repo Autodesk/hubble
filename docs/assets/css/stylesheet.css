@@ -631,3 +631,8 @@ a
 		display: none;
 	}
 }
+
+.chart-placeholder
+{
+	display: none;
+}

@@ -4,80 +4,57 @@ title: Git Traffic
 permalink: /housekeeping-git-traffic
 ---
 
-<h3>Operations</h3>
-
-<div class="row">
-	<div class="col-main">
-		<div class="chart-container">
-			<canvas
-				class="chart"
-				data-url="{{ site.dataURL }}/git-download.tsv"
-				data-type="history"
-				data-config='{
-					"series": [
-						"clones/day",
-						"fetches/day"
-					]
-				}'
-			></canvas>
-		</div>
-	</div>
-	<div class="col-aside">
-		<div class="info-box">
-			<p>
-				<em>Cloning</em> a Git repository is expensive, as the entire repository history must be transferred.
-				Clients that have cloned a repository before should rather <em>fetch</em> the latest changes.
-				This is (sometimes dramatically!) faster for the client and less expensive for the server.
-			</p>
-			<p>
-				High numbers of clone operations usually indicate an unfavorably configured CI process.
-			</p>
-		</div>
+<div class="chart-placeholder">
+	<h3>Operations</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/git-download.tsv"
+		data-type="history"
+		data-config='{
+			"series": [
+				"clones/day",
+				"fetches/day"
+			]
+		}'
+	></canvas>
+	<div class="info-box">
+		<p>
+			<em>Cloning</em> a Git repository is expensive, as the entire repository history must be transferred.
+			Clients that have cloned a repository before should rather <em>fetch</em> the latest changes.
+			This is (sometimes dramatically!) faster for the client and less expensive for the server.
+		</p>
+		<p>
+			High numbers of clone operations usually indicate an unfavorably configured CI process.
+		</p>
 	</div>
 </div>
 
-<h3>Transferred Data</h3>
-
-<div class="row">
-	<div class="col-main">
-		<div class="chart-container">
-			<canvas
-				class="chart"
-				data-url="{{ site.dataURL }}/git-download.tsv"
-				data-type="history"
-				data-config='{
-					"series": [
-						"clone traffic/day [GB]",
-						"fetch traffic/day [GB]"
-					]
-				}'
-			></canvas>
-		</div>
-	</div>
-	<div class="col-aside">
-		<div class="info-box">
-			<p>
-				The amount of data transferred for clones and fetches.
-			</p>
-			<p>
-				To save resources, you should try to minimize the number of clones, especially for large repositories.
-			</p>
-		</div>
+<div class="chart-placeholder">
+	<h3>Transferred Data</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/git-download.tsv"
+		data-type="history"
+		data-config='{
+			"series": [
+				"clone traffic/day [GB]",
+				"fetch traffic/day [GB]"
+			]
+		}'
+	></canvas>
+	<div class="info-box">
+		<p>
+			The amount of data transferred for clones and fetches.
+		</p>
+		<p>
+			To save resources, you should try to minimize the number of clones, especially for large repositories.
+		</p>
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-main">
-		<table
-			class="table"
-			data-url="{{ site.dataURL }}/git-download-detailed.tsv"
-		></table>
-	</div>
-	<div class="col-aside">
-		<div class="info-box">
-			<p>
-				This table lists the repositories that accounted for the majority of the traffic yesterday.
-			</p>
-		</div>
+<div class="chart-placeholder">
+	<table data-url="{{ site.dataURL }}/git-download-detailed.tsv"></table>
+	<div class="info-box">
+		<p>
+			This table lists the repositories that accounted for the majority of the traffic yesterday.
+		</p>
 	</div>
 </div>

@@ -3,43 +3,31 @@ layout: default
 title: Forks
 permalink: /housekeeping-forks
 ---
-<h3>Forks to Organizations</h3>
 
-<div class="row">
-	<div class="col-main">
-		<div class="chart-container">
-			<canvas
-				class="chart"
-				data-url="{{ site.dataURL }}/forks-to-organizations.tsv"
-				data-type="history"
-			></canvas>
-		</div>
+<div class="chart-placeholder">
+	<h3>Forks to Organizations</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/forks-to-organizations.tsv"
+		data-type="history"
+	></canvas>
+	<div class="info-box">
+		<p>
+			Forks to personal user accounts are a great way to contribute code.
+		</p>
+		<p>
+			Forks to organizations can be troublesome, as they promote multiple (sometimes even incompatible) versions of the same component within a company.
+		</p>
+		<p>
+			Therefore, you should try to reduce them.
+		</p>
 	</div>
-	<div class="col-aside">
-		<div class="info-box">
-			<p>
-				Forks to personal user accounts are a great way to contribute code.
-			</p>
-			<p>
-				Forks to organizations can be troublesome, as they promote multiple (sometimes even incompatible) versions of the same component within a company.
-			</p>
-			<p>
-				Therefore, you should try to reduce them.
-			</p>
-		</div>
-		<div class="info-box">
-			<p>
-				See <a href="https://medium.com/@larsxschneider/talk-dont-fork-743a1253b8d5">this blog post</a> for more information.
-			</p>
-		</div>
+	<div class="info-box">
+		<p>
+			See <a href="https://medium.com/@larsxschneider/talk-dont-fork-743a1253b8d5">this blog post</a> for more information.
+		</p>
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-main">
-		<table
-			class="table"
-			data-url="{{ site.dataURL }}/forks-to-organizations-detailed.tsv"
-		></table>
-	</div>
+<div class="chart-placeholder">
+	<table data-url="{{ site.dataURL }}/forks-to-organizations-detailed.tsv"></table>
 </div>

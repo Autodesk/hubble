@@ -4,42 +4,27 @@ title: Git Requests
 permalink: /housekeeping-git-requests
 ---
 
-<h3>Git Requests</h3>
-
-<div class="row">
-	<div class="col-main">
-		<div class="chart-container">
-			<canvas
-				class="chart"
-				data-url="{{ site.dataURL }}/git-requests.tsv"
-				data-type="history"
-			></canvas>
-		</div>
-	</div>
-	<div class="col-aside">
-		<div class="info-box">
-			<p>
-				The total number of Git requests (includes pushes, fetches, and clones).
-			</p>
-			<p>
-				High numbers usually indicate unfavorably configured CI processes.
-			</p>
-		</div>
+<div class="chart-placeholder">
+	<h3>Git Requests</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/git-requests.tsv"
+		data-type="history"
+	></canvas>
+	<div class="info-box">
+		<p>
+			The total number of Git requests (includes pushes, fetches, and clones).
+		</p>
+		<p>
+			High numbers usually indicate unfavorably configured CI processes.
+		</p>
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-main">
-		<table
-			class="table"
-			data-url="{{ site.dataURL }}/git-requests-detailed.tsv"
-		></table>
-	</div>
-	<div class="col-aside">
-		<div class="info-box">
-			<p>
-				This table lists the repositories that accounted for the majority of Git requests yesterday.
-			</p>
-		</div>
+<div class="chart-placeholder">
+	<table data-url="{{ site.dataURL }}/git-requests-detailed.tsv"></table>
+	<div class="info-box">
+		<p>
+			This table lists the repositories that accounted for the majority of Git requests yesterday.
+		</p>
 	</div>
 </div>
