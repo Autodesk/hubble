@@ -6,9 +6,11 @@
     "lint": "eslint .",
     "start": "echo \"is there jekyll for node?\"",
     "unit-test": "karma start spec/karma.conf.js",
-    "test": "npm run unit-test && npm run lint"
+    "test": "npm run unit-test && npm run lint",
+    "codecov": "codecov"
   },
   "devDependencies": {
+    "codecov": "^3.0.0",
     "eslint": "^4.10.0",
     "jasmine": "^2.8.0",
     "karma": "^1.7.1",
