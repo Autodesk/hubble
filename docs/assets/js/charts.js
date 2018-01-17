@@ -809,8 +809,20 @@ $(window).bind('load', function()
             const tables = $(chartPlaceholder).find('table');
             const infoBoxes = $(chartPlaceholder).find('.info-box');
 
-            // Draw the title before the chart container
-            titles.insertBefore(chartPlaceholder);
+            // Put a bar with the title and additional actions before the chart container
+            if ($(canvases.first()).attr('data-url'))
+            {
+                titles.insertBefore(chartPlaceholder).wrapAll(
+                    '<div class="row action-bar"><div class="col-main"></div></div>');
+
+                // Add an action box as the first info box
+                const downloadLink = '<a class="button" href="' + $(canvases.first()).attr('data-url')
+                                   + '" target="_blank">Raw data</a>';
+                titles.parent().parent().append(
+                    '<div class="col-aside"><div class="info-box"><p>' + downloadLink + '</p></div></div>');
+            }
+            else
+                titles.insertBefore(chartPlaceholder).wrap('<div class="row"></div>');
 
             // Turn the placeholder into a proper layout row
             $(chartPlaceholder).removeClass('chart-placeholder');
