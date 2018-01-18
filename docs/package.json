@@ -7,7 +7,7 @@
     "start": "echo \"is there jekyll for node?\"",
     "unit-test": "karma start spec/karma.conf.js",
     "test": "npm run unit-test && npm run lint",
-    "codecov": "codecov"
+    "codecov": "codecov -F docs"
   },
   "devDependencies": {
     "codecov": "^3.0.0",
