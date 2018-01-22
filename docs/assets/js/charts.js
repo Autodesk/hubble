@@ -820,7 +820,7 @@ $(window).bind('load', function()
             const infoBoxes = $(chartPlaceholder).find('.info-box');
 
             // Put a bar with the title and additional actions before the chart container
-            if ($(charts.first()).attr('data-url'))
+            if (readConfig($(charts.first()), 'showRawDataLink') != false && $(charts.first()).attr('data-url'))
             {
                 titles.insertBefore(chartPlaceholder).wrapAll(
                     '<div class="row action-bar"><div class="col-main"></div></div>');
