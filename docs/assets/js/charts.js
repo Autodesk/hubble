@@ -723,7 +723,7 @@ function visualizeSingleOrg(orgs, matrix, orgID)
     drawCoord(orgs, matrix);
 }
 
-function createCollaborationChart(canvas)
+function createChordChart(canvas)
 {
     const url = $(canvas).data('url');
     const quota = 50;
@@ -831,8 +831,8 @@ $(window).bind('load', function()
                             return createHistoryChart(canvas);
                         case 'list':
                             return createList(canvas);
-                        case 'collaboration':
-                            return createCollaborationChart(canvas);
+                        case 'chord':
+                            return createChordChart(canvas);
                     }
                 });
 
