@@ -1,12 +1,12 @@
-/* global createCollaborationChart, createHistoryChart, createList, createTable, createSpinner */
+/* global createChordChart, createHistoryChart, createList, createTable, createSpinner */
 
 describe('global charts.js', function()
 {
-    describe('createCollaborationChart function', function()
+    describe('createChordChart function', function()
     {
         it('should exist', function()
         {
-            expect(createCollaborationChart).toBeDefined();
+            expect(createChordChart).toBeDefined();
         });
     });
     describe('createHistoryChart function', function()
