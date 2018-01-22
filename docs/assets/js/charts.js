@@ -810,13 +810,13 @@ $(window).bind('load', function()
             const infoBoxes = $(chartPlaceholder).find('.info-box');
 
             // Put a bar with the title and additional actions before the chart container
-            if ($(canvases.first()).attr('data-url'))
+            if ($(charts.first()).attr('data-url'))
             {
                 titles.insertBefore(chartPlaceholder).wrapAll(
                     '<div class="row action-bar"><div class="col-main"></div></div>');
 
                 // Add an action box as the first info box
-                const downloadLink = '<a class="button" href="' + $(canvases.first()).attr('data-url')
+                const downloadLink = '<a class="button" href="' + $(charts.first()).attr('data-url')
                                    + '" target="_blank">Raw data</a>';
                 titles.parent().parent().append(
                     '<div class="col-aside"><div class="info-box"><p>' + downloadLink + '</p></div></div>');
