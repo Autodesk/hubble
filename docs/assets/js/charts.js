@@ -461,7 +461,7 @@ function createTable(table)
     });
 }
 
-function drawCoord(orgs, matrix)
+function drawChord(orgs, matrix)
 {
     function fadeRibbon(opacity)
     {
@@ -689,7 +689,7 @@ function visualizeOrgsWithTopConnections(orgs, matrix, quota)
         }
     }
 
-    drawCoord(orgs, matrix);
+    drawChord(orgs, matrix);
 }
 
 function visualizeSingleOrg(orgs, matrix, orgID)
@@ -730,7 +730,7 @@ function visualizeSingleOrg(orgs, matrix, orgID)
         }
     }
 
-    drawCoord(orgs, matrix);
+    drawChord(orgs, matrix);
 }
 
 function createChordChart(canvas)
