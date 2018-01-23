@@ -399,6 +399,11 @@ a
 	width: 100%;
 }
 
+.row h3
+{
+	margin: 0;
+}
+
 .info-box
 {
 	background-color: #f5f5f5;
@@ -641,11 +646,6 @@ a
 {
 	margin-top: 4rem;
 	margin-bottom: 1rem;
-}
-
-.action-bar h3
-{
-	margin: 0;
 }
 
 button,
