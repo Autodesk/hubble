@@ -5,3 +5,6 @@ hubble-data
 
 # nodejs bits
 node_modules
+
+# code coverage artifacts
+coverage
