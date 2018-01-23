@@ -113,11 +113,26 @@ const stackedBarChartDefaults =
     maintainAspectRatio: false
 };
 
+function hasConfig(element, key)
+{
+    return element.data('config') && (key in element.data('config'));
+}
+
+function readConfig(element, key)
+{
+    if (!hasConfig(element, key))
+        return undefined;
+
+    return element.data('config')[key];
+}
+
 function createSpinner(canvas)
 {
     let parent = $('<div style="position:absolute;height:100%;width:100%;" class="spinner-container"></div>');
     parent.insertBefore($(canvas));
+
     let spinner = new Spinner().spin(parent[0]);
+
     return {
         stop: function()
         {
@@ -132,6 +147,7 @@ function createHistoryChart(canvas)
     const url = $(canvas).data('url');
 
     let spinner = createSpinner(canvas);
+
     d3.tsv(url,
         function(row)
         {
@@ -153,8 +169,7 @@ function createHistoryChart(canvas)
 
             const context = canvas.getContext('2d');
 
-            if ($(canvas).data('config') && 'aggregate' in $(canvas).data('config') &&
-                $(canvas).data('config').aggregate == 'weekly')
+            if (readConfig($(canvas), 'aggregate') == 'weekly')
             {
                 let aggregatedData = Array();
                 data.sort(
@@ -192,21 +207,18 @@ function createHistoryChart(canvas)
                 data = aggregatedData;
             }
 
-            if ($(canvas).data('config') && 'sliceData' in $(canvas).data('config'))
-                data = data.slice($(canvas).data('config').sliceData[0], $(canvas).data('config').sliceData[1]);
+            if (hasConfig($(canvas), 'sliceData'))
+                data = data.slice(readConfig($(canvas), 'sliceData')[0], readConfig($(canvas), 'sliceData')[1]);
 
             const originalDataSeries = Object.keys(data[0]).slice(1);
 
-            let dataSeries, visibleDataSeries;
-            if ($(canvas).data('config') && 'series' in $(canvas).data('config'))
-                dataSeries = $(canvas).data('config').series;
-            else
-                dataSeries = originalDataSeries;
+            const dataSeries = hasConfig($(canvas), 'series')
+                ? readConfig($(canvas), 'series')
+                : originalDataSeries;
 
-            if ($(canvas).data('config') && 'visibleSeries' in $(canvas).data('config'))
-                visibleDataSeries = $(canvas).data('config').visibleSeries;
-            else
-                visibleDataSeries = originalDataSeries;
+            const visibleDataSeries = hasConfig($(canvas), 'visibleSeries')
+                ? readConfig($(canvas), 'visibleSeries')
+                : originalDataSeries;
 
             let chartData = Array();
 
@@ -259,6 +271,7 @@ function createList(canvas)
     const url = $(canvas).data('url');
 
     let spinner = createSpinner(canvas);
+
     d3.tsv(url,
         function(row)
         {
@@ -280,19 +293,16 @@ function createList(canvas)
 
             const context = canvas.getContext('2d');
 
-            if ($(canvas).data('config') && 'sliceData' in $(canvas).data('config'))
-                data = data.slice($(canvas).data('config').sliceData[0], $(canvas).data('config').sliceData[1]);
+            if (hasConfig($(canvas), 'sliceData'))
+                data = data.slice(readConfig($(canvas), 'sliceData')[0], readConfig($(canvas), 'sliceData')[1]);
 
-            let types, visibleTypes;
-            if ($(canvas).data('config') && 'series' in $(canvas).data('config'))
-                types = $(canvas).data('config').series;
-            else
-                types = Object.keys(data[0]).slice(1);
+            const types = hasConfig($(canvas), 'series')
+                ? readConfig($(canvas), 'series')
+                : Object.keys(data[0]).slice(1);
 
-            if ($(canvas).data('config') && 'visibleSeries' in $(canvas).data('config'))
-                visibleTypes = $(canvas).data('config').visibleSeries;
-            else
-                visibleTypes = types;
+            const visibleTypes = hasConfig($(canvas), 'visibleSeries')
+                ? readConfig($(canvas), 'visibleSeries')
+                : types;
 
             let chartData = Array();
 
@@ -329,8 +339,7 @@ function createList(canvas)
 
             $(canvas).attr('height', data.length * barWidth);
 
-            const isStacked = $(canvas).data('config') && 'stacked' in $(canvas).data('config') &&
-                $(canvas).data('config').stacked;
+            const isStacked = (readConfig($(canvas), 'stacked') == true);
             let options = isStacked ? stackedBarChartDefaults : barChartDefaults;
             options['legend']['display'] = (types.length > 1);
 
@@ -366,6 +375,7 @@ function createTable(table)
     const url = $(table).data('url');
 
     let spinner = createSpinner(table);
+
     d3.tsv(url,
         function(error, data)
         {
