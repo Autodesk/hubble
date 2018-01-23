@@ -1,6 +1,6 @@
 [![Logo Banner](logo-banner.svg)](https://autodesk.github.io/hubble/)
 
-# Hubble Enterprise [![GitHub Release](https://img.shields.io/github/release/autodesk/hubble.svg?maxAge=3600)](https://github.com/autodesk/hubble/releases) [![CI Status](https://travis-ci.org/Autodesk/hubble.svg?branch=master)](https://travis-ci.org/Autodesk/hubble)
+# Hubble Enterprise [![GitHub Release](https://img.shields.io/github/release/autodesk/hubble.svg?maxAge=3600)](https://github.com/autodesk/hubble/releases) [![CI Status](https://travis-ci.org/Autodesk/hubble.svg?branch=master)](https://travis-ci.org/Autodesk/hubble) [![codecov](https://codecov.io/gh/Autodesk/hubble/branch/master/graph/badge.svg)](https://codecov.io/gh/Autodesk/hubble)
 
 _Hubble Enterprise_ visualizes [GitHub Enterprise](https://enterprise.github.com) collaboration, usage, and health data.
 
