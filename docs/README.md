@@ -46,10 +46,10 @@ For details on how each kind of chart is rendered, take a look at [`charts.js`](
 
 | option | values | description |
 |---|---|---|
-|  `series ` | array of strings | only include these data series and drop all others (referenced by TSV table headings) |
-|  `visibleSeries ` | array of strings | only show the listed data series and hide all others initially (referenced by TSV table headings) |
-|  `sliceData ` | array `[t0, t1]` | slice the data from the TSV file as if `data.slice(t0, t1)` was called |
-|  `aggregate ` | weekly | if set to `weekly`, aggregate the data by week by computing the sum of the values within each week |
+| `series ` | array of strings | only include these data series and drop all others (referenced by TSV table headings) |
+| `visibleSeries ` | array of strings | only show the listed data series and hide all others initially (referenced by TSV table headings) |
+| `sliceData ` | array `[t0, t1]` | slice the data from the TSV file as if `data.slice(t0, t1)` was called |
+| `aggregate ` | weekly | if set to `weekly`, aggregate the data by week by computing the sum of the values within each week |
 
 ##### List Charts
 
