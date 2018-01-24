@@ -1,0 +1,34 @@
+---
+layout: default
+title: Organization Activity
+permalink: /orgs-activity
+---
+
+<div class="chart-placeholder">
+	<h3>Organizations (Active)</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/organization-activity.tsv"
+		data-type="history"
+		data-config='{
+			"series": [
+				"last four weeks",
+				"last week",
+				"last day"
+			],
+			"visibleSeries": [
+				"last four weeks"
+			]
+		}'
+		></canvas>
+	<div class="info-box">
+		<p>
+			Shows how many organizations are active.
+		</p>
+	</div>
+	<div class="info-box">
+		<p>
+			Organizations are counted as <em>active</em> if they received at
+			least one push to a repository within the respective time period.
+		</p>
+	</div>
+</div>
