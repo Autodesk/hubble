@@ -24,8 +24,10 @@
     - title: "Total"
       url: "/repos-total"
 - title: "Organizations"
-  url: "/orgs-total"
+  url: "/orgs-activity"
   subnavigation:
+    - title: "Activity"
+      url: "/orgs-activity"
     - title: "Total"
       url: "/orgs-total"
     - title: "Owners"
