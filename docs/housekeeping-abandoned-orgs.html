@@ -1,0 +1,26 @@
+---
+layout: default
+title: Forks
+permalink: /housekeeping-abandoned-orgs
+---
+
+<div class="chart-placeholder">
+	<h3>Abandoned Organizations</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/organizations-abandoned.tsv"
+		data-type="history"
+	></canvas>
+	<div class="info-box">
+		<p>
+			An organizations is considered <em>abandoned</em> if none of its repositories has received a push in the last year (ignoring <a href="https://help.github.com/articles/archiving-repositories/">archived</a> repositories).
+		</p>
+		<p>
+			If the content still has value, then you could <a href="https://help.github.com/articles/archiving-repositories/">archive</a> all repositories in these organizations to emphasize the fact that they are not maintained anymore.
+			If the content is not valuable anymore, then you could <a href="https://help.github.com/articles/deleting-an-organization-account/">delete the organization</a> to reduce clutter on your GitHub Enterprise appliance.
+		</p>
+	</div>
+</div>
+
+<div class="chart-placeholder">
+	<table data-url="{{ site.dataURL }}/organizations-abandoned-detailed.tsv"></table>
+</div>

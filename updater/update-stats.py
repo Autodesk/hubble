@@ -16,6 +16,7 @@ from reports.ReportGitVersions import *
 from reports.ReportOrgActivity import *
 from reports.ReportOrgCollaboration import *
 from reports.ReportOrgOwners import *
+from reports.ReportOrgsAbandoned import *
 from reports.ReportOrgsTotal import *
 from reports.ReportPRByOrg import *
 from reports.ReportPRByRepo import *
@@ -86,6 +87,7 @@ def main():
 	ReportOrgActivity(configuration, dataDirectory, metaStats).update()
 	ReportOrgCollaboration(configuration, dataDirectory, metaStats).update()
 	ReportOrgOwners(configuration, dataDirectory, metaStats).update()
+	ReportOrgsAbandoned(configuration, dataDirectory, metaStats).update()
 	ReportOrgsTotal(configuration, dataDirectory, metaStats).update()
 	ReportPRByOrg(configuration, dataDirectory, metaStats).update()
 	ReportPRByRepo(configuration, dataDirectory, metaStats).update()
