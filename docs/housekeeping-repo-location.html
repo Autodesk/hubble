@@ -1,0 +1,25 @@
+---
+layout: default
+title: Repository Location
+permalink: /housekeeping-repo-location
+---
+
+<div class="chart-placeholder">
+	<h3>Personal Repositories with Nonowner Pushes in the Last 4 Weeks</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/repositories-personal-nonowner-pushes.tsv"
+		data-type="history"
+	></canvas>
+	<div class="info-box">
+		<p>
+			Repositories in user accounts should only be pushed to by their owners, as these repositories might become unavailable or deleted if the owner leaves the company.
+		</p>
+		<p>
+			Repositories in which people actively collaborate should be <a href="https://help.github.com/articles/about-repository-transfers/">transferred</a> to an organization account.
+		</p>
+	</div>
+</div>
+
+<div class="chart-placeholder">
+	<table data-url="{{ site.dataURL }}/repositories-personal-nonowner-pushes-detailed.tsv"></table>
+</div>
