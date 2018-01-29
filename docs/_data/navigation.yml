@@ -45,6 +45,8 @@
       url: "/housekeeping-api-requests"
     - title: "Abandoned Organizations"
       url: "/housekeeping-abandoned-orgs"
+    - title: "Repository Location"
+      url: "/housekeeping-repo-location"
     - title: "Forks"
       url: "/housekeeping-forks"
 - title: "Recommendations"
