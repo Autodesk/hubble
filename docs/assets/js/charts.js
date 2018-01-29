@@ -897,7 +897,8 @@ $(window).bind('load', function()
 
                 // Add an action box as the first info box
                 const downloadLink = '<a class="button" href="' + $(charts.first()).attr('data-url')
-                                   + '" target="_blank">Raw data</a>';
+                                   + '" target="_blank" title="Download raw data">'
+                                   + '<i class="fas fa-download"></i></a>';
                 titles.parent().parent().append(
                     '<div class="col-aside"><div class="info-box"><p>' + downloadLink + '</p></div></div>');
             }
