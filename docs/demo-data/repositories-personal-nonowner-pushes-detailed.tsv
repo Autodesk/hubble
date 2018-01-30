@@ -1,3 +1,3 @@
-repository
-alice/something
-bob/else
+repository	nonowner pushers
+alice/something	4
+bob/else	1
