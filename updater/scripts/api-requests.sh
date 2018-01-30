@@ -6,6 +6,7 @@ echo -e "resource\ttype\tsource IP\trequests/day"
 
 zcat -f /var/log/haproxy.log.1* |
     perl -ne 'print if s/.*haproxy\[\d+\]: ([^:]+).*\/api\/v3\/([^\/\? ]+)\/([^\/\? ]+?(\/[^\/\? ]+)).*/\1 \2 \3/' |
+    grep -v '^127.0.0.1' |
     sort |
     uniq -c |
     sort -rn |
