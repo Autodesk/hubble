@@ -20,7 +20,8 @@ class ReportReposPersonalNonOwnerPushes(ReportDaily):
 		fourWeeksAgo = self.daysAgo(28)
 		query = '''
 			SELECT
-				CONCAT(users.login, "/", repositories.name) as "repository"
+				CONCAT(users.login, "/", repositories.name) as "repository",
+				COUNT(DISTINCT(pushes.pusher_id)) as "nonowner pushers"
 			FROM
 				repositories
 				JOIN users ON repositories.owner_id = users.id
@@ -33,6 +34,6 @@ class ReportReposPersonalNonOwnerPushes(ReportDaily):
 			GROUP BY
 				repositories.id
 			ORDER BY
-				1
+				2 DESC, 1
 		'''
 		return query
