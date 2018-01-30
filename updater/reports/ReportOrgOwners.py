@@ -17,7 +17,7 @@ class ReportOrgOwners(Report):
 				    .where("''' + self.andExcludedEntities("login", "").replace('"', '\\"') + '''")
 				    .order("login")
 				    .each do |org|
-					owners = org.admins.where(:disabled => false, :gh_role => nil)
+					owners = org.admins.where(:disabled => false, :suspended_at => nil, :gh_role => nil)
 					                   .where("''' +  self.andExcludedUsers("login", "").replace('"', '\\"') + '''")
 					                   .order("login")
 					                   .join(",")
