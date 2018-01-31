@@ -120,7 +120,7 @@ a
 	color: #f3f6fa;
 	display: inline-block;
 	font-size: 1.35rem;
-	font-weight: bold;
+	font-weight: 600;
 	margin: 0 2rem 0 0;
 	position: relative;
 	text-transform: uppercase;
@@ -192,7 +192,7 @@ a
 {
 	font-size: 1.5rem;
 	color: #21a0a7;
-	font-weight: normal;
+	font-weight: 600;
 	margin-bottom: 1rem;
 	margin-top: 4rem;
 }
@@ -312,7 +312,7 @@ a
 .main-content table thead
 {
 	border-bottom: 4px solid #e9ebec;
-	font-weight: bold;
+	font-weight: 600;
 }
 
 .main-content table tr
@@ -355,7 +355,7 @@ a
 .main-content dl dt
 {
 	font-size: 1rem;
-	font-weight: bold;
+	font-weight: 600;
 	margin-top: 1rem;
 	padding: 0;
 }
@@ -604,7 +604,7 @@ a
 .navigation-primary li a.active
 {
 	border-bottom-color: #00c4c8;
-	font-weight: bold;
+	font-weight: 600;
 }
 
 .navigation ul.navigation-secondary
@@ -626,7 +626,7 @@ a
 .navigation-secondary li a.active
 {
 	color: #404040;
-	font-weight: bold;
+	font-weight: 600;
 }
 
 @media not screen and (min-width: 42rem)
@@ -658,6 +658,7 @@ a.button
 	outline: 0;
 	border: 1px solid #c4c4c4;
 	border-radius: 0.25rem;
+	font-weight: 600;
 }
 
 button:hover,
