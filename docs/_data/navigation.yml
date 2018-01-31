@@ -54,3 +54,5 @@
   subnavigation:
     - title: "Tokenless Authentication"
       url: "/recommendations-tokenless-auth"
+    - title: "Legacy Teams"
+      url: "/recommendations-legacy-teams"
