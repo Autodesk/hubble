@@ -50,4 +50,7 @@
     - title: "Forks"
       url: "/housekeeping-forks"
 - title: "Recommendations"
-  url: "/recommendations"
+  url: "/recommendations-tokenless-auth"
+  subnavigation:
+    - title: "Tokenless Authentication"
+      url: "/recommendations-tokenless-auth"
