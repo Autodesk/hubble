@@ -46,10 +46,10 @@ For details on how each kind of chart is rendered, take a look at [`charts.js`](
 
 | option | values | description |
 |---|---|---|
-| `series ` | array of strings | only include these data series and drop all others (referenced by TSV table headings) |
-| `visibleSeries ` | array of strings | only show the listed data series and hide all others initially (referenced by TSV table headings) |
-| `sliceData ` | array `[t0, t1]` | slice the data from the TSV file as if `data.slice(t0, t1)` was called |
-| `aggregate ` | dictionary (see below) | defines how data should be aggregated (default: `undefined`, which leaves the data untouched) |
+| `series` | array of strings | only include these data series and drop all others (referenced by TSV table headings) |
+| `visibleSeries` | array of strings | only show the listed data series and hide all others initially (referenced by TSV table headings) |
+| `sliceData` | array `[t0, t1]` | slice the data from the TSV file as if `data.slice(t0, t1)` was called |
+| `aggregate` | dictionary (see below) | defines how data should be aggregated (default: `undefined`, which leaves the data untouched) |
 | `aggregate.period` | `week`, `month` | specifies the range over which the data shall be aggregated |
 | `aggregate.method` | `sum`, `mean`, `min`, `max`, `first`, `last`, `median` | specifies the aggregation method; `first` and `last` select the chronologically first or last data point present in each period, respectively |
 | `showRawDataLink` | `true`, `false` | show the link to download the chart’s raw data (default: `true`) |
@@ -58,7 +58,7 @@ For details on how each kind of chart is rendered, take a look at [`charts.js`](
 
 | option | values | description |
 |---|---|---|
-| `stacked ` | `true`, `false` | render the data series as stacked bars instead of showing multiple bars per row |
+| `stacked` | `true`, `false` | render the data series as stacked bars instead of showing multiple bars per row |
 
 ### Development
 
