@@ -254,6 +254,44 @@ function aggregateTimeData(data, aggregationConfig)
     return aggregatedData;
 }
 
+function buildHistoryChartData(view)
+{
+    const originalDataSeries = Object.keys(view.data[0]).slice(1);
+    const dataSeries = 'series' in view ? view.series : originalDataSeries;
+    const visibleDataSeries = 'visibleSeries' in view ? view.visibleSeries : originalDataSeries;
+
+    let chartData = Array();
+
+    let index = 0;
+
+    $.each(dataSeries,
+        function(dataSeriesID, dataSeries)
+        {
+            const color = chartColorSequence[index % chartColorSequence.length];
+            const backgroundColorString = 'rgba(' + color[0] + ', ' + color[1] + ', ' + color[2] + ', 0.25)';
+            const borderColorString = 'rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ')';
+
+            let seriesData =
+            {
+                label: dataSeries,
+                backgroundColor: backgroundColorString,
+                borderColor: borderColorString,
+                fill: true,
+                hidden: (visibleDataSeries.indexOf(dataSeries) == -1) ? true : false,
+            };
+
+            seriesData.data = view.data.map(function(row)
+            {
+                return {x: row.date, y: row[dataSeries]};
+            });
+            chartData.push(seriesData);
+
+            index++;
+        });
+
+    return chartData;
+}
+
 function createHistoryChart(canvas)
 {
     const url = $(canvas).data('url');
@@ -283,58 +321,67 @@ function createHistoryChart(canvas)
 
             const context = canvas.getContext('2d');
 
-            if (hasConfig($(canvas), 'slice'))
-                data = data.slice(readConfig($(canvas), 'slice')[0], readConfig($(canvas), 'slice')[1]);
+            // Collect the data for each view in an array
+            let views = readConfig($(canvas), 'views');
 
-            if (hasConfig($(canvas), 'aggregate'))
-                data = aggregateTimeData(data, $(canvas).data('config').aggregate);
-
-            const originalDataSeries = Object.keys(data[0]).slice(1);
-
-            const dataSeries = hasConfig($(canvas), 'series')
-                ? readConfig($(canvas), 'series')
-                : originalDataSeries;
-
-            const visibleDataSeries = hasConfig($(canvas), 'visibleSeries')
-                ? readConfig($(canvas), 'visibleSeries')
-                : originalDataSeries;
-
-            let chartData = Array();
-
-            let index = 0;
-
-            $.each(dataSeries,
-                function(dataSeriesID, dataSeries)
+            // Aggregate data for each view separately
+            if (views != undefined)
+            {
+                for (let i = 0; i < views.length; i++)
                 {
-                    const color = chartColorSequence[index % chartColorSequence.length];
-                    const backgroundColorString = 'rgba(' + color[0] + ', ' + color[1] + ', ' + color[2] +
-                        ', 0.25)';
-                    const borderColorString = 'rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ')';
+                    if ('aggregate' in views[i] && views[i].aggregate != false)
+                        views[i].data = aggregateTimeData(data, views[i].aggregate);
+                    else
+                        views[i].data = data;
+                }
+            }
+            else
+            {
+                views = [{'data': data, 'aggregate': false, 'default': true}];
 
-                    let seriesData =
-                    {
-                        label: dataSeries,
-                        backgroundColor: backgroundColorString,
-                        borderColor: borderColorString,
-                        fill: true,
-                        hidden: (visibleDataSeries.indexOf(dataSeries) == -1) ? true : false,
-                    };
+                // Compatibility with old format, to be removed after migrating all charts
+                if (hasConfig($(canvas), 'aggregate'))
+                    views[0]['aggregate'] = readConfig($(canvas), 'aggregate');
 
-                    seriesData.data = data.map(function(row)
-                    {
-                        return {x: row.date, y: row[dataSeries]};
-                    });
-                    chartData.push(seriesData);
+                if (hasConfig($(canvas), 'slice'))
+                    views[0]['slice'] = readConfig($(canvas), 'slice');
 
-                    index++;
+                if (hasConfig($(canvas), 'series'))
+                    views[0]['series'] = readConfig($(canvas), 'series');
+
+                if (hasConfig($(canvas), 'visibleSeries'))
+                    views[0]['visibleSeries'] = readConfig($(canvas), 'visibleSeries');
+            }
+
+            for (let i = 0; i < views.length; i++)
+            {
+                if ('slice' in views[i])
+                {
+                    const sliceIndex0 = Math.max(0, Math.min(views[i].data.length,
+                        views[i].data.length - views[i].slice[1]));
+                    const sliceIndex1 = Math.max(0, Math.min(views[i].data.length,
+                        views[i].data.length - views[i].slice[0]));
+                    views[i].data = views[i].data.slice(sliceIndex0, sliceIndex1);
+                }
+
+                views[i].chartData = buildHistoryChartData(views[i]);
+            }
+
+            let defaultView = views.find(
+                function(view)
+                {
+                    return (view['default'] == true);
                 });
+
+            if (defaultView == undefined)
+                defaultView = views[0];
 
             new Chart(context,
                 {
                     type: 'line',
                     data:
                     {
-                        datasets: chartData
+                        datasets: defaultView['chartData']
                     },
                     options: timeSeriesChartDefaults
                 });
