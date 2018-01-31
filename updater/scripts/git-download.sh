@@ -25,10 +25,32 @@ else
     CAT_LOG_FILE="zcat -f /var/log/github/audit.log.1*"
 fi
 
+if ghe_greater_equal "2.12.0" ; then
+    # Starting from GHE 2.12.0 the fields in github-audit.log are sorted
+    # alphabetically
+    printf -v EXTRACT_FIELDS "%s"               \
+        'print if s/.*'                         \
+            '"cloning":([^,]+).*'               \
+            '"program":"upload-pack".*'         \
+            '"repo_name":"([^"]+).*'            \
+            '"uploaded_bytes":([^,]+).*'        \
+            '"user_login":"([^"]+).*'           \
+        '/\2\t\4\t\1\t\3/'
+else
+    printf -v EXTRACT_FIELDS "%s"               \
+        'print if s/.*'                         \
+            '"program":"upload-pack".*'         \
+            '"repo_name":"([^"]+).*'            \
+            '"user_login":"([^"]+).*'           \
+            '"cloning":([^,]+).*'               \
+            '"uploaded_bytes":([^ ]+).*'        \
+        '/\1\t\2\t\3\t\4/'
+fi
+
 echo -e "repository\tuser\tcloning?\trequests/day\tdownload/day [B]"
 
 eval "$CAT_LOG_FILE" |
-    perl -ne 'print if s/.*"program":"upload-pack".*"repo_name":"([^"]+).*"user_login":"([^"]+).*"cloning":([^,]+).*"uploaded_bytes":([^ ]+).*/\1\t\2\t\3\t\4/' |
+    perl -ne "$EXTRACT_FIELDS" |
     sort |
     perl -ne '$S{$1} += $2 and $C{$1} += 1 if (/^(.+)\t(\d+)$/);END{printf("%s\t%i\t%i\n",$_,$C{$_},$S{$_}) for ( keys %S );}' |
     sort -rn -k5,5
