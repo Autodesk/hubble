@@ -422,19 +422,22 @@ a
 	margin-bottom: 0;
 }
 
-.info-box p
+.info-box p,
+.info-box > div
 {
 	padding: 1rem 1rem 0 1rem;
 	margin: 0;
 	font-size: 1rem;
 }
 
-.info-box p:first-child
+.info-box p:first-child,
+.info-box > div:first-child
 {
 	padding-top: 0.75rem;
 }
 
-.info-box p:last-child
+.info-box p:last-child,
+.info-box > div:last-child
 {
 	padding-bottom: 0.75rem;
 }
@@ -649,22 +652,27 @@ a
 }
 
 button,
-a.button
+a.button,
+.button-bar > div
 {
 	display: inline-block;
 	padding: 0.35rem 0.8rem;
 	color: #606c71;
-	background: linear-gradient(-180deg, #fafafa, #f5f5f5);
-	outline: 0;
 	border: 1px solid #c4c4c4;
 	border-radius: 0.25rem;
 	font-weight: 600;
 }
 
+button,
+a.button
+{
+	background: linear-gradient(-180deg, #fafafa, #f5f5f5);
+	outline: 0;
+}
+
 button:hover,
 a.button:hover
 {
-	color: #606c71;
 	background: linear-gradient(-180deg, #fcfcfc, #f8f8f8);
 	border-color: #cacaca;
 }
@@ -679,8 +687,63 @@ a.button:focus
 button:active,
 a.button:active
 {
-	color: #606c71;
-	background-color: #7fdee1;
 	border-color: #cacaca;
 	box-shadow: inset 0 0.15em 0.3em #d8d8d8;
+}
+
+button.active,
+a.button.active
+{
+	background: linear-gradient(-180deg, #3bb2b5, #34999b);
+	border: 1px solid #2e8687;
+	color: #ffffff;
+	font-weight: 600;
+}
+
+button.active:hover,
+a.button.active:hover
+{
+	background: linear-gradient(-180deg, #3db8bc, #38a0a4);
+	border: 1px solid #308c8d;
+}
+
+button.active:active,
+a.button.active:active
+{
+	box-shadow: inset 0 0.15em 0.3em #308c8d;
+}
+
+.button-bar
+{
+	display: flex;
+	flex-direction: row;
+}
+
+.button-bar > div
+{
+	background-color: #ffffff;
+}
+
+.button-bar button:not(:first-child):not(:last-child),
+.button-bar a.button:not(:first-child):not(:last-child),
+.button-bar > div:not(:first-child):not(:last-child)
+{
+	border-left: 1px solid #c4c4c4;
+	border-right: none;
+	border-radius: 0;
+}
+
+.button-bar button:first-child,
+.button-bar a.button:first-child,
+.button-bar > div:first-child
+{
+	border-right: none;
+	border-radius: 0.25rem 0 0 0.25rem;
+}
+
+.button-bar button:last-child,
+.button-bar a.button:last-child,
+.button-bar > div:last-child
+{
+	border-radius: 0 0.25rem 0.25rem 0;
 }
