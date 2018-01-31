@@ -520,7 +520,7 @@ function createTable(table)
 
                                 break;
                             default:
-                                cell.text(entry);
+                                cell.text(d);
                         }
                     }
                 });
