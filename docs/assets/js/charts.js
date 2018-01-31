@@ -142,6 +142,20 @@ function createSpinner(canvas)
     };
 }
 
+function sortTimeData(data)
+{
+    if (!(data instanceof Array))
+        throw 'expected data array as input';
+
+    // Turn date strings into proper date objects
+    for (let i = 0; i < data.length; i++)
+        data[i]['date'] = d3.isoParse(data[i]['date']);
+
+    // Sort the data
+    data.sort((row1, row2) => row1['date'] - row2['date']);
+}
+
+// Assumes that the data is sorted by date in ascending order
 function aggregateTimeData(data, aggregationConfig)
 {
     if (!(data instanceof Array))
@@ -149,13 +163,6 @@ function aggregateTimeData(data, aggregationConfig)
 
     if (data.length < 1)
         return;
-
-    // Turn date strings into proper date objects
-    for (let i = 0; i < data.length; i++)
-        data[i]['date'] = d3.isoParse(data[i]['date']);
-
-    // Sort data, just in case it isn’t already
-    data.sort((row1, row2) => row1['date'] - row2['date']);
 
     const dateStart = data[0]['date'];
     // Ranges are exclusive, so add one more day to include the last date
@@ -271,6 +278,8 @@ function createHistoryChart(canvas)
         {
             if (error)
                 throw error;
+
+            sortTimeData(data);
 
             const context = canvas.getContext('2d');
 
