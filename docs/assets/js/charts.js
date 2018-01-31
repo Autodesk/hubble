@@ -292,7 +292,7 @@ function buildHistoryChartData(view)
     return chartData;
 }
 
-function createHistoryChart(canvas)
+function createHistoryChart(canvas, actionBar)
 {
     const url = $(canvas).data('url');
 
@@ -376,7 +376,24 @@ function createHistoryChart(canvas)
             if (defaultView == undefined)
                 defaultView = views[0];
 
-            new Chart(context,
+            if (views.length > 1)
+            {
+                let buttons = `
+                    <div class="button-bar view-switch">
+                        <div title="Select time range to show"><i class="fas fa-calendar"></i></div>`;
+
+                for (let i = 0; i < views.length; i++)
+                    buttons += `
+                        <a class="button${views[i] === defaultView ? ' active' : ''}" href="#"
+                            title="${views[i].tooltip}" data-view-id="${i}">${views[i].label}</a>`;
+
+                buttons += `
+                    </div>`;
+
+                actionBar.prepend(buttons);
+            }
+
+            $(canvas).data('chart', new Chart(context,
                 {
                     type: 'line',
                     data:
@@ -384,6 +401,20 @@ function createHistoryChart(canvas)
                         datasets: defaultView['chartData']
                     },
                     options: timeSeriesChartDefaults
+                }));
+
+            $(canvas).data('views', views);
+
+            actionBar.find('.view-switch a').click(
+                function()
+                {
+                    $(this).parent().find('.active').removeClass('active');
+                    // Replace the visible data
+                    $(canvas).data('chart').data.datasets
+                        = $(canvas).data('views')[$(this).data('view-id')].chartData;
+                    // Trigger a Chart.js update
+                    $(canvas).data('chart').update();
+                    $(this).addClass('active');
                 });
         }
     ).on('load.spinner', function()
@@ -951,15 +982,25 @@ $(window).bind('load', function()
                 titles.insertBefore(chartPlaceholder).wrapAll(
                     '<div class="row action-bar"><div class="col-main"></div></div>');
 
-                // Add an action box as the first info box
-                const downloadLink = '<a class="button" href="' + $(charts.first()).attr('data-url')
-                                   + '" target="_blank" title="Download raw data">'
-                                   + '<i class="fas fa-download"></i></a>';
-                titles.parent().parent().append(
-                    '<div class="col-aside"><div class="info-box"><p>' + downloadLink + '</p></div></div>');
+                // Add an action bar as the first info box
+                titles.parent().parent().append(`
+                    <div class="col-aside">
+                        <div class="info-box">
+                            <div class="button-container">
+                                <div class="left">
+                                </div>
+                                <div class="right">
+                                    <a class="button" href="${$(charts.first()).attr('data-url')}" target="_blank"
+                                        title="Download raw data"><i class="fas fa-download"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`);
             }
             else
                 titles.insertBefore(chartPlaceholder).wrap('<div class="row"></div>');
+
+            const actionBar = titles.parent().parent().find('.button-container .left');
 
             // Turn the placeholder into a proper layout row
             $(chartPlaceholder).removeClass('chart-placeholder');
@@ -977,7 +1018,7 @@ $(window).bind('load', function()
                     switch ($(canvas).attr('data-type'))
                     {
                         case 'history':
-                            return createHistoryChart(canvas);
+                            return createHistoryChart(canvas, actionBar);
                         case 'list':
                             return createList(canvas);
                         case 'chord':
