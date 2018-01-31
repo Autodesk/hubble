@@ -274,8 +274,8 @@ function createHistoryChart(canvas)
 
             const context = canvas.getContext('2d');
 
-            if (hasConfig($(canvas), 'sliceData'))
-                data = data.slice(readConfig($(canvas), 'sliceData')[0], readConfig($(canvas), 'sliceData')[1]);
+            if (hasConfig($(canvas), 'slice'))
+                data = data.slice(readConfig($(canvas), 'slice')[0], readConfig($(canvas), 'slice')[1]);
 
             if (hasConfig($(canvas), 'aggregate'))
                 data = aggregateTimeData(data, $(canvas).data('config').aggregate);
@@ -363,8 +363,8 @@ function createList(canvas)
 
             const context = canvas.getContext('2d');
 
-            if (hasConfig($(canvas), 'sliceData'))
-                data = data.slice(readConfig($(canvas), 'sliceData')[0], readConfig($(canvas), 'sliceData')[1]);
+            if (hasConfig($(canvas), 'slice'))
+                data = data.slice(readConfig($(canvas), 'slice')[0], readConfig($(canvas), 'slice')[1]);
 
             const types = hasConfig($(canvas), 'series')
                 ? readConfig($(canvas), 'series')
