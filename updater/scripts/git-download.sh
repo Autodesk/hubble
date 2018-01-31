@@ -20,14 +20,17 @@ if ghe_greater_equal "2.11.0" ; then
     # most recent log files (because the information from yesterday may or not
     # be rotated already).
     CAT_LOG_FILE="zcat -f /var/log/github-audit.{log.1*,log} | grep -F '$(date --date='yesterday' +'%b %_d')'"
-
-    # The order in github-audit.log in GHE 2.12.x has been changed, to pick the right order PERL_REGEX is created.
-    PERL_REGEX='print if s/.*"cloning":([^,]+).*"program":"upload-pack".*"repo_name":"([^"]+).*"uploaded_bytes":([^,]+).*"user_login":"([^"]+).*/\2\t\4\t\1\t\3/'
-
 else
     # check yesterday's log file
     CAT_LOG_FILE="zcat -f /var/log/github/audit.log.1*"
-    PERL_REGEX='print if s/.*"program":"upload-pack".*"repo_name":"([^"]+).*"user_login":"([^"]+).*"cloning":([^,]+).*"uploaded_bytes":([^ ]+).*/\1\t\2\t\3\t\4/'
+fi
+
+if ghe_greater_equal "2.12.0" ; then
+      # The order in github-audit.log in GHE 2.12.x has been changed, to pick the right order PERL_REGEX is created.
+      PERL_REGEX='print if s/.*"cloning":([^,]+).*"program":"upload-pack".*"repo_name":"([^"]+).*"uploaded_bytes":([^,]+).*"user_login":"([^"]+).*/\2\t\4\t\1\t\3/'
+else
+      PERL_REGEX='print if s/.*"program":"upload-pack".*"repo_name":"([^"]+).*"user_login":"([^"]+).*"cloning":([^,]+).*"uploaded_bytes":([^ ]+).*/\1\t\2\t\3\t\4/'
+
 fi
 
 echo -e "repository\tuser\tcloning?\trequests/day\tdownload/day [B]"
