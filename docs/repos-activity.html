@@ -5,35 +5,57 @@ permalink: /repos-activity
 ---
 
 <div class="chart-placeholder">
-	<h3>Repositories (Active)</h3>
+	<h3>Active Repositories in Organizations</h3>
 	<canvas
 		data-url="{{ site.dataURL }}/repository-activity.tsv"
 		data-type="history"
 		data-config='{
 			"series": [
 				"in organizations (last four weeks)",
-				"in user accounts (last four weeks)",
 				"in organizations (last week)",
+				"in organizations (last day)"
+			],
+			"visibleSeries": [
+				"in organizations (last four weeks)"
+			]
+		}'
+		></canvas>
+	<div class="info-box">
+		<p>
+			Shows how many repositories are active in organizations.
+		</p>
+	</div>
+	<div class="info-box">
+		<p>
+			Repositories are counted as <em>active</em> if they received at least one push within the respective time period.
+		</p>
+	</div>
+</div>
+
+<div class="chart-placeholder">
+	<h3>Active Repositories in User Accounts</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/repository-activity.tsv"
+		data-type="history"
+		data-config='{
+			"series": [
+				"in user accounts (last four weeks)",
 				"in user accounts (last week)",
-				"in organizations (last day)",
 				"in user accounts (last day)"
 			],
 			"visibleSeries": [
-				"in organizations (last four weeks)",
 				"in user accounts (last four weeks)"
 			]
 		}'
 		></canvas>
 	<div class="info-box">
 		<p>
-			Shows how many repositories are active in organizations and user
-			accounts.
+			Shows how many repositories are active in user accounts.
 		</p>
 	</div>
 	<div class="info-box">
 		<p>
-			Repositories are counted as <em>active</em> if they received at
-			least one push within the respective time period.
+			Repositories are counted as <em>active</em> if they received at least one push within the respective time period.
 		</p>
 	</div>
 </div>
