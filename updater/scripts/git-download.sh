@@ -13,6 +13,14 @@ function ghe_greater_equal () {
     return $?
 }
 
+# Returns success (bash exit code 0) if the GHE version is in a given range.
+# The first value of the range is inclusive and last value exclusive.
+# E.g. 'ghe_between 2.11.4 2.12.2' means '2.11.4', '2.11.5', ..., '2.12.1'
+#      returns success and '2.12.2' does not return success.
+function ghe_between () {
+    ghe_greater_equal "$1" && ! ghe_greater_equal "$2"
+}
+
 if ghe_greater_equal "2.11.0" ; then
     # The "github-audit.log" log file introduced in GHE 2.11.0 is only rolled
     # once a week. This was reported as a bug and is likely fixed in an
