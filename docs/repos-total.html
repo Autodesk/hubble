@@ -8,11 +8,21 @@ permalink: /repos-total
 	<h3>Repositories (Total)</h3>
 	<canvas
 		data-url="{{ site.dataURL }}/repository-history.tsv"
-		data-type="history"'
+		data-type="history"
+		data-config='{
+			"series": [
+				"in organizations",
+				"in user accounts",
+				"in total"
+			],
+			"visibleSeries": [
+				"in organizations"
+			]
+		}'
 		></canvas>
 	<div class="info-box">
 		<p>
-			The number of repositories in total, in organizations, and in user accounts.
+			The number of repositories in organizations, in user accounts, and in total.
 		</p>
 	</div>
 </div>
