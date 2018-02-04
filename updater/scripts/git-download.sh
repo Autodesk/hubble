@@ -15,21 +15,25 @@ function ghe_greater_equal () {
 
 # Returns success (bash exit code 0) if the GHE version is in a given range.
 # The first value of the range is inclusive and last value exclusive.
-# E.g. 'ghe_between 2.11.4 2.12.2' means '2.11.4', '2.11.5', ..., '2.12.1'
-#      returns success and '2.12.2' does not return success.
+# For example, 'ghe_between 2.11.4 2.12.2' returns 0 (success) for the values
+# 2.11.4, 2.11.5, ..., and 2.12.1, while 1 (failure) is returned for 2.12.2.
 function ghe_between () {
     ghe_greater_equal "$1" && ! ghe_greater_equal "$2"
 }
 
-if ghe_greater_equal "2.11.0" ; then
-    # The "github-audit.log" log file introduced in GHE 2.11.0 is only rolled
-    # once a week. This was reported as a bug and is likely fixed in an
-    # upcoming version. In the meantime, we grep for all log entries in the two
-    # most recent log files (because the information from yesterday may or not
-    # be rotated already).
+if ghe_between "2.11.0" "2.11.6" ; then
+    # The "github-audit.log" log file introduced in GHE 2.11.0 was only rolled
+    # once a week until 2.11.6 [1]. Work around the bug by grepping for all log
+    # entries in the two most recent log files (because the information from
+    # yesterday may or not be rotated already).
+    #
+    # [1] https://enterprise.github.com/releases/2.11.6/notes
     CAT_LOG_FILE="zcat -f /var/log/github-audit.{log.1*,log} | grep -F '$(date --date='yesterday' +'%b %_d')'"
+elif ghe_greater_equal "2.11.0"; then
+    # check yesterday's log file post 2.11
+    CAT_LOG_FILE="zcat -f /var/log/github-audit.log.1*"
 else
-    # check yesterday's log file
+    # check yesterday's log file pre 2.11
     CAT_LOG_FILE="zcat -f /var/log/github/audit.log.1*"
 fi
 
