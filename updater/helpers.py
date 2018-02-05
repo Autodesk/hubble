@@ -3,6 +3,8 @@ import os
 import subprocess
 import sys
 
+from config import *
+
 # Simple class to get floating-point values printed prettily
 class PrettyFloat(float):
 	def __str__(self):
@@ -24,3 +26,23 @@ def executeCommand(command, stdin = None, cwd = None):
 # Convenience function to parse a date from a string
 def parseDate(string):
 	return datetime.datetime.strptime(string, "%Y-%m-%d").date()
+
+# The location of the local working copy of the data repository
+def locateDataDirectory():
+	tmpDirectory = configuration["tmpDirectory"]
+	return os.path.join(tmpDirectory, "hubble-data")
+
+# Create a local clone of the data repository if not present and update it
+def prepareDataDirectory(dataDirectory, fetchChanges = True):
+	# Create data directory if not existing
+	if not os.path.exists(dataDirectory):
+		os.makedirs(dataDirectory)
+
+	# Get the data directory up-to-date
+	if fetchChanges:
+		# Clone data repository if necessary
+		if not os.path.exists(os.path.join(dataDirectory, ".git")):
+			executeCommand(["git", "clone", configuration["repositoryURL"], "."], cwd = dataDirectory)
+		else:
+			executeCommand(["git", "fetch"], cwd = dataDirectory)
+			executeCommand(["git", "reset", "--hard", "origin/master"], cwd = dataDirectory)
