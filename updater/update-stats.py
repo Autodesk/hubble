@@ -67,7 +67,7 @@ def main():
 	if not os.path.exists(dataDirectory):
 		os.makedirs(dataDirectory)
 
-	# Commit changes
+	# Get the data directory up-to-date
 	if not configuration["dryRun"]:
 		# Clone data repository if necessary
 		if not os.path.exists(os.path.join(dataDirectory, ".git")):
