@@ -217,4 +217,3 @@ class Report(object):
 		for excludedUser in self.configuration["memberlessOrganizations"]:
 			query += ' AND ' + orgs + '.login NOT LIKE "' + excludedUser + '" '
 		return query
-
