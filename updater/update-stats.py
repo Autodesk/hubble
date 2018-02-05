@@ -5,6 +5,7 @@ import shutil
 import sys
 
 from config import *
+from helpers import *
 
 from reports.ReportAPIRequests import *
 from reports.ReportContributorsByOrg import *
@@ -59,22 +60,9 @@ def main():
 	print("Preparing update of GitHub usage statistics", file = sys.stderr)
 	sys.stderr.flush()
 
-	localRepositoryName = "hubble-data"
-	tmpDirectory = configuration["tmpDirectory"]
-	dataDirectory = os.path.join(tmpDirectory, localRepositoryName)
-
-	# Create data directory if not existing
-	if not os.path.exists(dataDirectory):
-		os.makedirs(dataDirectory)
-
-	# Get the data directory up-to-date
-	if not configuration["dryRun"]:
-		# Clone data repository if necessary
-		if not os.path.exists(os.path.join(dataDirectory, ".git")):
-			executeCommand(["git", "clone", configuration["repositoryURL"], "."], cwd = dataDirectory)
-		else:
-			executeCommand(["git", "fetch"], cwd = dataDirectory)
-			executeCommand(["git", "reset", "--hard", "origin/master"], cwd = dataDirectory)
+	# Prepare the data directory for writing the new data
+	dataDirectory = locateDataDirectory()
+	prepareDataDirectory(dataDirectory, fetchChanges = not configuration["dryRun"])
 
 	configuration["today"] = datetime.date.today()
 
