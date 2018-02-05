@@ -1,5 +1,3 @@
-import calendar
-import datetime
 from .ReportDaily import *
 
 # Calculate percentage of active repositories with a least two contributors
@@ -35,18 +33,23 @@ class ReportPRUsage(ReportDaily):
 		query = '''
 			SELECT
 				"''' + str(date) + '''" AS date,
-				ROUND(100*COUNT(pr.repository_id)/COUNT(active.repository_id)) AS "pull request usage [%]",
-				ROUND(100*COUNT(status.repository_id)/COUNT(active.repository_id)) AS "status usage [%]"
+				ROUND(100 * COUNT(pr.repository_id) / COUNT(active.repository_id)) AS "pull request usage [%]",
+				ROUND(100 * COUNT(status.repository_id) / COUNT(active.repository_id)) AS "status usage [%]"
 			FROM
 				(
-					SELECT repository_id
-					FROM pushes, repositories, users
-					WHERE cast(pushes.created_at AS date) BETWEEN
-						"''' + str(lastFourWeeks) + '''" AND "''' + str(date) + '''" AND
-						pushes.repository_id = repositories.id AND
-						repositories.owner_id = users.id AND
-						users.type = "organization"
-					GROUP BY repositories.id
+					SELECT
+						repositories.id AS repository_id
+					FROM
+						repositories
+						JOIN users ON repositories.owner_id = users.id
+						JOIN pushes ON pushes.repository_id = repositories.id
+					WHERE
+						CAST(pushes.created_at AS DATE) BETWEEN "''' + str(lastFourWeeks) + '''" AND "''' + str(date) + '''"
+						AND users.type = "Organization" ''' + \
+						self.andExcludedEntities("users.login") + \
+						self.andExcludedEntities("repositories.name") + '''
+					GROUP BY
+						repositories.id
 					HAVING COUNT(pushes.pusher_id) > 1
 				) AS active
 				LEFT JOIN (
