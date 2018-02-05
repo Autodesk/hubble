@@ -26,6 +26,7 @@ from reports.ReportPRUsage import *
 from reports.ReportRepoActivity import *
 from reports.ReportRepositoryHistory import *
 from reports.ReportReposPersonalNonOwnerPushes import *
+from reports.ReportRepoUsage import *
 from reports.ReportTeamsLegacy import *
 from reports.ReportTeamsTotal import *
 from reports.ReportTokenlessAuth import *
@@ -86,6 +87,7 @@ def main():
 	ReportRepoActivity(configuration, dataDirectory, metaStats).update()
 	ReportRepositoryHistory(configuration, dataDirectory, metaStats).update()
 	ReportReposPersonalNonOwnerPushes(configuration, dataDirectory, metaStats).update()
+	ReportRepoUsage(configuration, dataDirectory, metaStats).update()
 	ReportTeamsLegacy(configuration, dataDirectory, metaStats).update()
 	ReportTeamsTotal(configuration, dataDirectory, metaStats).update()
 	ReportTokenlessAuth(configuration, dataDirectory, metaStats).update()

@@ -12,13 +12,15 @@
 - title: "Pull Requests"
   url: "/pr-usage"
   subnavigation:
-    - title: "Usage [%]"
+    - title: "Usage"
       url: "/pr-usage"
     - title: "Total"
       url: "/pr-total"
 - title: "Repositories"
-  url: "/repos-activity"
+  url: "/repos-feature-usage"
   subnavigation:
+    - title: "Feature Usage"
+      url: "/repos-feature-usage"
     - title: "Activity"
       url: "/repos-activity"
     - title: "Total"

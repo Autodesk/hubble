@@ -1,0 +1,21 @@
+---
+layout: default
+title: Repositories
+permalink: /repos-feature-usage
+---
+
+<div class="chart-placeholder">
+	<h3>Repository Feature Usage</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/repository-usage.tsv"
+		data-type="history"
+		></canvas>
+	<div class="info-box">
+		<p>
+			The percentage of active repositories located in organizations, using at least one <a href="https://help.github.com/articles/about-protected-branches/">protected branch</a>, and having at least one <a href="https://help.github.com/articles/about-topics/">topic</a> assigned to it.
+		</p>
+		<p>
+			In this context, <em>active</em> designates repositories with at least one pushed commit in the last four weeks.
+		</p>
+	</div>
+</div>
