@@ -7,6 +7,9 @@ BASEDIR=../../../..
 
 install:
 	mkdir -p $(INSTALLDIR)
+	install -m 644 $(BASEDIR)/check-schema.py $(INSTALLDIR)/
+	install -m 644 $(BASEDIR)/helpers.py $(INSTALLDIR)/
+	install -m 644 $(BASEDIR)/schema.py $(INSTALLDIR)/
 	install -m 644 $(BASEDIR)/update-stats.py $(INSTALLDIR)/
 	install -m 644 $(BASEDIR)/config.py.example $(INSTALLDIR)/
 	install -dm 755 $(BASEDIR)/scripts $(INSTALLDIR)/scripts
