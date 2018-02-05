@@ -6,6 +6,7 @@ import sys
 
 from config import *
 from helpers import *
+from schema import *
 
 from reports.ReportAPIRequests import *
 from reports.ReportContributorsByOrg import *
@@ -36,7 +37,7 @@ def writeMeta(dataDirectory):
 
 	with open(outputFilePath, "w") as outputFile:
 		outputFile.write("key\tvalue\n")
-		outputFile.write("schema-version\t1\n")
+		outputFile.write("schema-version\t" + str(schemaVersion) + "\n")
 
 def writeMetaStats(metaStats, dataDirectory):
 	outputFilePath = os.path.join(dataDirectory, "meta-runtimes.tsv")
@@ -63,6 +64,9 @@ def main():
 	# Prepare the data directory for writing the new data
 	dataDirectory = locateDataDirectory()
 	prepareDataDirectory(dataDirectory, fetchChanges = not configuration["dryRun"])
+
+	# Verify schema version for forward compatibility
+	checkSchemaVersion(dataDirectory)
 
 	configuration["today"] = datetime.date.today()
 
