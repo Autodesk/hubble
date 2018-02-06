@@ -1,6 +1,50 @@
 # Change Log
 
-## (unreleased)
+## 0.2.0 (2018-02-06)
+
+This update turns the `systemd` updater service into a system service (see below).
+If Hubble runs [on your GitHub Enterprise appliance](https://github.com/Autodesk/hubble/tree/master/updater#setup-on-the-github-enterprise-appliance) and not on a [dedicated machine](https://github.com/Autodesk/hubble/tree/master/updater#setup-on-a-dedicated-machine), please perform the following steps after the update:
+
+```sh
+systemctl --user stop hubble-enterprise.timer
+systemctl --user disable hubble-enterprise.timer
+sudo systemctl enable hubble-enterprise.timer
+sudo systemctl start hubble-enterprise.timer
+```
+
+### Changes
+
+- switch updater from a `systemd` user service to a system service for higher reliability ([#72](https://github.com/Autodesk/hubble/issues/72))
+
+### Features
+
+- new chart: [organization activity](https://autodesk.github.io/hubble/orgs-activity) ([#94](https://github.com/Autodesk/hubble/issues/94))
+- new chart: [abandoned organizations](https://autodesk.github.io/hubble/housekeeping-abandoned-orgs) ([#95](https://github.com/Autodesk/hubble/issues/95))
+- new chart: [personal repositories with nonowner pushes](https://autodesk.github.io/hubble/housekeeping-repo-location) ([#96](https://github.com/Autodesk/hubble/issues/96))
+- new chart: [legacy admin teams](https://autodesk.github.io/hubble/recommendations-legacy-teams) ([#104](https://github.com/Autodesk/hubble/issues/104))
+- new chart: [repository feature usage](https://autodesk.github.io/hubble/repos-feature-usage) ([#112](https://github.com/Autodesk/hubble/issues/112))
+- spinner animation while charts are loading ([#59](https://github.com/Autodesk/hubble/issues/59), [#63](https://github.com/Autodesk/hubble/issues/63), [@filmaj](https://github.com/filmaj))
+- action bar with button to download the raw data files next to the charts ([#85](https://github.com/Autodesk/hubble/issues/85), [#92](https://github.com/Autodesk/hubble/issues/92), [#97](https://github.com/Autodesk/hubble/issues/97))
+- [multiview charts](https://autodesk.github.io/hubble/pr-total) providing multiple levels of granularity with a view switcher ([#77](https://github.com/Autodesk/hubble/issues/77))
+
+### Bug Fixes
+
+- fix links to user names containing underscores or periods in the *tokenless authentications* report ([#53](https://github.com/Autodesk/hubble/issues/53))
+- fix parsing issues with colons in *API requests* report ([#49](https://github.com/Autodesk/hubble/issues/49), reported by [@jonico](https://github.com/jonico))
+- fix issues with the *Git traffic* report in GitHub Enterprise 2.11.0–2.11.6 ([#8](https://github.com/Autodesk/hubble/issues/8), [#46](https://github.com/Autodesk/hubble/issues/46), reported by [@rashamalek](https://github.com/rashamalek))
+- fix issues with the *Git traffic* report in GitHub Enterprise 2.12 because of reordered fields ([#107](https://github.com/Autodesk/hubble/issues/107), [@rashamalek](https://github.com/rashamalek))
+- fix issue with non-ASCII characters in the updater ([#79](https://github.com/Autodesk/hubble/issues/79), reported by [@rajivmucheli](https://github.com/rajivmucheli))
+- flush the browser cache of the CSS and JavaScript assets on every commit ([#93](https://github.com/Autodesk/hubble/issues/93), helped by [@parkr](https://github.com/parkr))
+- remove internal GitHub API requests from *API requests* report ([#101](https://github.com/Autodesk/hubble/issues/101))
+- remove suspended users from *organization owners* list ([#100](https://github.com/Autodesk/hubble/issues/100))
+- fix unintentionally truncated texts in tables with commas and space characters
+
+### Infrastructure
+
+- unit testing and linting with Travis CI for the dashboard ([#65](https://github.com/Autodesk/hubble/issues/65), [#78](https://github.com/Autodesk/hubble/issues/78), [@filmaj](https://github.com/filmaj))
+- code coverage with CodeCov for the dashboard ([#84](https://github.com/Autodesk/hubble/issues/84), [@filmaj](https://github.com/filmaj))
+- make Debian packaging compatible with Python 3 ([#73](https://github.com/Autodesk/hubble/issues/73))
+- forward compatibility check for future data repository scheme changes ([#111](https://github.com/Autodesk/hubble/issues/111))
 
 ## 0.1.1 (2017-11-20)
 
