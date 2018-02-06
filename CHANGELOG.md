@@ -1,5 +1,7 @@
 # Change Log
 
+## (unreleased)
+
 ## 0.2.0 (2018-02-06)
 
 This update turns the `systemd` updater service into a system service (see below).
