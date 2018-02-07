@@ -292,13 +292,9 @@ function buildHistoryChartData(view)
     return chartData;
 }
 
-function createHistoryChart(canvas, actionBar)
+function loadHistoryDataFile(dataURL, returnedData)
 {
-    const url = $(canvas).data('url');
-
-    let spinner = createSpinner(canvas);
-
-    d3.tsv(url,
+    d3.tsv(dataURL,
         function(row)
         {
             $.each(Object.keys(row).slice(1),
@@ -317,110 +313,124 @@ function createHistoryChart(canvas, actionBar)
             if (error)
                 throw error;
 
-            sortTimeData(data);
+            returnedData = data;
+            
+            console.log("loaded " + dataURL);
+        });
+}
 
-            const context = canvas.getContext('2d');
+function createHistoryChart(canvas, actionBar)
+{
+    let spinner = createSpinner(canvas);
 
-            // Collect the data for each view in an array
-            let views = readConfig($(canvas), 'views');
+    const context = canvas.getContext('2d');
 
-            // Aggregate data for each view separately
-            if (views != undefined)
+    // Collect the data for each view in an array
+    let views = readConfig($(canvas), 'views');
+
+    // Aggregate data for each view separately
+    if (views == undefined)
+    {
+        views = [$(canvas).data('config')];
+        views[0]["default"] = true;
+    }
+
+    let queue = d3.queue();
+
+    const baseDataURL = readConfig($(canvas), 'dataURL');
+    let baseData = undefined;
+
+    if (baseDataURL != undefined)
+        queue.defer(loadHistoryDataFile, baseDataURL, baseData);
+
+    for (let i = 0; i < views.length; i++)
+    {
+        if (!('dataURL' in views[i]))
+        {
+            views[i].data = baseData;
+            continue;
+        }
+
+        // Load the data
+        queue.defer(loadHistoryDataFile, views[i]['dataURL'], views[i].data);
+    }
+
+    function handleDataFilesLoaded()
+    {
+        for (let i = 0; i < views.length; i++)
+        {
+            console.log(views[i].data);
+            sortTimeData(views[i].data);
+
+            if ('aggregate' in views[i] && views[i].aggregate != false)
+                views[i].data = aggregateTimeData(views[i], views[i].aggregate);
+
+            if ('slice' in views[i])
             {
-                for (let i = 0; i < views.length; i++)
-                {
-                    if ('aggregate' in views[i] && views[i].aggregate != false)
-                        views[i].data = aggregateTimeData(data, views[i].aggregate);
-                    else
-                        views[i].data = data;
-                }
+                const sliceIndex0 = Math.max(0, Math.min(views[i].data.length,
+                    views[i].data.length - views[i].slice[1]));
+                const sliceIndex1 = Math.max(0, Math.min(views[i].data.length,
+                    views[i].data.length - views[i].slice[0]));
+                views[i].data = views[i].data.slice(sliceIndex0, sliceIndex1);
             }
-            else
+
+            views[i].chartData = buildHistoryChartData(views[i]);
+        }
+
+        let defaultView = views.find(
+            function(view)
             {
-                views = [{'data': data, 'aggregate': false, 'default': true}];
+                return (view['default'] == true);
+            });
 
-                // Compatibility with old format, to be removed after migrating all charts
-                if (hasConfig($(canvas), 'aggregate'))
-                    views[0]['aggregate'] = readConfig($(canvas), 'aggregate');
+        if (defaultView == undefined)
+            defaultView = views[0];
 
-                if (hasConfig($(canvas), 'slice'))
-                    views[0]['slice'] = readConfig($(canvas), 'slice');
-
-                if (hasConfig($(canvas), 'series'))
-                    views[0]['series'] = readConfig($(canvas), 'series');
-
-                if (hasConfig($(canvas), 'visibleSeries'))
-                    views[0]['visibleSeries'] = readConfig($(canvas), 'visibleSeries');
-            }
+        if (views.length > 1)
+        {
+            let buttons = `
+                <div class="button-bar view-switch">
+                    <div title="Select time range to show"><i class="fas fa-calendar"></i></div>`;
 
             for (let i = 0; i < views.length; i++)
-            {
-                if ('slice' in views[i])
-                {
-                    const sliceIndex0 = Math.max(0, Math.min(views[i].data.length,
-                        views[i].data.length - views[i].slice[1]));
-                    const sliceIndex1 = Math.max(0, Math.min(views[i].data.length,
-                        views[i].data.length - views[i].slice[0]));
-                    views[i].data = views[i].data.slice(sliceIndex0, sliceIndex1);
-                }
-
-                views[i].chartData = buildHistoryChartData(views[i]);
-            }
-
-            let defaultView = views.find(
-                function(view)
-                {
-                    return (view['default'] == true);
-                });
-
-            if (defaultView == undefined)
-                defaultView = views[0];
-
-            if (views.length > 1)
-            {
-                let buttons = `
-                    <div class="button-bar view-switch">
-                        <div title="Select time range to show"><i class="fas fa-calendar"></i></div>`;
-
-                for (let i = 0; i < views.length; i++)
-                    buttons += `
-                        <a class="button${views[i] === defaultView ? ' active' : ''}" href="#"
-                            title="${views[i].tooltip}" data-view-id="${i}">${views[i].label}</a>`;
-
                 buttons += `
-                    </div>`;
+                    <a class="button${views[i] === defaultView ? ' active' : ''}" href="#"
+                        title="${views[i].tooltip}" data-view-id="${i}">${views[i].label}</a>`;
 
-                actionBar.prepend(buttons);
-            }
+            buttons += `
+                </div>`;
 
-            $(canvas).data('chart', new Chart(context,
-                {
-                    type: 'line',
-                    data:
-                    {
-                        datasets: defaultView['chartData']
-                    },
-                    options: timeSeriesChartDefaults
-                }));
-
-            $(canvas).data('views', views);
-
-            actionBar.find('.view-switch a').click(
-                function()
-                {
-                    $(this).parent().find('.active').removeClass('active');
-                    // Replace the visible data
-                    $(canvas).data('chart').data.datasets
-                        = $(canvas).data('views')[$(this).data('view-id')].chartData;
-                    // Trigger a Chart.js update
-                    $(canvas).data('chart').update();
-                    $(this).addClass('active');
-                });
+            actionBar.prepend(buttons);
         }
-    ).on('load.spinner', function()
-    {
+
+        $(canvas).data('chart', new Chart(context,
+            {
+                type: 'line',
+                data:
+                {
+                    datasets: defaultView['chartData']
+                },
+                options: timeSeriesChartDefaults
+            }));
+
+        $(canvas).data('views', views);
+
+        actionBar.find('.view-switch a').click(
+            function()
+            {
+                $(this).parent().find('.active').removeClass('active');
+                // Replace the visible data
+                $(canvas).data('chart').data.datasets
+                    = $(canvas).data('views')[$(this).data('view-id')].chartData;
+                // Trigger a Chart.js update
+                $(canvas).data('chart').update();
+                $(this).addClass('active');
+            });
+
         spinner.stop();
-    });
+    }
+
+    queue.await(handleDataFilesLoaded);
 }
 
 function createList(canvas)
