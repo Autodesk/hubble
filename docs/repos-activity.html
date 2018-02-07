@@ -33,6 +33,17 @@ permalink: /repos-activity
 </div>
 
 <div class="chart-placeholder">
+	<h3>Most Active Repositories</h3>
+	<table
+		data-url="{{ site.dataURL }}/repository-activity-detailed.tsv"
+		data-config='{"slice": [0, 50]}'
+	></table>
+	<div class="info-box">
+		<p>The top 50 most active repositories by number of pushes.</p>
+	</div>
+</div>
+
+<div class="chart-placeholder">
 	<h3>Active Repositories in User Accounts</h3>
 	<canvas
 		data-url="{{ site.dataURL }}/repository-activity.tsv"
