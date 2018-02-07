@@ -17,6 +17,9 @@ class ReportRepoActivity(ReportDaily):
 		self.data.extend(newData)
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()
+		self.detailedHeader, self.detailedData = self.parseData(
+			self.executeQuery(self.detailedQuery())
+		)
 
 	# Collects active repositories for a user type (user/organization)
 	# given a time range
@@ -80,4 +83,18 @@ class ReportRepoActivity(ReportDaily):
 				(''' + self.countActiveRepos("User", [oneDayAgo, oneDayAgo]) + ''') AS userSpaceLastDay
 			'''
 
+		return query
+
+	# Collects the active organizational repositories over the last 4 weeks
+	def detailedQuery(self):
+		oneDayAgo = self.yesterday()
+		fourWeeksAgo = self.daysAgo(28)
+		query = '''
+			SELECT
+				repository,
+				pusher_count as "pushers",
+				push_count as "pushes"
+			FROM (''' + self.activeRepos("Organization", [fourWeeksAgo, oneDayAgo]) + ''') AS activeRepos
+			ORDER BY push_count DESC
+		'''
 		return query
