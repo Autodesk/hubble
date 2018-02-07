@@ -554,10 +554,14 @@ function createTable(table)
                     return d;
                 });
 
+            let displayed = data;
+            if (hasConfig($(table), 'slice'))
+                displayed = data.slice(readConfig($(table), 'slice')[0], readConfig($(table), 'slice')[1]);
+
             let rows = d3.select(table)
                 .append('tbody')
                 .selectAll('tr')
-                .data(data)
+                .data(displayed)
                 .enter()
                 .append('tr');
 
