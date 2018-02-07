@@ -13,6 +13,51 @@ class ReportRepoUsage(ReportDaily):
 		self.data.extend(newData)
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()
+		self.detailedHeader, self.detailedData = self.parseData(self.executeQuery(self.detailedQuery()))
+
+
+	def detailedQuery(self):
+		query = '''
+			SELECT
+				org, repo
+			FROM (
+		'''
+		query += self.activeReposQuery()
+		query += '''
+			) AS active
+			INNER JOIN
+			(
+				SELECT repository_id, COUNT(*) AS count
+				FROM pushes
+				GROUP BY repository_id
+			) AS push_tally
+			ON active.repository_id = push_tally.repository_id
+			ORDER BY count DESC
+		'''
+		return query
+
+	def activeReposQuery(self):
+		oneDayAgo = self.yesterday()
+		fourWeeksAgo = self.daysAgo(28)
+		query = '''
+			SELECT
+				repositories.id AS repository_id,
+				users.login AS org,
+				repositories.name AS repo,
+				pushes.ref
+			FROM
+				repositories
+				JOIN users ON repositories.owner_id = users.id
+				JOIN pushes ON pushes.repository_id = repositories.id
+			WHERE
+				CAST(pushes.created_at AS DATE) BETWEEN "''' + str(fourWeeksAgo) + '''" AND "''' + str(oneDayAgo) + '''"
+				AND users.type = "Organization" ''' + \
+				self.andExcludedEntities("users.login") + \
+				self.andExcludedEntities("repositories.name") + '''
+			GROUP BY
+				repositories.id
+		'''
+		return query
 
 	def query(self):
 		oneDayAgo = self.yesterday()
@@ -26,20 +71,9 @@ class ReportRepoUsage(ReportDaily):
 					AS "topics [%]"
 			FROM
 				(
-				SELECT
-					repositories.id AS repository_id,
-					pushes.ref
-				FROM
-					repositories
-					JOIN users ON repositories.owner_id = users.id
-					JOIN pushes ON pushes.repository_id = repositories.id
-				WHERE
-					CAST(pushes.created_at AS DATE) BETWEEN "''' + str(fourWeeksAgo) + '''" AND "''' + str(oneDayAgo) + '''"
-					AND users.type = "Organization" ''' + \
-					self.andExcludedEntities("users.login") + \
-					self.andExcludedEntities("repositories.name") + '''
-				GROUP BY
-					repositories.id
+			'''
+		query += self.activeReposQuery()
+		query += '''
 				) AS active
 				LEFT JOIN (
 					SELECT repository_id, name
