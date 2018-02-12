@@ -322,39 +322,32 @@ function createHistoryChart(canvas, actionBar)
             const context = canvas.getContext('2d');
 
             // Collect the data for each view in an array
-            let views = readConfig($(canvas), 'views');
+            let views;
 
-            // Aggregate data for each view separately
-            if (views != undefined)
+            if (hasConfig($(canvas), 'views'))
             {
+                views = readConfig($(canvas), 'views');
+
                 for (let i = 0; i < views.length; i++)
-                {
-                    if ('aggregate' in views[i] && views[i].aggregate != false)
-                        views[i].data = aggregateTimeData(data, views[i].aggregate);
-                    else
-                        views[i].data = data;
-                }
+                    views[i].data = data;
             }
             else
             {
-                views = [{'data': data, 'aggregate': false, 'default': true}];
+                if ($(canvas).data('config') != undefined)
+                    views = [$(canvas).data('config')];
+                else
+                    views = [{}];
 
-                // Compatibility with old format, to be removed after migrating all charts
-                if (hasConfig($(canvas), 'aggregate'))
-                    views[0]['aggregate'] = readConfig($(canvas), 'aggregate');
-
-                if (hasConfig($(canvas), 'slice'))
-                    views[0]['slice'] = readConfig($(canvas), 'slice');
-
-                if (hasConfig($(canvas), 'series'))
-                    views[0]['series'] = readConfig($(canvas), 'series');
-
-                if (hasConfig($(canvas), 'visibleSeries'))
-                    views[0]['visibleSeries'] = readConfig($(canvas), 'visibleSeries');
+                views[0].default = true;
+                views[0].data = data;
             }
 
+            // Aggregate data for each view separately
             for (let i = 0; i < views.length; i++)
             {
+                if ('aggregate' in views[i] && views[i].aggregate != false)
+                    views[i].data = aggregateTimeData(views[i].data, views[i].aggregate);
+
                 if ('slice' in views[i])
                 {
                     const sliceIndex0 = Math.max(0, Math.min(views[i].data.length,
