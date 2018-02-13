@@ -920,13 +920,9 @@ function createChordChart(canvas)
                 });
 
                 if (d3.event && +d3.event.target.value >= 0)
-                {
                     visualizeSingleOrg(orgsCopy, matrixCopy, +d3.event.target.value);
-                }
                 else
-                {
                     visualizeOrgsWithTopConnections(orgsCopy, matrixCopy, quota);
-                }
             }
 
             const menuItems = [
