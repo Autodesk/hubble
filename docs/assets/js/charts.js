@@ -1014,18 +1014,21 @@ $(window).bind('load', function()
                     switch ($(canvas).attr('data-type'))
                     {
                         case 'history':
-                            return createHistoryChart(canvas, actionBar);
+                            createHistoryChart(canvas, actionBar);
+                            break;
                         case 'list':
-                            return createList(canvas);
+                            createList(canvas);
+                            break;
                         case 'chord':
-                            return createChordChart(canvas);
+                            createChordChart(canvas);
+                            break;
                     }
                 });
 
             tables.each(
                 function(index, table)
                 {
-                    return createTable(table);
+                    createTable(table);
                 });
         });
 });
