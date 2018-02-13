@@ -280,10 +280,7 @@ function buildHistoryChartData(view)
                 hidden: (visibleDataSeries.indexOf(dataSeries) == -1) ? true : false,
             };
 
-            seriesData.data = view.data.map(function(row)
-            {
-                return {x: row.date, y: row[dataSeries]};
-            });
+            seriesData.data = view.data.map(row => ({x: row.date, y: row[dataSeries]}));
             chartData.push(seriesData);
 
             index++;
@@ -367,11 +364,7 @@ function createHistoryChart(canvas, actionBar)
                 views[i].chartData = buildHistoryChartData(views[i]);
             }
 
-            let defaultView = views.find(
-                function(view)
-                {
-                    return (view['default'] == true);
-                });
+            let defaultView = views.find(view => (view['default'] == true));
 
             if (defaultView == undefined)
                 defaultView = views[0];
@@ -480,19 +473,13 @@ function createList(canvas)
                         hidden: (visibleTypes.indexOf(type) == -1) ? true : false,
                     };
 
-                    seriesData.data = data.map(function(row)
-                    {
-                        return Object.values(row)[1 + typeID];
-                    });
+                    seriesData.data = data.map(row => Object.values(row)[1 + typeID]);
                     chartData.push(seriesData);
 
                     index++;
                 });
 
-            const repositories = data.map(function(row)
-            {
-                return Object.values(row)[0];
-            });
+            const repositories = data.map(row => Object.values(row)[0]);
 
             $(canvas).attr('height', data.length * barWidth);
 
@@ -549,10 +536,7 @@ function createTable(table)
                 .data(data.columns)
                 .enter()
                 .append('th')
-                .text(function(d)
-                {
-                    return d;
-                });
+                .text(d => d);
 
             let rows = d3.select(table)
                 .append('tbody')
@@ -564,11 +548,8 @@ function createTable(table)
             rows.selectAll('td')
                 .data(function(row)
                 {
-                    return d3.range(Object.keys(row).length).map(
-                        function(column, i)
-                        {
-                            return row[Object.keys(row)[i]];
-                        });
+                    return d3.range(Object.keys(row).length)
+                        .map((column, i) => row[Object.keys(row)[i]]);
                 })
                 .enter()
                 .append('td')
@@ -624,10 +605,7 @@ function drawChord(orgs, matrix)
     {
         return function(activeRibbon)
         {
-            ribbons.filter(function(d)
-            {
-                return d != activeRibbon;
-            })
+            ribbons.filter(d => (d != activeRibbon))
                 .transition()
                 .style('opacity', opacity);
         };
@@ -637,10 +615,7 @@ function drawChord(orgs, matrix)
     {
         return function(d, i)
         {
-            ribbons.filter(function(d)
-            {
-                return d.source.index != i && d.target.index != i;
-            })
+            ribbons.filter(d => (d.source.index != i && d.target.index != i))
                 .transition()
                 .style('opacity', opacity);
         };
@@ -667,21 +642,12 @@ function drawChord(orgs, matrix)
     let i = orgs.length - 1, count;
     while (i >= 0)
     {
-        count = matrix.reduce(function(a, b)
-        {
-            return a + b[i];
-        }, 0)
-            + matrix[i].reduce(function(a, b)
-            {
-                return a + b;
-            }, 0);
+        count = matrix.reduce((a, b) => (a + b[i]), 0)
+            + matrix[i].reduce((a, b) => (a + b), 0);
         if (count == 0)
         {
             matrix.splice(i, 1);
-            matrix.map(function(x)
-            {
-                return x.splice(i, 1);
-            });
+            matrix.map(x => x.splice(i, 1));
             orgs.splice(i, 1);
         }
         i--;
@@ -713,10 +679,7 @@ function drawChord(orgs, matrix)
     const ribbons = g.append('g')
         .attr('class', 'ribbons')
         .selectAll('path')
-        .data(function(chords)
-        {
-            return chords;
-        })
+        .data(chords => chords)
         .enter().append('g')
         .on('mouseover', fadeRibbon(.1))
         .on('mouseout', fadeRibbon(1));
@@ -725,38 +688,23 @@ function drawChord(orgs, matrix)
         .append('path')
         .attr('d', ribbon)
         .style('stroke-width', 5.0)
-        .style('stroke', function()
-        {
-            return '#ffffff';
-        });
+        .style('stroke', '#ffffff');
 
     ribbons
         .append('path')
         .attr('d', ribbon)
-        .style('fill', function(d)
-        {
-            return extendedChartColor(d.source.index);
-        })
+        .style('fill', d => extendedChartColor(d.source.index))
         .style('stroke-width', 2.0)
-        .style('stroke', function(d)
-        {
-            return extendedChartColor(d.source.index);
-        });
+        .style('stroke', d => extendedChartColor(d.source.index));
 
     ribbons.append('title')
-        .text(function(d)
-        {
-            return ribbonTip(d);
-        });
+        .text(d => ribbonTip(d));
 
     // Defines each "group" in the chord diagram
     const group = g.append('g')
         .attr('class', 'groups')
         .selectAll('g')
-        .data(function(chords)
-        {
-            return chords.groups;
-        })
+        .data(chords => chords.groups)
         .enter().append('g');
 
     // Draw the radial arcs for each group
@@ -765,23 +713,14 @@ function drawChord(orgs, matrix)
         .outerRadius(outerRadius);
 
     group.append('path')
-        .style('fill', function(d)
-        {
-            return extendedChartColor(d.index);
-        })
+        .style('fill', d => extendedChartColor(d.index))
         .style('stroke-width', 2.0)
-        .style('stroke', function(d)
-        {
-            return extendedChartColor(d.index);
-        })
+        .style('stroke', d => extendedChartColor(d.index))
         .attr('d', arc)
         .on('mouseover', fadeRibbonsWithSameSource(.1))
         .on('mouseout', fadeRibbonsWithSameSource(1))
         .append('title')
-        .text(function(d)
-        {
-            return chordTip(d);
-        });
+        .text(d => chordTip(d));
 
     // Add labels to each group
     group.append('text')
@@ -797,14 +736,8 @@ function drawChord(orgs, matrix)
                 'translate(0,' + -1 * (outerRadius + 5) + ')' +
                 'rotate(' + flip + ')';
         })
-        .style('text-anchor', function(d)
-        {
-            return d.angle > Math.PI ? 'end' : null;
-        })
-        .text(function(d)
-        {
-            return d.name;
-        });
+        .style('text-anchor', d => (d.angle > Math.PI ? 'end' : null))
+        .text(d => d.name);
 }
 
 function visualizeOrgsWithTopConnections(orgs, matrix, quota)
@@ -818,20 +751,8 @@ function visualizeOrgsWithTopConnections(orgs, matrix, quota)
     {
         lastConnections = connections;
         connections = matrix
-            .map(function(x)
-            {
-                return x.map(function(y)
-                {
-                    return y > threshold ? 1 : 0;
-                });
-            })
-            .reduce(function(sumX, x)
-            {
-                return sumX + x.reduce(function(sumY, y)
-                {
-                    return sumY + y;
-                }, 0);
-            }, 0);
+            .map(x => x.map(y => (y > threshold ? 1 : 0)))
+            .reduce((sumX, x) => (sumX + x.reduce((sumY, y) => (sumY + y), 0)), 0);
         threshold++;
     } while (connections > quota && lastConnections != connections);
 
@@ -901,23 +822,14 @@ function createChordChart(canvas)
         {
             const data = d3.tsvParseRows(text);
             const orgs = data.shift();
-            const matrix = data.map(function(x)
-            {
-                return x.map(function(y)
-                {
-                    return +y;
-                });
-            });
+            const matrix = data.map(x => x.map(y => +y));
 
             function menuChanged()
             {
                 // The rendering functions are going to adjust the org and
                 // matrix array. Therefore, we create a deep copy here.
                 const orgsCopy = orgs.slice(0);
-                const matrixCopy = matrix.map(function(x)
-                {
-                    return x.slice(0);
-                });
+                const matrixCopy = matrix.map(x => x.slice(0));
 
                 if (d3.event && +d3.event.target.value >= 0)
                     visualizeSingleOrg(orgsCopy, matrixCopy, +d3.event.target.value);
@@ -929,10 +841,7 @@ function createChordChart(canvas)
                 {value: -1, name: `Top ${quota} connections`},
                 {value: -1, name: '—'},
             ].concat(
-                orgs.map(function(x, i)
-                {
-                    return {value: i, name: x};
-                })
+                orgs.map((x, i) => ({value: i, name: x}))
             );
             d3.select('select')
                 .attr('class', 'select')
@@ -940,14 +849,8 @@ function createChordChart(canvas)
                 .selectAll('option')
                 .data(menuItems).enter()
                 .append('option')
-                .attr('value', function(d)
-                {
-                    return d.value;
-                })
-                .text(function(d)
-                {
-                    return d.name;
-                });
+                .attr('value', d => d.value)
+                .text(d => d.name);
 
             menuChanged();
         }
@@ -1025,10 +928,6 @@ $(window).bind('load', function()
                     }
                 });
 
-            tables.each(
-                function(index, table)
-                {
-                    createTable(table);
-                });
+            tables.each((index, table) => createTable(table));
         });
 });
