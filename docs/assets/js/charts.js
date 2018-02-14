@@ -816,7 +816,7 @@ function visualizeSingleOrg(orgs, matrix, orgID)
     drawChord(orgs, matrix);
 }
 
-function createChordChart(canvas)
+function createChordChart(canvas, actionBar)
 {
     const url = $(canvas).data('url');
     const quota = 50;
@@ -826,38 +826,110 @@ function createChordChart(canvas)
         function(text)
         {
             const data = d3.tsvParseRows(text);
-            const orgs = data.shift();
-            const matrix = data.map(x => x.map(y => +y));
 
-            function menuChanged()
+            let views;
+
+            if (hasConfig($(canvas), 'views'))
+                views = readConfig($(canvas), 'views');
+            else
             {
-                // The rendering functions are going to adjust the org and
-                // matrix array. Therefore, we create a deep copy here.
-                const orgsCopy = orgs.slice(0);
-                const matrixCopy = matrix.map(x => x.slice(0));
-
-                if (d3.event && +d3.event.target.value >= 0)
-                    visualizeSingleOrg(orgsCopy, matrixCopy, +d3.event.target.value);
+                if ($(canvas).data('config') != undefined)
+                    views = [$(canvas).data('config')];
                 else
-                    visualizeOrgsWithTopConnections(orgsCopy, matrixCopy, quota);
+                    views = [{}];
+
+                views[0].default = true;
             }
 
-            const menuItems = [
-                {value: -1, name: `Top ${quota} connections`},
-                {value: -1, name: '—'},
-            ].concat(
-                orgs.map((x, i) => ({value: i, name: x}))
-            );
-            d3.select('select')
-                .attr('class', 'select')
-                .on('change', menuChanged)
-                .selectAll('option')
-                .data(menuItems).enter()
-                .append('option')
-                .attr('value', d => d.value)
-                .text(d => d.name);
+            // Obtain matrix for each view separately
+            for (let i = 0; i < views.length; i++)
+            {
+                views[i].orgs = data.shift();
+                const matrixSize = views[i].orgs.length;
 
-            menuChanged();
+                if (data.length < matrixSize)
+                    throw `inconsistent data matrix format, missing rows: ${matrixSize - data.length}`;
+
+                views[i].data = data.splice(0, matrixSize).map(x => x.map(y => +y));
+                views[i].menuItems =
+                    [
+                        {value: -1, name: `Top ${quota} connections`},
+                        {value: -1, name: '—'},
+                    ].concat(views[i].orgs.map((x, i) => ({value: i, name: x})));
+            }
+
+            if (data.length > 0)
+                throw `incosistent data matrix format, unused rows: ${data.length}`;
+
+            let defaultView = views.find(view => (view['default'] == true));
+
+            if (defaultView == undefined)
+                defaultView = views[0];
+
+            $(canvas).data('activeView', defaultView);
+
+            if (views.length > 1)
+            {
+                let buttons = `
+                    <div class="button-bar view-switch">
+                        <div title="Select time range to show"><i class="fas fa-calendar"></i></div>`;
+
+                for (let i = 0; i < views.length; i++)
+                    buttons += `
+                        <a class="button${views[i] === defaultView ? ' active' : ''}" href="#"
+                            title="${views[i].tooltip}" data-view-id="${i}">${views[i].label}</a>`;
+
+                buttons += `
+                    </div>`;
+
+                actionBar.prepend(buttons);
+            }
+
+            const orgSelectionBox = $(canvas).parent().parent().parent().find('.org-selection');
+
+            function update()
+            {
+                const activeView = $(canvas).data('activeView');
+
+                // The rendering functions are going to adjust the org and
+                // matrix array. Therefore, we create a deep copy here.
+                const orgsCopy = activeView.orgs.slice(0);
+                const dataCopy = activeView.data.map(x => x.slice(0));
+
+                if (+orgSelectionBox.val() >= 0)
+                    visualizeSingleOrg(orgsCopy, dataCopy, +orgSelectionBox.val());
+                else
+                    visualizeOrgsWithTopConnections(orgsCopy, dataCopy, quota);
+            }
+
+            orgSelectionBox.change(update);
+
+            function switchToView(view)
+            {
+                $(canvas).data('activeView', view);
+
+                orgSelectionBox.empty();
+
+                for (let i = 0; i < view.menuItems.length; i++)
+                    $('<option/>').val(view.menuItems[i].value)
+                        .text(view.menuItems[i].name)
+                        .appendTo(orgSelectionBox);
+
+                update();
+            }
+
+            actionBar.find('.view-switch a').click(
+                function()
+                {
+                    $(this).parent().find('.active').removeClass('active');
+                    // Replace the visible data
+                    switchToView(views[$(this).data('view-id')]);
+                    // Trigger an update
+                    update();
+                    $(this).addClass('active');
+                });
+
+            switchToView(defaultView);
         }
     ).on('load.spinner', function()
     {
@@ -930,7 +1002,7 @@ $(window).bind('load', function()
                             createList(canvas);
                             break;
                         case 'chord':
-                            createChordChart(canvas);
+                            createChordChart(canvas, actionBar);
                             break;
                     }
                 });
