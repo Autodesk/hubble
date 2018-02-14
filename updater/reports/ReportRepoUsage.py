@@ -25,14 +25,7 @@ class ReportRepoUsage(ReportDaily):
 		query += self.activeReposQuery()
 		query += '''
 			) AS active
-			INNER JOIN
-			(
-				SELECT repository_id, COUNT(*) AS count
-				FROM pushes
-				GROUP BY repository_id
-			) AS push_tally
-			ON active.repository_id = push_tally.repository_id
-			ORDER BY count DESC
+			ORDER BY push_count DESC
 		'''
 		return query
 
@@ -44,7 +37,8 @@ class ReportRepoUsage(ReportDaily):
 				repositories.id AS repository_id,
 				users.login AS org,
 				repositories.name AS repo,
-				pushes.ref
+				pushes.ref,
+				COUNT(pushes.repository_id) AS push_count
 			FROM
 				repositories
 				JOIN users ON repositories.owner_id = users.id
