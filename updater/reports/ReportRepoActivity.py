@@ -18,37 +18,39 @@ class ReportRepoActivity(ReportDaily):
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()
 
-	# Collects the number of active repositories for a user type (user/organization) given a time range
-	def subquery(self, userType, timeRange):
+	# Collects active repositories for a user type (user/organization)
+	# given a time range
+	def activeRepos(self, userType, timeRange):
 		query = '''
 			SELECT
-				COUNT(*) AS count
+				repositories.id AS repository_id,
+				CONCAT(users.login, "/", repositories.name) as repository,
+				COUNT(DISTINCT(pushes.pusher_id)) AS pusher_count,
+				COUNT(pushes.id) AS push_count
 			FROM
-			(
-				SELECT
-					repositories.id
-				FROM
-					repositories
-					JOIN users ON repositories.owner_id = users.id
-					JOIN pushes ON pushes.repository_id = repositories.id
-				WHERE
-					CAST(pushes.created_at AS DATE) BETWEEN "''' + str(timeRange[0]) + '''" AND "''' + str(timeRange[1]) + '''"'''
-
-		query +=   self.andExcludedEntities("users.login") \
-		         + self.andExcludedEntities("repositories.name")
-
-		if userType != None:
-			query += ''' AND
-					users.type = "''' + userType + '''"'''
-
-		query += '''
-				GROUP BY
-					repositories.id
-			) AS activeRepositories'''
-
+				repositories
+				JOIN users ON repositories.owner_id = users.id
+				JOIN pushes ON pushes.repository_id = repositories.id
+			WHERE
+				CAST(pushes.created_at AS DATE) BETWEEN "''' + str(timeRange[0]) + '" AND "' + str(timeRange[1]) + '" ' + \
+				(' AND users.type = "' + userType + '" ' if userType != None else '') + \
+				self.andExcludedEntities("users.login") + \
+				self.andExcludedEntities("repositories.name") + '''
+			GROUP BY
+				repositories.id
+		'''
 		return query
 
-	# Collects the number of repositories in total, in organizations, and in user accounts
+	# Counts the number of active repositories for a user type (user/organization)
+	# given a time range
+	def countActiveRepos(self, userType, timeRange):
+		query = '''
+			SELECT COUNT(*) AS count
+			FROM (''' + self.activeRepos(userType, timeRange) + ''') AS activeRepos
+		'''
+		return query
+
+	# Counts the number of repositories in total, in organizations, and in user accounts
 	def query(self):
 		oneDayAgo = self.yesterday()
 		oneWeekAgo = self.daysAgo(7)
@@ -67,15 +69,15 @@ class ReportRepoActivity(ReportDaily):
 				userSpaceLastWeek.count AS "in user accounts (last week)",
 				userSpaceLastDay.count AS "in user accounts (last day)"
 			FROM
-				(''' + self.subquery(None, [fourWeeksAgo, oneDayAgo]) + ''') AS totalLastFourWeeks,
-				(''' + self.subquery(None, [oneWeekAgo, oneDayAgo]) + ''') AS totalLastWeek,
-				(''' + self.subquery(None, [oneDayAgo, oneDayAgo]) + ''') AS totalLastDay,
-				(''' + self.subquery("Organization", [fourWeeksAgo, oneDayAgo]) + ''') AS organizationSpaceLastFourWeeks,
-				(''' + self.subquery("Organization", [oneWeekAgo, oneDayAgo]) + ''') AS organizationSpaceLastWeek,
-				(''' + self.subquery("Organization", [oneDayAgo, oneDayAgo]) + ''') AS organizationSpaceLastDay,
-				(''' + self.subquery("User", [fourWeeksAgo, oneDayAgo]) + ''') AS userSpaceLastFourWeeks,
-				(''' + self.subquery("User", [oneWeekAgo, oneDayAgo]) + ''') AS userSpaceLastWeek,
-				(''' + self.subquery("User", [oneDayAgo, oneDayAgo]) + ''') AS userSpaceLastDay
+				(''' + self.countActiveRepos(None, [fourWeeksAgo, oneDayAgo]) + ''') AS totalLastFourWeeks,
+				(''' + self.countActiveRepos(None, [oneWeekAgo, oneDayAgo]) + ''') AS totalLastWeek,
+				(''' + self.countActiveRepos(None, [oneDayAgo, oneDayAgo]) + ''') AS totalLastDay,
+				(''' + self.countActiveRepos("Organization", [fourWeeksAgo, oneDayAgo]) + ''') AS organizationSpaceLastFourWeeks,
+				(''' + self.countActiveRepos("Organization", [oneWeekAgo, oneDayAgo]) + ''') AS organizationSpaceLastWeek,
+				(''' + self.countActiveRepos("Organization", [oneDayAgo, oneDayAgo]) + ''') AS organizationSpaceLastDay,
+				(''' + self.countActiveRepos("User", [fourWeeksAgo, oneDayAgo]) + ''') AS userSpaceLastFourWeeks,
+				(''' + self.countActiveRepos("User", [oneWeekAgo, oneDayAgo]) + ''') AS userSpaceLastWeek,
+				(''' + self.countActiveRepos("User", [oneDayAgo, oneDayAgo]) + ''') AS userSpaceLastDay
 			'''
 
 		return query
