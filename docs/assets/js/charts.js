@@ -538,10 +538,14 @@ function createTable(table)
                 .append('th')
                 .text(d => d);
 
+            let displayData = data;
+            if (hasConfig($(table), 'slice'))
+                displayData = data.slice(readConfig($(table), 'slice')[0], readConfig($(table), 'slice')[1]);
+
             let rows = d3.select(table)
                 .append('tbody')
                 .selectAll('tr')
-                .data(data)
+                .data(displayData)
                 .enter()
                 .append('tr');
 
