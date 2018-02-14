@@ -29,7 +29,13 @@ module.exports = function(config)
             'assets/js/vendor/Chart-2.7.1.min.js',
             'assets/js/vendor/spin-2.3.2.min.js',
             'assets/js/charts.js',
-            'spec/*.js'
+            'spec/*.js',
+            {
+                pattern: 'test-data/*.tsv',
+                watched: true,
+                served: true,
+                included: false
+            }
         ],
 
 

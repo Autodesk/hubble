@@ -5,6 +5,7 @@
     createList,
     createTable,
     createSpinner,
+    document,
 */
 
 describe('global charts.js', function()
@@ -196,6 +197,79 @@ describe('global charts.js', function()
             expect(aggregatedData[1]['value']).toEqual(1);
             expect(aggregatedData[10]['value']).toEqual(4);
             expect(aggregatedData[11]['value']).toEqual(4);
+        });
+    });
+    describe('multiview charts', function()
+    {
+        const chartPlaceholders = `
+<div class="chart-placeholder" id="chart-1">
+    <h3>Pull Requests (Total)</h3>
+    <canvas
+        data-url="test-data/pull-request-history.tsv"
+        data-type="history"
+        data-config='{
+            "views":
+            [
+                {
+                    "label": "2 m",
+                    "tooltip": "Show the last 2 months",
+                    "aggregate": false,
+                    "series": ["merged", "new"],
+                    "visibleSeries": ["merged"],
+                    "slice": [0, 61]
+                },
+                {
+                    "label": "2 y",
+                    "tooltip": "Show the last 2 years",
+                    "aggregate":
+                    {
+                        "period": "week",
+                        "method": "sum"
+                    },
+                    "series": ["merged", "new"],
+                    "visibleSeries": ["merged"],
+                    "slice": [0, 106],
+                    "default": true
+                },
+                {
+                    "label": "all",
+                    "tooltip": "Show all data",
+                    "aggregate":
+                    {
+                        "period": "week",
+                        "method": "sum"
+                    },
+                    "series": ["merged", "new"],
+                    "visibleSeries": ["merged"]
+                }
+            ]
+        }'
+    ></canvas>
+</div>
+<div class="chart-placeholder" id="chart-2">
+    <h3>Pull Request Usage</h3>
+    <canvas
+        data-url="test-data/pull-request-usage.tsv"
+        data-type="history"
+        data-config='{"aggregate": {"period": "month", "method": "first"}}'
+    ></canvas>
+</div>`;
+        beforeEach(function()
+        {
+            document.body.insertAdjacentHTML('afterbegin', chartPlaceholders);
+        });
+        afterEach(function()
+        {
+            document.body.removeChild(document.getElementById('chart-1'));
+            document.body.removeChild(document.getElementById('chart-2'));
+        });
+        it('should be generated if multiple views are configured', function()
+        {
+            // TODO: add testing code for chart 1
+        });
+        it('should not be generated if a plain configuration without views is used', function()
+        {
+            // TODO: add testing code for chart 2
         });
     });
 });
