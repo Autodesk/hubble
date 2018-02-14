@@ -881,28 +881,30 @@ $(window).bind('load', function()
             const infoBoxes = $(chartPlaceholder).find('.info-box');
 
             // Put a bar with the title and additional actions before the chart container
-            if (readConfig($(charts.first()), 'showRawDataLink') != false && $(charts.first()).attr('data-url'))
-            {
-                titles.insertBefore(chartPlaceholder).wrapAll(
-                    '<div class="row action-bar"><div class="col-main"></div></div>');
+            titles.insertBefore(chartPlaceholder).wrapAll(
+                '<div class="row action-bar"><div class="col-main"></div></div>');
 
-                // Add an action bar as the first info box
-                titles.parent().parent().append(`
-                    <div class="col-aside">
-                        <div class="info-box">
-                            <div class="button-container">
-                                <div class="left">
-                                </div>
-                                <div class="right">
-                                    <a class="button" href="${$(charts.first()).attr('data-url')}" target="_blank"
-                                        title="Download raw data"><i class="fas fa-download"></i></a>
-                                </div>
+            // Add an action bar as the first info box
+            let actionBarHTML = `
+                <div class="col-aside">
+                    <div class="info-box">
+                        <div class="button-container">
+                            <div class="left">
+                            </div>
+                            <div class="right">`;
+
+            if (readConfig($(charts.first()), 'showRawDataLink') != false && $(charts.first()).attr('data-url'))
+                actionBarHTML += `
+                                <a class="button" href="${$(charts.first()).attr('data-url')}" target="_blank"
+                                    title="Download raw data"><i class="fas fa-download"></i></a>`;
+
+            actionBarHTML += `
                             </div>
                         </div>
-                    </div>`);
-            }
-            else
-                titles.insertBefore(chartPlaceholder).wrap('<div class="row"></div>');
+                    </div>
+                </div>`;
+
+            titles.parent().parent().append(actionBarHTML);
 
             const actionBar = titles.parent().parent().find('.button-container .left');
 
