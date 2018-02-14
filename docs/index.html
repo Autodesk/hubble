@@ -11,7 +11,24 @@ permalink: /
 		height="1000"
 		data-url="{{ site.dataURL }}/org-collaboration.tsv"
 		data-type="chord"
-		data-config='{"showRawDataLink": false}'
+		data-config='{
+			"showRawDataLink": false,
+			"views":
+			[
+				{
+					"label": "2 w",
+					"tooltip": "Show the last 2 weeks"
+				},
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months"
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years"
+				}
+			]
+		}'
 	></svg>
 	<div class="info-box">
 		<p>
@@ -20,7 +37,7 @@ permalink: /
 	</div>
 	<div class="info-box">
 		<p>
-			The top 50&nbsp;connections between organizations over the last two years.
+			The top 50&nbsp;connections between organizations over the last two weeks, two months, or two years.
 		</p>
 		<p>
 			A connection between two organizations is rated higher the more people contribute to both organizations.
