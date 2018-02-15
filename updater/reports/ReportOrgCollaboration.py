@@ -1,7 +1,7 @@
 from .Report import *
 
 # Calculate the number of users that have contributed to more than one
-# organization over the last two years
+# organization over the last two weeks, two, months, and two years.
 class ReportOrgCollaboration(Report):
 	def name(self):
 		return "org-collaboration"
@@ -11,38 +11,13 @@ class ReportOrgCollaboration(Report):
 		pass
 
 	def updateData(self):
-		newHeader, newData = self.parseData(
-			self.executeQuery(self.query(self.yesterday()))
-		)
-		collab = {}
-		orgs = []
-
-		# Generate a dictionary to easily access the MySQL data
-		for row in newData:
-			source = row[0]
-			target = row[1]
-			count = row[2]
-			if source not in collab:
-				collab[source] = {}
-			collab[source][target] = int(count)
-			if source not in orgs:
-				orgs.append(source)
-			if target not in orgs:
-				orgs.append(target)
-
-		orgs.sort(key=lambda x: x.lower())
-		matrix = [[0 for j in range(len(orgs))] for i in range(len(orgs))]
-
-		# Transform the MySQL data into a matrix using the dictionary
-		for sInd, sVal in enumerate(orgs):
-			for tInd, tVal in enumerate(orgs):
-				if sVal in collab and tVal in collab[sVal]:
-					matrix[sInd][tInd] = collab[sVal][tVal]
-				else:
-					matrix[sInd][tInd] = 0
-
-		self.header = orgs
-		self.data = matrix
+		oneDayAgo = self.yesterday()
+		twoWeeksAgo = self.daysAgo(14)
+		twoMonthsAgo = self.daysAgo(56)
+		twoYearsAgo = self.daysAgo(730)
+		self.data = self.orgCollaborationMatrix([twoWeeksAgo, oneDayAgo]) \
+		          + self.orgCollaborationMatrix([twoMonthsAgo, oneDayAgo]) \
+		          + self.orgCollaborationMatrix([twoYearsAgo, oneDayAgo])
 
 	def pushCountQuery(self, timeRange):
 		query = '''
@@ -114,17 +89,52 @@ class ReportOrgCollaboration(Report):
 		'''
 		return query
 
-	def query(self, date):
+	def collaboration(self, timeRange):
 		query = '''
 			SELECT source.org_name AS source,
 			       target.org_name AS target,
 			       COUNT(*) AS org_count
 			FROM
-				(''' + self.homeOrgQuery(self.timeRangeTotal()) + ''') AS source
-				LEFT JOIN (''' + self.contributorsToOrgQuery(self.timeRangeTotal()) + ''') AS target
+				(''' + self.homeOrgQuery(timeRange) + ''') AS source
+				LEFT JOIN (''' + self.contributorsToOrgQuery(timeRange) + ''') AS target
 					ON source.pusher_id = target.contributor_id
 			WHERE source.org_id != target.org_id
 			GROUP BY source.org_id,
 			         target.org_id
 		'''
 		return query
+
+	def orgCollaborationMatrix(self, timeRange):
+		_, newData = self.parseData(self.executeQuery(self.collaboration(timeRange)))
+		collab = {}
+		orgs = []
+
+		# Generate a dictionary to easily access the MySQL data
+		for row in newData:
+			source = row[0]
+			target = row[1]
+			count = row[2]
+			if source not in collab:
+				collab[source] = {}
+			collab[source][target] = int(count)
+			if source not in orgs:
+				orgs.append(source)
+			if target not in orgs:
+				orgs.append(target)
+
+		orgs.sort(key=lambda x: x.lower())
+		matrix = [[0 for j in range(len(orgs))] for i in range(len(orgs))]
+
+		# Transform the MySQL data into a matrix using the dictionary
+		for sInd, sVal in enumerate(orgs):
+			for tInd, tVal in enumerate(orgs):
+				if sVal in collab and tVal in collab[sVal]:
+					matrix[sInd][tInd] = collab[sVal][tVal]
+				else:
+					matrix[sInd][tInd] = 0
+
+		if len(orgs) == 0:
+			orgs = ["no collaboration"]
+			matrix = [[0]]
+
+		return [orgs] + matrix
