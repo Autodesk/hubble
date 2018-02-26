@@ -401,6 +401,8 @@ function createHistoryChart(canvas, actionBar)
                     // Trigger a Chart.js update
                     $(canvas).data('chart').update();
                     $(this).addClass('active');
+
+                    return false;
                 });
         }
     ).on('load.spinner', function()
@@ -920,6 +922,8 @@ function createChordChart(canvas, actionBar)
                     // Trigger an update
                     update();
                     $(this).addClass('active');
+
+                    return false;
                 });
 
             switchToView(defaultView);
