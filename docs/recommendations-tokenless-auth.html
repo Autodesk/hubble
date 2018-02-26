@@ -9,7 +9,37 @@ permalink: /recommendations-tokenless-auth
 	<canvas
 		data-url="{{ site.dataURL }}/tokenless-authentication.tsv"
 		data-type="history"
-	></canvas>
+		data-config='{
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					},
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					}
+				}
+			]
+		}'></canvas>
 	<div class="info-box">
 		<p>
 			If your GitHub Enterprise appliance is configured to use <a href="https://help.github.com/enterprise/2.11/admin/guides/user-management/using-ldap/">LDAP authentication</a>, then every request against GitHub requires an additional request against LDAP.

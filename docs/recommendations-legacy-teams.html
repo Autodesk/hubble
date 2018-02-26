@@ -9,7 +9,37 @@ permalink: /recommendations-legacy-teams
 	<canvas
 		data-url="{{ site.dataURL }}/teams-legacy.tsv"
 		data-type="history"
-	></canvas>
+		data-config='{
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "first"
+					},
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "first"
+					}
+				}
+			]
+		}'></canvas>
 	<div class="info-box">
 		<p>
 			Organizations created before September 2015 might have legacy admin teams.

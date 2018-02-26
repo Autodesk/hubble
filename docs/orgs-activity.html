@@ -10,16 +10,66 @@ permalink: /orgs-activity
 		data-url="{{ site.dataURL }}/organization-activity.tsv"
 		data-type="history"
 		data-config='{
-			"series": [
-				"last four weeks",
-				"last week",
-				"last day"
-			],
-			"visibleSeries": [
-				"last four weeks"
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"series":
+					[
+						"last four weeks",
+						"last week",
+						"last day"
+					],
+					"visibleSeries":
+					[
+						"last four weeks"
+					],
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "first"
+					},
+					"series":
+					[
+						"last four weeks",
+						"last week",
+						"last day"
+					],
+					"visibleSeries":
+					[
+						"last four weeks"
+					],
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "first"
+					},
+					"series":
+					[
+						"last four weeks",
+						"last week",
+						"last day"
+					],
+					"visibleSeries":
+					[
+						"last four weeks"
+					]
+				}
 			]
-		}'
-		></canvas>
+		}'></canvas>
 	<div class="info-box">
 		<p>
 			Shows how many organizations are active.

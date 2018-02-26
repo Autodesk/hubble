@@ -9,7 +9,37 @@ permalink: /housekeeping-abandoned-orgs
 	<canvas
 		data-url="{{ site.dataURL }}/organizations-abandoned.tsv"
 		data-type="history"
-	></canvas>
+		data-config='{
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "first"
+					},
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "first"
+					}
+				}
+			]
+		}'></canvas>
 	<div class="info-box">
 		<p>
 			An organizations is considered <em>abandoned</em> if none of its repositories has received a push in the last year (ignoring <a href="https://help.github.com/articles/archiving-repositories/">archived</a> repositories).
