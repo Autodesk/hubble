@@ -3,7 +3,7 @@
 # Lists users that make the most requests with username/password
 # c.f. https://help.github.com/enterprise/2.11/admin/guides/user-management/using-ldap/#disabling-password-authentication-for-git-operations
 #
-echo -e "user\trepository\ttokenless authentications/day"
+echo -e "user\trepository\ttokenless authentications"
 
 zcat -f /var/log/github/gitauth.log.1* |
     perl -ne 'print if s/.*status=OK member="?([^ "]+) hashed_token=nil.*path=([^ ]+)\.git .*proto=http.*/\1 \2/' |

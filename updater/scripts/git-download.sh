@@ -59,7 +59,7 @@ else
         '/\1\t\2\t\3\t\4/'
 fi
 
-echo -e "repository\tuser\tcloning?\trequests/day\tdownload/day [B]"
+echo -e "repository\tuser\tcloning?\trequests\tdownload [B]"
 
 eval "$CAT_LOG_FILE" |
     perl -ne "$EXTRACT_FIELDS" |
