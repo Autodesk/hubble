@@ -10,16 +10,66 @@ permalink: /repos-total
 		data-url="{{ site.dataURL }}/repository-history.tsv"
 		data-type="history"
 		data-config='{
-			"series": [
-				"in organizations",
-				"in user accounts",
-				"total"
-			],
-			"visibleSeries": [
-				"in organizations"
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"series":
+					[
+						"in organizations",
+						"in user accounts",
+						"total"
+					],
+					"visibleSeries":
+					[
+						"in organizations"
+					],
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "first"
+					},
+					"series":
+					[
+						"in organizations",
+						"in user accounts",
+						"total"
+					],
+					"visibleSeries":
+					[
+						"in organizations"
+					],
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "first"
+					},
+					"series":
+					[
+						"in organizations",
+						"in user accounts",
+						"total"
+					],
+					"visibleSeries":
+					[
+						"in organizations"
+					]
+				}
 			]
-		}'
-		></canvas>
+		}'></canvas>
 	<div class="info-box">
 		<p>
 			The number of repositories in organizations, in user accounts, and in total.

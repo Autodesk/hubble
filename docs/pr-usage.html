@@ -9,8 +9,37 @@ permalink: /pr-usage
 	<canvas
 		data-url="{{ site.dataURL }}/pull-request-usage.tsv"
 		data-type="history"
-		data-config='{"aggregate": {"period": "month", "method": "first"}}'
-	></canvas>
+		data-config='{
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "first"
+					},
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "first"
+					}
+				}
+			]
+		}'></canvas>
 	<div class="info-box">
 		<p>
 			The percentage of active repositories located in organizations, having more than one contributor, and using pull requests for contributions.

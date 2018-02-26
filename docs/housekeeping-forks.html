@@ -9,7 +9,37 @@ permalink: /housekeeping-forks
 	<canvas
 		data-url="{{ site.dataURL }}/forks-to-organizations.tsv"
 		data-type="history"
-	></canvas>
+		data-config='{
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "first"
+					},
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "first"
+					}
+				}
+			]
+		}'></canvas>
 	<div class="info-box">
 		<p>
 			Forks to personal user accounts are a great way to contribute code.

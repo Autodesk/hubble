@@ -10,12 +10,51 @@ permalink: /housekeeping-git-traffic
 		data-url="{{ site.dataURL }}/git-download.tsv"
 		data-type="history"
 		data-config='{
-			"series": [
-				"clones/day",
-				"fetches/day"
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"series":
+					[
+						"clones/day",
+						"fetches/day"
+					],
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					},
+					"series":
+					[
+						"clones/day",
+						"fetches/day"
+					],
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					},
+					"series":
+					[
+						"clones/day",
+						"fetches/day"
+					]
+				}
 			]
-		}'
-	></canvas>
+		}'></canvas>
 	<div class="info-box">
 		<p>
 			<em>Cloning</em> a Git repository is expensive, as the entire repository history must be transferred.
@@ -34,12 +73,51 @@ permalink: /housekeeping-git-traffic
 		data-url="{{ site.dataURL }}/git-download.tsv"
 		data-type="history"
 		data-config='{
-			"series": [
-				"clone traffic/day [GB]",
-				"fetch traffic/day [GB]"
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"series":
+					[
+						"clone traffic/day [GB]",
+						"fetch traffic/day [GB]"
+					],
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					},
+					"series":
+					[
+						"clone traffic/day [GB]",
+						"fetch traffic/day [GB]"
+					],
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					},
+					"series":
+					[
+						"clone traffic/day [GB]",
+						"fetch traffic/day [GB]"
+					]
+				}
 			]
-		}'
-	></canvas>
+		}'></canvas>
 	<div class="info-box">
 		<p>
 			The amount of data transferred for clones and fetches.

@@ -10,18 +10,72 @@ permalink: /users-activity
 		data-url="{{ site.dataURL }}/users.tsv"
 		data-type="history"
 		data-config='{
-			"series": [
-				"using license",
-				"pushing commits (last month)",
-				"pushing commits (last week)",
-				"pushing commits (last day)"
-			],
-			"visibleSeries": [
-				"using license",
-				"pushing commits (last month)"
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"series":
+					[
+						"using license",
+						"pushing commits (last month)",
+						"pushing commits (last week)",
+						"pushing commits (last day)"
+					],
+					"visibleSeries":
+					[
+						"using license",
+						"pushing commits (last month)"
+					],
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "first"
+					},
+					"series":
+					[
+						"using license",
+						"pushing commits (last month)",
+						"pushing commits (last week)",
+						"pushing commits (last day)"
+					],
+					"visibleSeries":
+					[
+						"using license",
+						"pushing commits (last month)"
+					],
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "first"
+					},
+					"series":
+					[
+						"using license",
+						"pushing commits (last month)",
+						"pushing commits (last week)",
+						"pushing commits (last day)"
+					],
+					"visibleSeries":
+					[
+						"using license",
+						"pushing commits (last month)"
+					]
+				}
 			]
-		}'
-	></canvas>
+		}'></canvas>
 	<div class="info-box">
 		<p>
 			<i>Using license</i> shows how many GitHub Enterprise licenses were used at a given date.

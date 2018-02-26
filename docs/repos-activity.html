@@ -10,13 +10,64 @@ permalink: /repos-activity
 		data-url="{{ site.dataURL }}/repository-activity.tsv"
 		data-type="history"
 		data-config='{
-			"series": [
-				"in organizations (last four weeks)",
-				"in organizations (last week)",
-				"in organizations (last day)"
-			],
-			"visibleSeries": [
-				"in organizations (last four weeks)"
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"series":
+					[
+						"in organizations (last four weeks)",
+						"in organizations (last week)",
+						"in organizations (last day)"
+					],
+					"visibleSeries":
+					[
+						"in organizations (last four weeks)"
+					],
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "first"
+					},
+					"series":
+					[
+						"in organizations (last four weeks)",
+						"in organizations (last week)",
+						"in organizations (last day)"
+					],
+					"visibleSeries":
+					[
+						"in organizations (last four weeks)"
+					],
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "first"
+					},
+					"series":
+					[
+						"in organizations (last four weeks)",
+						"in organizations (last week)",
+						"in organizations (last day)"
+					],
+					"visibleSeries":
+					[
+						"in organizations (last four weeks)"
+					]
+				}
 			]
 		}'
 		></canvas>
@@ -49,16 +100,66 @@ permalink: /repos-activity
 		data-url="{{ site.dataURL }}/repository-activity.tsv"
 		data-type="history"
 		data-config='{
-			"series": [
-				"in user accounts (last four weeks)",
-				"in user accounts (last week)",
-				"in user accounts (last day)"
-			],
-			"visibleSeries": [
-				"in user accounts (last four weeks)"
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"series":
+					[
+						"in user accounts (last four weeks)",
+						"in user accounts (last week)",
+						"in user accounts (last day)"
+					],
+					"visibleSeries":
+					[
+						"in user accounts (last four weeks)"
+					],
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "first"
+					},
+					"series":
+					[
+						"in user accounts (last four weeks)",
+						"in user accounts (last week)",
+						"in user accounts (last day)"
+					],
+					"visibleSeries":
+					[
+						"in user accounts (last four weeks)"
+					],
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "first"
+					},
+					"series":
+					[
+						"in user accounts (last four weeks)",
+						"in user accounts (last week)",
+						"in user accounts (last day)"
+					],
+					"visibleSeries":
+					[
+						"in user accounts (last four weeks)"
+					]
+				}
 			]
-		}'
-		></canvas>
+		}'></canvas>
 	<div class="info-box">
 		<p>
 			Shows how many repositories are active in user accounts.
