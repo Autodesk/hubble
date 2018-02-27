@@ -2,7 +2,7 @@
 #
 # Count number of API calls per type and user/org/repo (resource)
 #
-echo -e "resource\ttype\tsource IP\trequests/day"
+echo -e "resource\ttype\tsource IP\trequests"
 
 zcat -f /var/log/haproxy.log.1* |
     perl -ne 'print if s/.*haproxy\[\d+\]: ([^:]+).*\/api\/v3\/([^\/\? ]+)\/([^\/\? ]+?(\/[^\/\? ]+)).*/\1 \2 \3/' |

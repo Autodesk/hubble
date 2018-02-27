@@ -10,7 +10,7 @@ class ReportGitRequests(ReportDaily):
 			self.executeScript(self.scriptPath("git-requests.sh"))
 		)
 		if len(self.data) == 0:
-			self.header = ["date", "Git requests/day"]
+			self.header = ["date", "Git requests"]
 		self.data.append(
 			[str(self.yesterday()),
 			sum(map(lambda x: int(x[2] if len(x) > 1 else 0), newData))]

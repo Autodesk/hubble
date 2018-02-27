@@ -10,7 +10,7 @@ class ReportAPIRequests(ReportDaily):
 			self.executeScript(self.scriptPath("api-requests.sh"))
 		)
 		if len(self.data) == 0:
-			self.header = ["date", "API requests/day"]
+			self.header = ["date", "API requests"]
 		self.data.append(
 			[str(self.yesterday()),
 			sum(map(lambda x: int(x[3] if len(x) > 2 else 0), newData))]
