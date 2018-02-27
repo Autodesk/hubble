@@ -256,6 +256,9 @@ function aggregateTimeData(data, aggregationConfig)
 
 function buildHistoryChartData(view)
 {
+    if (view.data.length == 0)
+        return Array();
+
     const originalDataSeries = Object.keys(view.data[0]).slice(1);
     const dataSeries = 'series' in view ? view.series : originalDataSeries;
     const visibleDataSeries = 'visibleSeries' in view ? view.visibleSeries : originalDataSeries;
