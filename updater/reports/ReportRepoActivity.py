@@ -10,21 +10,18 @@ class ReportRepoActivity(ReportDaily):
 		return "repository-activity"
 
 	def updateDailyData(self):
-		newHeader, newData = self.parseData(
-			self.executeQuery(self.query())
-		)
+		newHeader, newData = self.parseData(self.executeQuery(self.query()))
 		self.header = newHeader if newHeader else self.header
 		self.data.extend(newData)
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()
 		self.detailedHeader, self.detailedData = self.parseData(
-			self.executeQuery(self.detailedQuery())
-		)
+			self.executeQuery(self.detailedQuery()))
 
 	# Collects active repositories for a user type (user/organization)
 	# given a time range
 	def activeRepos(self, userType, timeRange):
-		query = '''
+		return '''
 			SELECT
 				repositories.id AS repository_id,
 				CONCAT(users.login, "/", repositories.name) as repository,
@@ -35,23 +32,22 @@ class ReportRepoActivity(ReportDaily):
 				JOIN users ON repositories.owner_id = users.id
 				JOIN pushes ON pushes.repository_id = repositories.id
 			WHERE
-				CAST(pushes.created_at AS DATE) BETWEEN "''' + str(timeRange[0]) + '" AND "' + str(timeRange[1]) + '" ' + \
-				(' AND users.type = "' + userType + '" ' if userType != None else '') + \
-				self.andExcludedEntities("users.login") + \
-				self.andExcludedEntities("repositories.name") + '''
+				CAST(pushes.created_at AS DATE) BETWEEN
+					"''' + str(timeRange[0]) + '''" AND "''' + str(timeRange[1]) + '''"
+				''' + ('AND users.type = "' + userType + '"' if userType != None else '') + '''
+				''' + self.andExcludedEntities("users.login") + '''
+				''' + self.andExcludedEntities("repositories.name") + '''
 			GROUP BY
-				repositories.id
-		'''
-		return query
+				repositories.id'''
 
 	# Counts the number of active repositories for a user type (user/organization)
 	# given a time range
 	def countActiveRepos(self, userType, timeRange):
-		query = '''
-			SELECT COUNT(*) AS count
-			FROM (''' + self.activeRepos(userType, timeRange) + ''') AS activeRepos
-		'''
-		return query
+		return '''
+			SELECT
+				COUNT(*) AS count
+			FROM
+				(''' + self.activeRepos(userType, timeRange) + ''') AS activeRepos'''
 
 	# Counts the number of repositories in total, in organizations, and in user accounts
 	def query(self):
@@ -59,7 +55,7 @@ class ReportRepoActivity(ReportDaily):
 		oneWeekAgo = self.daysAgo(7)
 		fourWeeksAgo = self.daysAgo(28)
 
-		query = '''
+		return '''
 			SELECT
 				"''' + str(self.yesterday()) + '''" AS date,
 				totalLastFourWeeks.count AS "total (last four weeks)",
@@ -80,21 +76,19 @@ class ReportRepoActivity(ReportDaily):
 				(''' + self.countActiveRepos("Organization", [oneDayAgo, oneDayAgo]) + ''') AS organizationSpaceLastDay,
 				(''' + self.countActiveRepos("User", [fourWeeksAgo, oneDayAgo]) + ''') AS userSpaceLastFourWeeks,
 				(''' + self.countActiveRepos("User", [oneWeekAgo, oneDayAgo]) + ''') AS userSpaceLastWeek,
-				(''' + self.countActiveRepos("User", [oneDayAgo, oneDayAgo]) + ''') AS userSpaceLastDay
-			'''
-
-		return query
+				(''' + self.countActiveRepos("User", [oneDayAgo, oneDayAgo]) + ''') AS userSpaceLastDay'''
 
 	# Collects the active organizational repositories over the last 4 weeks
 	def detailedQuery(self):
 		oneDayAgo = self.yesterday()
 		fourWeeksAgo = self.daysAgo(28)
-		query = '''
+
+		return '''
 			SELECT
 				repository,
 				pusher_count as "pushers",
 				push_count as "pushes"
-			FROM (''' + self.activeRepos("Organization", [fourWeeksAgo, oneDayAgo]) + ''') AS activeRepos
-			ORDER BY push_count DESC
-		'''
-		return query
+			FROM
+				(''' + self.activeRepos("Organization", [fourWeeksAgo, oneDayAgo]) + ''') AS activeRepos
+			ORDER BY
+				push_count DESC'''

@@ -17,7 +17,8 @@ class ReportRepoUsage(ReportDaily):
 	def query(self):
 		oneDayAgo = self.yesterday()
 		fourWeeksAgo = self.daysAgo(28)
-		query = '''
+
+		return '''
 			SELECT
 				"''' + str(oneDayAgo) + '''" AS date,
 				ROUND(100 * COUNT(DISTINCT(protected.repository_id)) / COUNT(DISTINCT(active.repository_id)))
@@ -26,28 +27,34 @@ class ReportRepoUsage(ReportDaily):
 					AS "topics [%]"
 			FROM
 				(
-				SELECT
-					repositories.id AS repository_id,
-					pushes.ref
-				FROM
-					repositories
-					JOIN users ON repositories.owner_id = users.id
-					JOIN pushes ON pushes.repository_id = repositories.id
-				WHERE
-					CAST(pushes.created_at AS DATE) BETWEEN "''' + str(fourWeeksAgo) + '''" AND "''' + str(oneDayAgo) + '''"
-					AND users.type = "Organization" ''' + \
-					self.andExcludedEntities("users.login") + \
-					self.andExcludedEntities("repositories.name") + '''
-				GROUP BY
-					repositories.id
+					SELECT
+						repositories.id AS repository_id,
+						pushes.ref
+					FROM
+						repositories
+						JOIN users ON repositories.owner_id = users.id
+						JOIN pushes ON pushes.repository_id = repositories.id
+					WHERE
+						CAST(pushes.created_at AS DATE) BETWEEN
+							"''' + str(fourWeeksAgo) + '''" AND "''' + str(oneDayAgo) + '''"
+						AND users.type = "Organization"
+						''' + self.andExcludedEntities("users.login") + '''
+						''' + self.andExcludedEntities("repositories.name") + '''
+					GROUP BY
+						repositories.id
 				) AS active
-				LEFT JOIN (
+				LEFT JOIN
+				(
 					SELECT repository_id, name
 					FROM protected_branches
-				) AS protected ON active.repository_id = protected.repository_id AND active.ref = "refs/heads/" + protected.name
-				LEFT JOIN (
+				) AS protected
+					ON
+						active.repository_id = protected.repository_id
+						AND active.ref = "refs/heads/" + protected.name
+				LEFT JOIN
+				(
 					SELECT repository_id
 					FROM repository_topics
-				) AS topics ON active.repository_id = topics.repository_id
-		'''
-		return query
+				) AS topics
+					ON
+						active.repository_id = topics.repository_id'''

@@ -18,7 +18,8 @@ class ReportReposPersonalNonOwnerPushes(ReportDaily):
 
 	def query(self):
 		fourWeeksAgo = self.daysAgo(28)
-		query = '''
+
+		return '''
 			SELECT
 				CONCAT(users.login, "/", repositories.name) as "repository",
 				COUNT(DISTINCT(pushes.pusher_id)) as "nonowner pushers"
@@ -29,11 +30,10 @@ class ReportReposPersonalNonOwnerPushes(ReportDaily):
 			WHERE
 				users.type = "user"
 				AND users.suspended_at IS NULL
-				AND CAST(pushes.created_at AS DATE) BETWEEN "''' + str(fourWeeksAgo) + '''" AND "''' + str(self.yesterday()) + '''"
+				AND CAST(pushes.created_at AS DATE) BETWEEN
+					"''' + str(fourWeeksAgo) + '''" AND "''' + str(self.yesterday()) + '''"
 				AND pushes.pusher_id != users.id
 			GROUP BY
 				repositories.id
 			ORDER BY
-				2 DESC, 1
-		'''
-		return query
+				2 DESC, 1'''

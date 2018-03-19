@@ -20,9 +20,7 @@ class ReportTeamsLegacy(ReportDaily):
 							puts "#{o.login}\t#{t.name}\t#{t.members.size}"
 						}
 					end
-				end
-			''')
-		)
+				end'''))
 		if len(self.data) == 0:
 			self.header = ["date", "legacy admin teams"]
 		self.data.append([str(self.yesterday()), len(self.detailedData)])

@@ -16,7 +16,7 @@ class ReportOrgsAbandoned(ReportDaily):
 		self.sortDataByDate()
 
 	def query(self):
-		query = '''
+		return '''
 			SELECT
 				users.login AS "organization",
 				DATE(MAX(pushes.created_at)) AS "last push"
@@ -26,13 +26,11 @@ class ReportOrgsAbandoned(ReportDaily):
 				JOIN pushes ON pushes.repository_id = repositories.id
 			WHERE
 				users.type = "organization"
-				AND repositories.maintained = 1 ''' + \
-				self.andExcludedEntities("users.login") + '''
+				AND repositories.maintained = 1
+				''' + self.andExcludedEntities("users.login") + '''
 			GROUP BY
 				users.id
 			HAVING
 				CAST(MAX(pushes.created_at) AS DATE) < "''' + str(self.daysAgo(365)) + '''"
 			ORDER BY
-				MAX(pushes.created_at)
-		'''
-		return query
+				MAX(pushes.created_at)'''

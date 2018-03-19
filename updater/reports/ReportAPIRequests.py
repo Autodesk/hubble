@@ -7,14 +7,14 @@ class ReportAPIRequests(ReportDaily):
 
 	def updateDailyData(self):
 		self.detailedHeader, newData = self.parseData(
-			self.executeScript(self.scriptPath("api-requests.sh"))
-		)
+			self.executeScript(self.scriptPath("api-requests.sh")))
 		if len(self.data) == 0:
 			self.header = ["date", "API requests"]
 		self.data.append(
-			[str(self.yesterday()),
-			sum(map(lambda x: int(x[3] if len(x) > 2 else 0), newData))]
-		)
+			[
+				str(self.yesterday()),
+				sum(map(lambda x: int(x[3] if len(x) > 2 else 0), newData)),
+			])
 		self.detailedData = newData[:25]
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()

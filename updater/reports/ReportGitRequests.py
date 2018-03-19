@@ -7,14 +7,14 @@ class ReportGitRequests(ReportDaily):
 
 	def updateDailyData(self):
 		self.detailedHeader, newData = self.parseData(
-			self.executeScript(self.scriptPath("git-requests.sh"))
-		)
+			self.executeScript(self.scriptPath("git-requests.sh")))
 		if len(self.data) == 0:
 			self.header = ["date", "Git requests"]
 		self.data.append(
-			[str(self.yesterday()),
-			sum(map(lambda x: int(x[2] if len(x) > 1 else 0), newData))]
-		)
+			[
+				str(self.yesterday()),
+				sum(map(lambda x: int(x[2] if len(x) > 1 else 0), newData)),
+			])
 		self.detailedData = newData[:25]
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()

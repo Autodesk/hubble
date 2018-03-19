@@ -22,6 +22,4 @@ class ReportOrgOwners(Report):
 					                   .order("login")
 					                   .join(",")
 					puts "#{org.login}\t#{owners}\n"
-				end
-			''')
-		)
+				end'''))
