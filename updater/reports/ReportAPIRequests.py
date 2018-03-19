@@ -8,8 +8,7 @@ class ReportAPIRequests(ReportDaily):
 	def updateDailyData(self):
 		self.detailedHeader, newData = self.parseData(
 			self.executeScript(self.scriptPath("api-requests.sh")))
-		if len(self.data) == 0:
-			self.header = ["date", "API requests"]
+		self.header = ["date", "API requests"]
 		self.data.append(
 			[
 				str(self.yesterday()),

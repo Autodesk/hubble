@@ -8,15 +8,14 @@ class ReportGitDownload(ReportDaily):
 	def updateDailyData(self):
 		self.detailedHeader, newData = self.parseData(
 			self.executeScript(self.scriptPath("git-download.sh")))
-		if len(self.data) == 0:
-			self.header = \
-				[
-					"date",
-					"clones",
-					"fetches",
-					"clone traffic [GB]",
-					"fetch traffic [GB]",
-				]
+		self.header = \
+			[
+				"date",
+				"clones",
+				"fetches",
+				"clone traffic [GB]",
+				"fetch traffic [GB]",
+			]
 		self.data.append(
 			[
 				str(self.yesterday()),

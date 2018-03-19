@@ -18,8 +18,7 @@ class ReportPRUsage(ReportDaily):
 				date += datetime.timedelta(days_in_month)
 				_, newData = self.parseData(self.executeQuery(self.query(date)))
 				self.data.extend(newData)
-		newHeader, newData = self.parseData(self.executeQuery(self.query(self.yesterday())))
-		self.header = newHeader if newHeader else self.header
+		self.header, newData = self.parseData(self.executeQuery(self.query(self.yesterday())))
 		self.data.extend(newData)
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()

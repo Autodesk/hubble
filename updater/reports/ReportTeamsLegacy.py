@@ -21,8 +21,7 @@ class ReportTeamsLegacy(ReportDaily):
 						}
 					end
 				end'''))
-		if len(self.data) == 0:
-			self.header = ["date", "legacy admin teams"]
+		self.header = ["date", "legacy admin teams"]
 		self.data.append([str(self.yesterday()), len(self.detailedData)])
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()

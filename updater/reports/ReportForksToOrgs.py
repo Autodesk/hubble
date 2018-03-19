@@ -11,8 +11,7 @@ class ReportForksToOrgs(ReportDaily):
 
 	def updateDailyData(self):
 		self.detailedHeader, self.detailedData = self.parseData(self.executeQuery(self.query()))
-		if len(self.data) == 0:
-			self.header = ["date", "forks to organizations"]
+		self.header = ["date", "forks to organizations"]
 		self.data.append([str(self.yesterday()), len(self.detailedData)])
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()

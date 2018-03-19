@@ -10,8 +10,7 @@ class ReportReposPersonalNonOwnerPushes(ReportDaily):
 
 	def updateDailyData(self):
 		self.detailedHeader, self.detailedData = self.parseData(self.executeQuery(self.query()))
-		if len(self.data) == 0:
-			self.header = ["date", "personal repositories with nonowner pushes"]
+		self.header = ["date", "personal repositories with nonowner pushes"]
 		self.data.append([str(self.yesterday()), len(self.detailedData)])
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()
