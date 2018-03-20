@@ -6,9 +6,7 @@ class ReportRepositoryHistory(ReportDaily):
 		return "repository-history"
 
 	def updateDailyData(self):
-		newHeader, newData = self.parseData(
-			self.executeQuery(self.query())
-		)
+		newHeader, newData = self.parseData(self.executeQuery(self.query()))
 		self.header = newHeader if newHeader else self.header
 		self.data.extend(newData)
 		self.truncateData(self.timeRangeTotal())
@@ -23,18 +21,19 @@ class ReportRepositoryHistory(ReportDaily):
 				repositories
 				JOIN users ON repositories.owner_id = users.id
 			WHERE
-				TRUE ''' + self.andExcludedEntities("users.login") \
-				         + self.andExcludedEntities("repositories.name")
+				TRUE
+				''' + self.andExcludedEntities("users.login") + '''
+				''' + self.andExcludedEntities("repositories.name")
 
 		if userType != None:
-			query += ''' AND
-				users.type = "''' + userType + '''"'''
+			query += '''
+				AND users.type = "''' + userType + '''"'''
 
 		return query
 
 	# Collects the number of repositories in total, in organizations, and in user accounts
 	def query(self):
-		query = '''
+		return '''
 			SELECT
 				"''' + str(self.yesterday()) + '''" AS date,
 				total.count AS total,
@@ -43,7 +42,4 @@ class ReportRepositoryHistory(ReportDaily):
 			FROM
 				(''' + self.subquery(None) + ''') AS total,
 				(''' + self.subquery("Organization") + ''') AS organizationSpace,
-				(''' + self.subquery("User") + ''') AS userSpace
-			'''
-
-		return query
+				(''' + self.subquery("User") + ''') AS userSpace'''

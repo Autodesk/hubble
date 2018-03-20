@@ -19,7 +19,7 @@ class ReportForksToOrgs(ReportDaily):
 
 	# Collects the number of forks in organizations
 	def query(self):
-		query = '''
+		return '''
 			SELECT
 				CONCAT(orgs.login, "/", repos.name) AS fork,
 				CAST(repos.created_at AS date) AS "creation date"
@@ -29,16 +29,14 @@ class ReportForksToOrgs(ReportDaily):
 				users AS parentOrgs,
 				repositories AS parentRepos
 			WHERE
-				orgs.type = "organization" AND
-				repos.owner_id = orgs.id AND
-				parentOrgs.type = "organization" AND
-				parentRepos.owner_id = parentOrgs.id AND
-				parentRepos.id = repos.parent_id
-				''' + self.andExcludedEntities("orgs.login") \
-					+ self.andExcludedEntities("repos.name") \
-					+ self.andExcludedEntities("parentOrgs.login") \
-					+ self.andExcludedEntities("parentRepos.name") + '''
+				orgs.type = "organization"
+				AND repos.owner_id = orgs.id
+				AND parentOrgs.type = "organization"
+				AND parentRepos.owner_id = parentOrgs.id
+				AND parentRepos.id = repos.parent_id
+				''' + self.andExcludedEntities("orgs.login") + '''
+				''' + self.andExcludedEntities("repos.name") + '''
+				''' + self.andExcludedEntities("parentOrgs.login") + '''
+				''' + self.andExcludedEntities("parentRepos.name") + '''
 			ORDER BY
-				repos.created_at DESC
-		'''
-		return query
+				repos.created_at DESC'''

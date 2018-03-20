@@ -16,25 +16,24 @@ class ReportPRUsage(ReportDaily):
 			while date < range[1]:
 				days_in_month = calendar.monthrange(date.year, date.month)[1]
 				date += datetime.timedelta(days_in_month)
-				newHeader, newData = self.parseData(
-					self.executeQuery(self.query(date))
-				)
+				_, newData = self.parseData(self.executeQuery(self.query(date)))
 				self.data.extend(newData)
-		newHeader, newData = self.parseData(
-			self.executeQuery(self.query(self.yesterday()))
-		)
+		newHeader, newData = self.parseData(self.executeQuery(self.query(self.yesterday())))
 		self.header = newHeader if newHeader else self.header
 		self.data.extend(newData)
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()
 
 	def query(self, date):
-		lastFourWeeks = date - datetime.timedelta(7*4)
-		query = '''
+		lastFourWeeks = date - datetime.timedelta(7 * 4)
+
+		return '''
 			SELECT
 				"''' + str(date) + '''" AS date,
-				ROUND(100 * COUNT(pr.repository_id) / COUNT(active.repository_id)) AS "pull request usage [%]",
-				ROUND(100 * COUNT(status.repository_id) / COUNT(active.repository_id)) AS "status usage [%]"
+				ROUND(100 * COUNT(pr.repository_id) / COUNT(active.repository_id))
+					AS "pull request usage [%]",
+				ROUND(100 * COUNT(status.repository_id) / COUNT(active.repository_id))
+					AS "status usage [%]"
 			FROM
 				(
 					SELECT
@@ -44,25 +43,26 @@ class ReportPRUsage(ReportDaily):
 						JOIN users ON repositories.owner_id = users.id
 						JOIN pushes ON pushes.repository_id = repositories.id
 					WHERE
-						CAST(pushes.created_at AS DATE) BETWEEN "''' + str(lastFourWeeks) + '''" AND "''' + str(date) + '''"
-						AND users.type = "Organization" ''' + \
-						self.andExcludedEntities("users.login") + \
-						self.andExcludedEntities("repositories.name") + '''
+						CAST(pushes.created_at AS DATE) BETWEEN
+							"''' + str(lastFourWeeks) + '''" AND "''' + str(date) + '''"
+						AND users.type = "Organization"
+						''' + self.andExcludedEntities("users.login") + '''
+						''' + self.andExcludedEntities("repositories.name") + '''
 					GROUP BY
 						repositories.id
 					HAVING COUNT(pushes.pusher_id) > 1
 				) AS active
-				LEFT JOIN (
+				LEFT JOIN
+				(
 					SELECT DISTINCT(repository_id)
 					FROM pull_requests
 					WHERE CAST(pull_requests.created_at AS date) BETWEEN
 						"''' + str(lastFourWeeks) + '''" AND "''' + str(date) + '''"
 				) AS pr ON active.repository_id = pr.repository_id
-				LEFT JOIN (
+				LEFT JOIN
+				(
 					SELECT DISTINCT(repository_id)
 					FROM statuses
 					WHERE CAST(statuses.created_at as date) BETWEEN
 						"''' + str(lastFourWeeks) + '''" AND "''' + str(date) + '''"
-				) AS status ON active.repository_id = status.repository_id
-		'''
-		return query
+				) AS status ON active.repository_id = status.repository_id'''
