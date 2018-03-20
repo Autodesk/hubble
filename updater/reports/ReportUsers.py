@@ -6,8 +6,7 @@ class ReportUsers(ReportDaily):
 		return "users"
 
 	def updateDailyData(self):
-		newHeader, newData = self.parseData(self.executeQuery(self.query(self.yesterday())))
-		self.header = newHeader if newHeader else self.header
+		self.header, newData = self.parseData(self.executeQuery(self.query(self.yesterday())))
 		self.data.extend(newData)
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()

@@ -8,8 +8,7 @@ class ReportTokenlessAuth(ReportDaily):
 	def updateDailyData(self):
 		self.detailedHeader, newData = self.parseData(
 			self.executeScript(self.scriptPath("tokenless-auth.sh")))
-		if len(self.data) == 0:
-			self.header = ["date", "tokenless authentications"]
+		self.header = ["date", "tokenless authentications"]
 		self.data.append(
 			[
 				str(self.yesterday()),

@@ -6,8 +6,7 @@ class ReportOrgsTotal(ReportDaily):
 		return "orgs-total"
 
 	def updateDailyData(self):
-		newHeader, newData = self.parseData(self.executeQuery(self.query()))
-		self.header = newHeader if newHeader else self.header
+		self.header, newData = self.parseData(self.executeQuery(self.query()))
 		self.data.extend(newData)
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()

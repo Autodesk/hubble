@@ -7,9 +7,8 @@ class ReportPRHistory(ReportDaily):
 
 	def updateDailyData(self):
 		# Collect the missing data that should be added with this update
-		newHeader, newData = self.parseData(
+		self.header, newData = self.parseData(
 			self.executeQuery(self.query(self.timeRangeToUpdate())))
-		self.header = newHeader if newHeader else self.header
 		self.data.extend(newData)
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()
