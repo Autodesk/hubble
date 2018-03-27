@@ -9,6 +9,7 @@
     "globals": {
         "Chart": false,
         "d3": false,
-        "Spinner": false
+        "Spinner": false,
+        "moment": false
     }
 }

@@ -63,7 +63,7 @@ const timeSeriesChartDefaults =
                 time:
                 {
                     format: 'YYYY-MM-DD',
-                    tooltipFormat: 'D MMMM YYYY',
+                    tooltipFormat: 'D MMM YYYY',
                     minUnit: 'day',
                 }
             }
@@ -204,6 +204,8 @@ function aggregateTimeData(data, aggregationConfig)
 
         let row = Object();
         row['date'] = t0;
+        row['_dateRange'] = [t0, t1];
+        row['_infoText'] = aggregationConfig['method'];
 
         $.each(Object.keys(data[0]),
             function(keyID, key)
@@ -233,9 +235,16 @@ function aggregateTimeData(data, aggregationConfig)
                         break;
                     case 'first':
                         row[key] = dates[0][key];
+                        // With the first/last aggregation methods, show only the affected date and not a range.
+                        // The info text showing the aggregation method can also be omitted, because the date
+                        // itself is enough information to understand the scope of the shown value.
+                        row['_dateRange'][1] = t0;
+                        row['_infoText'] = undefined;
                         break;
                     case 'last':
                         row[key] = dates[dates.length - 1][key];
+                        row['_dateRange'][0] = t1;
+                        row['_infoText'] = undefined;
                         break;
                     case 'min':
                         row[key] = d3.min(dates, accessor);
@@ -270,6 +279,10 @@ function buildHistoryChartData(view)
     $.each(dataSeries,
         function(dataSeriesID, dataSeries)
         {
+            // Skip auxiliarly columns
+            if (dataSeries[0] == '_')
+                return;
+
             const color = chartColorSequence[index % chartColorSequence.length];
             const backgroundColorString = 'rgba(' + color[0] + ', ' + color[1] + ', ' + color[2] + ', 0.25)';
             const borderColorString = 'rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ')';
@@ -283,7 +296,14 @@ function buildHistoryChartData(view)
                 hidden: (visibleDataSeries.indexOf(dataSeries) == -1) ? true : false,
             };
 
-            seriesData.data = view.data.map(row => ({x: row.date, y: row[dataSeries]}));
+            seriesData.data = view.data.map(
+                row =>
+                    ({
+                        x: row.date,
+                        y: row[dataSeries],
+                        dateRange: row._dateRange,
+                        infoText: row._infoText
+                    }));
             chartData.push(seriesData);
 
             index++;
@@ -382,6 +402,43 @@ function createHistoryChart(canvas, actionBar)
                 actionBar.prepend(buttons);
             }
 
+            const tooltipTitleCallback =
+                function(tooltipItem, data)
+                {
+                    // In the history chart, tooltips are rendered for individual data points.
+                    // Hence, the tooltipItem array contains exactly one element
+                    const dataPoint = data.datasets[tooltipItem[0].datasetIndex].data[tooltipItem[0].index];
+
+                    const date = dataPoint.x;
+                    const dateRange = dataPoint.dateRange;
+
+                    const suffix = (dataPoint.infoText === undefined)
+                        ? ''
+                        : ' (' + dataPoint.infoText + ')';
+
+                    if (dateRange === undefined)
+                        return moment(date).utc().format('D MMM YYYY') + suffix;
+
+                    if (dateRange[0] == dateRange[1])
+                        return moment(dateRange[0]).utc().format('D MMM YYYY') + suffix;
+
+                    // The date range is of the form [t0, t1), inclusive of t0 but exclusive of t1.
+                    // Hence, subtract one second from t1 to obtain the previous date in UTC
+                    return moment(dateRange[0]).utc().format('D MMM YYYY')
+                        + ' to '
+                        + moment(dateRange[1]).utc().subtract(1, 'seconds').format('D MMM YYYY') + suffix;
+                };
+
+            let options = jQuery.extend({}, timeSeriesChartDefaults);
+
+            options['tooltips'] =
+            {
+                callbacks:
+                {
+                    title: tooltipTitleCallback
+                }
+            };
+
             $(canvas).data('chart', new Chart(context,
                 {
                     type: 'line',
@@ -389,7 +446,7 @@ function createHistoryChart(canvas, actionBar)
                     {
                         datasets: defaultView['chartData']
                     },
-                    options: timeSeriesChartDefaults
+                    options: options
                 }));
 
             $(canvas).data('views', views);
