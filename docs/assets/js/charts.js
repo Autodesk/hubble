@@ -113,6 +113,11 @@ const stackedBarChartDefaults =
     maintainAspectRatio: false
 };
 
+function formatDate(date)
+{
+    return moment(date).utc().format('D MMM YYYY');
+}
+
 function hasConfig(element, key)
 {
     return element.data('config') && (key in element.data('config'));
@@ -417,16 +422,17 @@ function createHistoryChart(canvas, actionBar)
                         : ' (' + dataPoint.infoText + ')';
 
                     if (dateRange === undefined)
-                        return moment(date).utc().format('D MMM YYYY') + suffix;
+                        return formatDate(date) + suffix;
 
                     if (dateRange[0] == dateRange[1])
-                        return moment(dateRange[0]).utc().format('D MMM YYYY') + suffix;
+                        return formatDate(dateRange[0]) + suffix;
 
                     // The date range is of the form [t0, t1), inclusive of t0 but exclusive of t1.
                     // Hence, subtract one second from t1 to obtain the previous date in UTC
-                    return moment(dateRange[0]).utc().format('D MMM YYYY')
-                        + ' to '
-                        + moment(dateRange[1]).utc().subtract(1, 'seconds').format('D MMM YYYY') + suffix;
+                    let t1 = dateRange[1];
+                    t1.setSeconds(t1.getSeconds() - 1);
+
+                    return formatDate(dateRange[0]) + ' to ' + formatDate(t1) + suffix;
                 };
 
             let options = jQuery.extend({}, timeSeriesChartDefaults);
