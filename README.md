@@ -22,7 +22,7 @@ Hubble Enterprise consists of two components.
 The [*updater component*](updater/) is a Python script that queries relevant data from a GitHub Enterprise appliance and stores the results in a Git repository once a day.
 The [*docs component*](docs/) is a web application that visualizes the collected data and is hosted with [GitHub Pages](https://pages.github.com/).
 
-1. Create a new, initialized, public repository for Hubble’s data on your GitHub Enterprise appliance (for instance, `https://git.company.com/scm/hubble-data`).
+1. Create a new, initialized, public repository for Hubble’s data on your GitHub Enterprise appliance (for instance, `https://git.company.com/scm/hubble-data`) and add the [meta.tsv](meta.tsv) file to the repository.
 1. Publish Hubble’s [data repository on GitHub Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages).
    Go to the repository settings, *options* tab, *GitHub Pages* section, then choose *master branch* as *source*, and click *save*.
    GitHub Enterprise will now tell you the URL of the published data pages (for instance, `https://pages.git.company.com/scm/hubble-data` if you have [subdomain isolation enabled](https://help.github.com/enterprise/2.1/admin/articles/configuring-dns-ssl-and-subdomain-settings/#enabling-subdomain-isolation)).
