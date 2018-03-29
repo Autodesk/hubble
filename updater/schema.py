@@ -20,8 +20,9 @@ def checkSchemaVersion(dataDirectory):
 				if row[0] == "schema-version":
 					schemaVersionLocal = int(row[1])
 					break
-	except:
-		pass
+	except IOException as e:
+		print("error: the data repository has no file named meta.tsv", file = sys.stderr)
+		sys.exit(1)
 
 	if schemaVersionLocal < schemaVersion:
 		print("error: the data repository has an outdated scheme and needs to be migrated", file = sys.stderr)
