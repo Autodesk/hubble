@@ -9,6 +9,7 @@ from helpers import *
 from schema import *
 
 from reports.ReportAPIRequests import *
+from reports.ReportAPIRequestsByUser import *
 from reports.ReportContributorsByOrg import *
 from reports.ReportContributorsByRepo import *
 from reports.ReportForksToOrgs import *
@@ -74,6 +75,7 @@ def main():
 
 	# Update reports
 	ReportAPIRequests(configuration, dataDirectory, metaStats).update()
+	ReportAPIRequestsByUser(configuration, dataDirectory, metaStats).update()
 	ReportContributorsByOrg(configuration, dataDirectory, metaStats).update()
 	ReportContributorsByRepo(configuration, dataDirectory, metaStats).update()
 	ReportForksToOrgs(configuration, dataDirectory, metaStats).update()
