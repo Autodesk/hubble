@@ -118,6 +118,18 @@ function formatDate(date)
     return moment(date).utc().format('D MMM YYYY');
 }
 
+function formatDateRange(dateRange)
+{
+    const t0 = dateRange[0];
+    let t1 = new Date(dateRange[1].valueOf());
+
+    // The date range is of the form [t0, t1), inclusive of t0 but exclusive of t1.
+    // Hence, subtract one second from t1 to obtain the previous date in UTC
+    t1.setSeconds(t1.getSeconds() - 1);
+
+    return formatDate(t0) + ' to ' + formatDate(t1);
+}
+
 function hasConfig(element, key)
 {
     return element.data('config') && (key in element.data('config'));
@@ -427,12 +439,7 @@ function createHistoryChart(canvas, actionBar)
                     if (dateRange[0] == dateRange[1])
                         return formatDate(dateRange[0]) + suffix;
 
-                    // The date range is of the form [t0, t1), inclusive of t0 but exclusive of t1.
-                    // Hence, subtract one second from t1 to obtain the previous date in UTC
-                    let t1 = dateRange[1];
-                    t1.setSeconds(t1.getSeconds() - 1);
-
-                    return formatDate(dateRange[0]) + ' to ' + formatDate(t1) + suffix;
+                    return formatDateRange(dateRange) + suffix;
                 };
 
             let options = jQuery.extend({}, timeSeriesChartDefaults);
