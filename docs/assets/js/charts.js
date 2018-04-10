@@ -1070,6 +1070,11 @@ $(window).bind('load', function()
                     }
                 });
 
-            tables.each((index, table) => createTable(table));
+            tables.each(
+                function(index, table)
+                {
+                    if ($(table).attr('data-type') == 'table')
+                        createTable(table);
+                });
         });
 });
