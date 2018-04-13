@@ -1,3 +1,4 @@
+import calendar
 from .ReportDaily import *
 
 # Calculate percentage of active repositories with a least two contributors
