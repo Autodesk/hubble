@@ -13,7 +13,13 @@ def checkSchemaVersion(dataDirectory):
 	schemaVersionLocal = 0
 
 	try:
-		with open(os.path.join(dataDirectory, "meta.tsv"), "r") as tsvFile:
+		metaFilePath = os.path.join(dataDirectory, "meta.tsv")
+
+		# If no meta.tsv has been created yet, no schema compatibility check is necessary
+		if not os.path.exists(metaFilePath):
+			return
+
+		with open(metaFilePath, "r") as tsvFile:
 			tsvReader = csv.reader(tsvFile, delimiter = "\t")
 
 			for row in tsvReader:
