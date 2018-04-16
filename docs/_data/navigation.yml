@@ -9,8 +9,6 @@
       url: "/users-activity"
     - title: "Git Versions"
       url: "/users-git-versions"
-    - title: "API Rate Limit"
-      url: "/users-api-rate-limit"
 - title: "Pull Requests"
   url: "/pr-usage"
   subnavigation:

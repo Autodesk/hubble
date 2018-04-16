@@ -1,4 +1,4 @@
-user	0h	1h	2h	3h	4h	5h	6h	7h	8h	9h	10h	11h	12h	13h	14h	15h	16h	17h	18h	19h	20h	21h	22h	23h
-Alpha	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	11	0	0	3	0	6	3	3	0
-Bravo	0	1	0	0	22	0	0	0	0	0	0	0	0	0	0	4	0	0	3	0	1	2	3	0
-Charlie	98	0	0	0	22	0	0	0	0	113	0	0	0	0	0	14	0	0	2	0	0	0	0	0
+user	requests
+Alpha	1500
+Bravo	500
+Charlie	20
