@@ -16,6 +16,7 @@ from reports.ReportForksToOrgs import *
 from reports.ReportGitDownload import *
 from reports.ReportGitRequests import *
 from reports.ReportGitVersions import *
+from reports.ReportGitVersionsNew import *
 from reports.ReportOrgActivity import *
 from reports.ReportOrgCollaboration import *
 from reports.ReportOrgOwners import *
@@ -81,6 +82,7 @@ def main():
 	ReportGitDownload(configuration, dataDirectory, metaStats).update()
 	ReportGitRequests(configuration, dataDirectory, metaStats).update()
 	ReportGitVersions(configuration, dataDirectory, metaStats).update()
+	ReportGitVersionsNew(configuration, dataDirectory, metaStats).update()
 	ReportOrgActivity(configuration, dataDirectory, metaStats).update()
 	ReportOrgCollaboration(configuration, dataDirectory, metaStats).update()
 	ReportOrgOwners(configuration, dataDirectory, metaStats).update()
