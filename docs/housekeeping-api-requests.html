@@ -51,6 +51,20 @@ permalink: /housekeeping-api-requests
 </div>
 
 <div class="chart-placeholder">
+	<h3>Top API Requests by Users</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/api-requests-by-user.tsv"
+		data-type="list"
+	></canvas>
+	<div class="info-box">
+		<p>
+			The top 20 users with the most API requests.
+		</p>
+	</div>
+</div>
+
+
+<div class="chart-placeholder">
 	<table data-url="{{ site.dataURL }}/api-requests-detailed.tsv" data-type="table"></table>
 	<div class="info-box">
 		<p>
