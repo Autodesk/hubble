@@ -1,6 +1,34 @@
 # Change Log
 
-## (unreleased)
+## 0.3.0 (2018-04-30)
+
+### Changes
+
+* switch [user activity chart](https://autodesk.github.io/hubble/users-activity) from 1-month to 4-week intervals ([#129](https://github.com/Autodesk/hubble/issues/129), [#135](https://github.com/Autodesk/hubble/issues/135))
+
+### Features
+
+* new chart: [list of most active repositories](https://autodesk.github.io/hubble/repos-activity) ([#119](https://github.com/Autodesk/hubble/issues/119), [#123](https://github.com/Autodesk/hubble/issues/123), [@mlbright](https://github.com/mlbright))
+* new chart: [API requests per user](https://autodesk.github.io/hubble/housekeeping-api-requests) ([#148](https://github.com/Autodesk/hubble/issues/148), [@dfarr](https://github.com/dfarr))
+* add 2-month, 2-year, and *all data* views to all charts of *history* type ([#126](https://github.com/Autodesk/hubble/issues/126), [#154](https://github.com/Autodesk/hubble/issues/154))
+* add 2-week, 2-month, and 2-year views to [collaboration chart](https://autodesk.github.io/hubble/) ([#115](https://github.com/Autodesk/hubble/issues/115), [#124](https://github.com/Autodesk/hubble/issues/124))
+* show the time range and aggregation method in tooltips when hovering aggregated data ([#130](https://github.com/Autodesk/hubble/issues/130), [#143](https://github.com/Autodesk/hubble/issues/143))
+* add detailed Git versions report (not visualized yet, [#144](https://github.com/Autodesk/hubble/issues/144))
+
+### Bug Fixes
+
+* fix issue where data wasn’t aggregated with single-view charts ([#120](https://github.com/Autodesk/hubble/issues/120), [#121](https://github.com/Autodesk/hubble/issues/121))
+* fix unintended scrolling to the top of the page when switching chart views ([#125](https://github.com/Autodesk/hubble/issues/125))
+* fix JavaScript error with empty chart views ([#128](https://github.com/Autodesk/hubble/issues/128), [#134](https://github.com/Autodesk/hubble/issues/134))
+* update data file headers on every update ([#138](https://github.com/Autodesk/hubble/issues/138), [#139](https://github.com/Autodesk/hubble/issues/139), reported by [@talktopiyush](https://github.com/talktopiyush) and [@rajivmucheli](https://github.com/rajivmucheli))
+* fix [tokenless authentication chart](https://autodesk.github.io/hubble/recommendations-tokenless-auth) on GitHub Enterprise 2.12 ([#139](https://github.com/Autodesk/hubble/issues/139), [#141](https://github.com/Autodesk/hubble/issues/141), reported by [@talktopiyush](https://github.com/talktopiyush) and [@rajivmucheli](https://github.com/rajivmucheli))
+* fix error with forward compatibility check when the data repository is empty ([#145](https://github.com/Autodesk/hubble/issues/145), [#146](https://github.com/Autodesk/hubble/issues/146), [#153](https://github.com/Autodesk/hubble/issues/153), [@IngoS11](https://github.com/IngoS11), reported by [@IngoS11](https://github.com/IngoS11) and [@sky9723](https://github.com/sky9723))
+* fix Python error because of missing module import ([#136](https://github.com/Autodesk/hubble/issues/136), [#146](https://github.com/Autodesk/hubble/issues/146), [#152](https://github.com/Autodesk/hubble/issues/152), [@IngoS11](https://github.com/IngoS11), reported by [@primetheus](https://github.com/primetheus), [@IngoS11](https://github.com/IngoS11), and [@sky9723](https://github.com/sky9723))
+* fix incorrect dates shown at the end of date ranges ([#118](https://github.com/Autodesk/hubble/issues/118), [#147](https://github.com/Autodesk/hubble/issues/147), [#149](https://github.com/Autodesk/hubble/issues/149), reported by [@toddocon](https://github.com/toddocon))
+
+### Infrastructure
+
+* support for extending Hubble with custom chart types by making the types handled by Hubble explicit ([#150](https://github.com/Autodesk/hubble/issues/150))
 
 ## 0.2.0 (2018-02-06)
 

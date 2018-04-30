@@ -1,7 +1,7 @@
 {
   "name": "hubble-enterprise-dashboard",
   "description": "",
-  "version": "0.2.0+git",
+  "version": "0.3.0",
   "scripts": {
     "lint": "eslint .",
     "start": "echo \"is there jekyll for node?\"",
