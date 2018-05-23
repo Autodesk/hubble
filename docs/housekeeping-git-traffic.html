@@ -82,7 +82,8 @@ permalink: /housekeeping-git-traffic
 					"series":
 					[
 						"clone traffic [GB]",
-						"fetch traffic [GB]"
+						"fetch traffic [GB]",
+						"LFS traffic [GB]"
 					],
 					"slice": [0, 61]
 				},
@@ -97,7 +98,8 @@ permalink: /housekeeping-git-traffic
 					"series":
 					[
 						"clone traffic [GB]",
-						"fetch traffic [GB]"
+						"fetch traffic [GB]",
+						"LFS traffic [GB]"
 					],
 					"slice": [0, 106],
 					"default": true
@@ -113,14 +115,15 @@ permalink: /housekeeping-git-traffic
 					"series":
 					[
 						"clone traffic [GB]",
-						"fetch traffic [GB]"
+						"fetch traffic [GB]",
+						"LFS traffic [GB]"
 					]
 				}
 			]
 		}'></canvas>
 	<div class="info-box">
 		<p>
-			The amount of data transferred for clones and fetches (<em>not</em> including <a href="https://git-lfs.github.com/">Git LFS</a> traffic).
+			The amount of data transferred for clones and fetches (<em>excluding</em> Git LFS traffic) as well as pure <a href="https://git-lfs.github.com/">Git LFS</a> traffic (indirectly triggered through clones and fetches).
 		</p>
 		<p>
 			To save resources, you should try to minimize the number of clones, especially for large repositories.
