@@ -8,6 +8,8 @@ class ReportGitDownload(ReportDaily):
 	def updateDailyData(self):
 		self.detailedHeader, newData = self.parseData(
 			self.executeScript(self.scriptPath("git-download.sh")))
+		_, sumLFSTraffic = self.parseData(
+			self.executeScript(self.scriptPath("git-lfs-download.sh")))
 		self.header = \
 			[
 				"date",
@@ -15,6 +17,7 @@ class ReportGitDownload(ReportDaily):
 				"fetches",
 				"clone traffic [GB]",
 				"fetch traffic [GB]",
+				"LFS traffic [GB]",
 			]
 		self.data.append(
 			[
@@ -23,6 +26,7 @@ class ReportGitDownload(ReportDaily):
 				sum(map(lambda x: int(x[3] if len(x) > 2 and x[2] != "true" else 0), newData)),
 				sum(map(lambda x: int(x[4] if len(x) > 3 and x[2] == "true" else 0), newData)) // (1024 ** 3),
 				sum(map(lambda x: int(x[4] if len(x) > 3 and x[2] != "true" else 0), newData)) // (1024 ** 3),
+				int(sumLFSTraffic[0][0]) // (1024 ** 3),
 			])
 		self.detailedHeader[4] = "download [GB]"
 		self.detailedData = map(lambda x: [x[0], x[1], x[2], x[3], round(int(x[4]) / (1024 ** 3))], newData[:25])
