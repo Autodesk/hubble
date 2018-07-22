@@ -25,14 +25,14 @@ then
 		grep 'status=200' |
 		perl -ne 'print if s/^(?=.*member="?([^ "]+))(?=.*path=([^ ]+)\.git).*/\1 \2/' |
 		sort |
-		uniq -c |
+		uniq -ic |
 		sort -rn |
 		awk '{gsub(/[_.]/, "-", $2); printf("%s\t%s\t%s\n",$2,$3,$1)}'
 else
 	zcat -f /tmp/gitauth.log.1* |
 		perl -ne 'print if s/.*status=OK member="?([^ "]+) hashed_token=nil.*path=([^ ]+)\.git .*proto=http.*/\1 \2/' |
 		sort |
-		uniq -c |
+		uniq -ic |
 		sort -rn |
 		awk '{gsub(/[_.]/, "-", $2); printf("%s\t%s\t%s\n",$2,$3,$1)}'
 fi

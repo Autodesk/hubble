@@ -12,7 +12,7 @@ zcat -f /var/log/github/unicorn.log.1* |
     grep -oP 'current_user=\K\S+' |
     grep -Fvx 'nil' |
     sort |
-    uniq -c |
+    uniq -ic |
     sort -rn |
     head -20 |
     awk '{ printf("%s\t%s\n", $2, $1) }'
