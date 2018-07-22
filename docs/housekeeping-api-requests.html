@@ -16,6 +16,15 @@ permalink: /housekeeping-api-requests
 					"label": "2 m",
 					"tooltip": "Show the last 2 months",
 					"aggregate": false,
+					"series":
+					[
+						"API requests",
+						"internal requests"
+					],
+					"visibleSeries":
+					[
+						"API requests"
+					],
 					"slice": [0, 61]
 				},
 				{
@@ -26,6 +35,15 @@ permalink: /housekeeping-api-requests
 						"period": "week",
 						"method": "sum"
 					},
+					"series":
+					[
+						"API requests",
+						"internal requests"
+					],
+					"visibleSeries":
+					[
+						"API requests"
+					],
 					"slice": [0, 106],
 					"default": true
 				},
@@ -36,7 +54,16 @@ permalink: /housekeeping-api-requests
 					{
 						"period": "week",
 						"method": "sum"
-					}
+					},
+					"series":
+					[
+						"API requests",
+						"internal requests"
+					],
+					"visibleSeries":
+					[
+						"API requests"
+					]
 				}
 			]
 		}'></canvas>
