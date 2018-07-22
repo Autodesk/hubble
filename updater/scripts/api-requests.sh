@@ -8,6 +8,6 @@ zcat -f /var/log/haproxy.log.1* |
     perl -ne 'print if s/.*haproxy\[\d+\]: ([^:]+).*\/api\/v3\/([^\/\? ]+)\/([^\/\? ]+?(\/[^\/\? ]+)).*/\1 \2 \3/' |
     grep -v '^127.0.0.1' |
     sort |
-    uniq -c |
+    uniq -ic |
     sort -rn |
     awk '{printf("%s\t%s\t%s\t%s\n",$4,$3,$2,$1)}'

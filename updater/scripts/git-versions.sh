@@ -10,5 +10,5 @@ zgrep -hF '||git/' /var/log/haproxy.log.1* |
 	uniq |
 	perl -lape 's/[^ ]+ //' |
 	sort -r -V |
-	uniq -c |
+	uniq -ic |
 	awk '{printf("%s\t%s\n",$2,$1)}'
