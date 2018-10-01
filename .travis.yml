@@ -19,6 +19,7 @@ matrix:
       before_script:
         - cd docs
         - npm install
+        - gem install github-pages
       script:
         - npm test
       after_script:

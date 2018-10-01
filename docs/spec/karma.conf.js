@@ -29,7 +29,7 @@ module.exports = function(config)
             'assets/js/vendor/moment-timezone-0.5.14-2017c.min.js',
             'assets/js/vendor/Chart-2.7.1.min.js',
             'assets/js/vendor/spin-2.3.2.min.js',
-            'assets/js/charts.js',
+            '_test/assets/js/charts.js',
             'spec/*.js'
         ],
 
@@ -42,7 +42,7 @@ module.exports = function(config)
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            'assets/js/*.js': ['coverage']
+            '_test/assets/js/*.js': ['coverage']
         },
 
 
