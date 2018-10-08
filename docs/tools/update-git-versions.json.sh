@@ -31,9 +31,11 @@ TZ=UTC git -C git tag -l 'v*' --format='%(refname:short)	%(taggerdate:iso-local)
 
 # Translate the TSV file to JSON.
 jq --slurp --raw-input --raw-output --tab \
-	'split("\n") | .[:-1] | map(split("\t")) |
-		map({"version": .[0],
-			"publish_date": .[1]})' \
+	'split("\n")
+	| .[:-1]
+	| map(split("\t"))
+	| map({"key": .[0], "value": {"publish_date": .[1]}})
+	| from_entries' \
 	git-releases.tsv > git-releases.json
 
 # Replace the Git releases list in the top-level JSON with the fresh

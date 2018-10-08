@@ -5,7 +5,33 @@ permalink: /users-git-versions
 ---
 
 <div class="chart-placeholder">
-	<h3>Git Versions</h3>
+	<h3>Recommended Git Versions</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/git-versions-new.tsv"
+		data-type="git-versions"
+		data-config='{"git-versions-data-url": "{{ site.baseurl }}/assets/js/git-versions.json"}'
+	></canvas>
+	<div class="info-box">
+		<p>
+			Shows how many users signed in with recommended, unrecommended, and vulnerable versions.
+		</p>
+		<p>
+			<em>Vulnerable</em> indicates that a Git version is affected by a publicly disclosed vulnerability.
+			In this chart, affected Git versions are counted as vulnerable after the date the security issue was made public.
+			On and before that date, the Git version is not considered as vulnerable (the reasoning being that the vulnerability was not publicly known and hopefully not yet actively exploited).
+		</p>
+		<p>
+			<em>Not recommended</em> means that a Git version was superseded by a patch release.
+			We don’t recommend using Git versions that are not at the latest patch level.
+		</p>
+		<p>
+			<em>Recommended</em> Git versions are the latest patch-level releases for which no vulnerabilities were reported before a specific date.
+		</p>
+	</div>
+</div>
+
+<div class="chart-placeholder">
+	<h3>Git Versions Used Yesterday</h3>
 	<canvas
 		data-url="{{ site.dataURL }}/git-versions.tsv"
 		data-type="list"

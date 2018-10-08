@@ -4,6 +4,7 @@
 {% include_relative _partials/style.js %}
 {% include_relative _partials/spinner.js %}
 {% include_relative _partials/urls.js %}
+{% include_relative _partials/semantic-versioning.js %}
 {% include_relative _partials/aggregate.js %}
 {% include_relative _partials/chart-base.js %}
 
@@ -11,6 +12,7 @@
 {% include_relative _partials/chart-list.js %}
 {% include_relative _partials/chart-table.js %}
 {% include_relative _partials/chart-chord.js %}
+{% include_relative _partials/chart-git-versions.js %}
 
 $(window).bind('load', function()
 {
@@ -78,6 +80,9 @@ $(window).bind('load', function()
                             break;
                         case 'chord':
                             createChordChart(canvas, actionBar);
+                            break;
+                        case 'git-versions':
+                            createGitVersionsChart(canvas, actionBar);
                             break;
                     }
                 });
