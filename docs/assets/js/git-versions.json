@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"gitVersions": {
-		"knownVulnerabilities": [
+		"vulnerabilities": [
 			{
 				"issue": "CVE-2018-17456",
 				"publishedOn": "2018-10-06",

@@ -13,15 +13,17 @@ permalink: /users-git-versions
 	></canvas>
 	<div class="info-box">
 		<p>
-			Shows how many users signed in with recommended, unrecommended, and vulnerable versions.
+			Shows how many users signed in with recommended, outdated, and vulnerable Git clients.
 		</p>
+	</div>
+	<div class="info-box">
 		<p>
-			<em>Vulnerable</em> indicates that a Git version is affected by a publicly disclosed vulnerability.
-			In this chart, affected Git versions are counted as vulnerable after the date the security issue was made public.
+			<em>Vulnerable</em> indicates that a Git client is affected by a publicly disclosed vulnerability.
+			In this chart, affected Git versions are counted as vulnerable <em>after</em> the date the security issue was made public.
 			On and before that date, the Git version is not considered as vulnerable (the reasoning being that the vulnerability was not publicly known and hopefully not yet actively exploited).
 		</p>
 		<p>
-			<em>Not recommended</em> means that a Git version was superseded by a patch release.
+			<em>Outdated</em> means that a Git version was superseded by a newer patch release (though no vulnerabilities were publicly reported).
 			We don’t recommend using Git versions that are not at the latest patch level.
 		</p>
 		<p>

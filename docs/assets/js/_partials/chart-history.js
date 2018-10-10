@@ -18,9 +18,9 @@ const timeSeriesChartDefaults =
         [
             {
                 ticks:
-                    {
-                        beginAtZero: true
-                    }
+                {
+                    beginAtZero: true
+                }
             }
         ]
     },

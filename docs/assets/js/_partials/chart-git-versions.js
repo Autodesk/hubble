@@ -19,12 +19,30 @@ const gitVersionsChartDefaults =
             {
                 stacked: true,
                 ticks:
-                    {
-                        beginAtZero: true
-                    }
+                {
+                    beginAtZero: true,
+                    max: 1,
+                    callback: value => (value * 100).toFixed(0) + ' %'
+                }
             }
         ]
     },
+    tooltips:
+    {
+        intersect: false,
+        callbacks:
+        {
+            label:
+                (tooltipItem, data) =>
+                {
+                    const dataset = data.datasets[tooltipItem.datasetIndex];
+                    const label = dataset['label'];
+                    const value = dataset['data'][tooltipItem.index]['y'];
+
+                    return label + ': ' + (value * 100).toFixed(1) + ' %';
+                }
+        }
+    }
 };
 
 function buildGitVersionsChartData(view)
@@ -38,40 +56,33 @@ function buildGitVersionsChartData(view)
 
     let chartData = Array();
 
-    let index = 0;
-
     $.each(dataSeries,
         function(dataSeriesID, dataSeries)
         {
-            // Skip auxiliarly columns
-            if (dataSeries[0] == '_')
-                return;
-
             let color;
 
             switch (dataSeriesID)
             {
                 case 0:
-                    color = chartColorSequence[1];
+                    color = chartColors.green;
                     break;
                 case 1:
-                    color = chartColorSequence[2];
+                    color = chartColors.yellow;
                     break;
                 case 2:
-                    color = chartColorSequence[3];
+                    color = chartColors.red;
                     break;
             }
 
-            const backgroundColorString = 'rgba(' + color[0] + ', ' + color[1] + ', ' + color[2] + ')';
-            const borderColorString = 'rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ')';
+            const backgroundColorString = 'rgba(' + color[0] + ', ' + color[1] + ', ' + color[2] + ', 0.75)';
 
             let seriesData =
             {
                 label: dataSeries,
                 backgroundColor: backgroundColorString,
                 borderColor: 'transparent',
-                pointRadius: 0,
-                fill: true,
+                fill: (dataSeriesID == 0 ? 'start' : '-1'),
+                radius: 0,
                 hidden: (visibleDataSeries.indexOf(dataSeries) == -1) ? true : false,
             };
 
@@ -84,8 +95,6 @@ function buildGitVersionsChartData(view)
                         infoText: row._infoText
                     }));
             chartData.push(seriesData);
-
-            index++;
         });
 
     return chartData;
@@ -100,7 +109,7 @@ function createGitVersionsChart(canvas, actionBar)
         function(gitVersionsData)
         {
             let gitReleases = gitVersionsData["gitVersions"]["releases"];
-            const knownVulnerabilities = gitVersionsData["gitVersions"]["knownVulnerabilities"];
+            const vulnerabilities = gitVersionsData["gitVersions"]["vulnerabilities"];
 
             // Turn all dates into actual Date objects
             for (version in gitReleases)
@@ -129,13 +138,11 @@ function createGitVersionsChart(canvas, actionBar)
             }
 
             // Flag all vulnerable Git versions
-            for (key in knownVulnerabilities)
+            for (key in vulnerabilities)
             {
-                // TODO: rename ~known~ vulnerabilities
-                let vulnerability = knownVulnerabilities[key];
+                let vulnerability = vulnerabilities[key];
                 vulnerability["publishedOn"] = new Date(vulnerability["publishedOn"]);
 
-                // TODO: Fix mixed snake case/dash trains
                 for (key in vulnerability["affectedVersions"])
                 {
                     const affectedVersionsRequirement = vulnerability["affectedVersions"][key];
@@ -209,15 +216,17 @@ function createGitVersionsChart(canvas, actionBar)
                 result[date]["recommended"] += users;
             }
 
+            // Turn dictionary with date as key into a plain array
             result = Object.keys(result).map(key => result[key]);
 
+            // Normalize the data
             for (key in result)
             {
                 let row = result[key];
                 const total = row["vulnerable"] + row["outdated"] + row["recommended"];
-                row["vulnerable"] *= 99.9999 / total;
-                row["outdated"] *= 99.9999 / total;
-                row["recommended"] *= 99.9999 / total;
+                row["vulnerable"] /= total;
+                row["outdated"] /= total;
+                row["recommended"] /= total;
             }
 
             return result;
@@ -316,16 +325,6 @@ function createGitVersionsChart(canvas, actionBar)
                     return formatDateRange(dateRange) + suffix;
                 };
 
-            let options = jQuery.extend({}, gitVersionsChartDefaults);
-
-            options['tooltips'] =
-            {
-                callbacks:
-                {
-                    title: tooltipTitleCallback
-                }
-            };
-
             $(canvas).data('chart', new Chart(context,
                 {
                     type: 'line',
@@ -333,7 +332,7 @@ function createGitVersionsChart(canvas, actionBar)
                     {
                         datasets: defaultView['chartData']
                     },
-                    options: options
+                    options: gitVersionsChartDefaults
                 }));
 
             $(canvas).data('views', views);
