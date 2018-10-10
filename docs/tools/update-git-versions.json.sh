@@ -34,7 +34,7 @@ jq --slurp --raw-input --raw-output --tab \
 	'split("\n")
 	| .[:-1]
 	| map(split("\t"))
-	| map({"key": .[0], "value": {"publish_date": .[1]}})
+	| map({"key": .[0], "value": {"publishedOn": .[1]}})
 	| from_entries' \
 	git-releases.tsv > git-releases.json
 

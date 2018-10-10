@@ -1,12 +1,12 @@
 {
-	"schema-version": 1,
-	"git-versions": {
-		"known-vulnerabilities": [
+	"schemaVersion": 1,
+	"gitVersions": {
+		"knownVulnerabilities": [
 			{
 				"issue": "CVE-2018-17456",
-				"publish_date": "2018-10-06",
-				"fix_date": "2018-10-05",
-				"affected_versions": [
+				"publishedOn": "2018-10-06",
+				"fixedOn": "2018-10-05",
+				"affectedVersions": [
 					"<2.14.5",
 					">=2.15 <2.15.3",
 					">=2.16 <2.16.5",
@@ -17,17 +17,17 @@
 			},
 			{
 				"issue": "CVE-2017-15298",
-				"publish_date": "2017-10-14",
-				"fix_date": "2018-01-17",
-				"affected_versions": [
+				"publishedOn": "2017-10-14",
+				"fixedOn": "2018-01-17",
+				"affectedVersions": [
 					"<2.16"
 				]
 			},
 			{
 				"issue": "CVE-2018-11233,CVE-2018-11235",
-				"publish_date": "2018-05-30",
-				"fix_date": "2018-05-22",
-				"affected_versions": [
+				"publishedOn": "2018-05-30",
+				"fixedOn": "2018-05-22",
+				"affectedVersions": [
 					"<2.13.7",
 					">=2.14 <2.14.4",
 					">=2.15 <2.15.2",
@@ -37,9 +37,9 @@
 			},
 			{
 				"issue": "CVE-2017-14867",
-				"publish_date": "2017-09-28",
-				"fix_date": "2017-09-22",
-				"affected_versions": [
+				"publishedOn": "2017-09-28",
+				"fixedOn": "2017-09-22",
+				"affectedVersions": [
 					"<2.10.5",
 					">=2.11 <2.11.4",
 					">=2.12 <2.12.5",
@@ -49,9 +49,9 @@
 			},
 			{
 				"issue": "CVE-2017-1000117",
-				"publish_date": "2017-10-04",
-				"fix_date": "2017-08-04",
-				"affected_versions": [
+				"publishedOn": "2017-10-04",
+				"fixedOn": "2017-08-04",
+				"affectedVersions": [
 					"<2.7.6",
 					">=2.8 <2.8.6",
 					">=2.9 <2.9.5",
@@ -64,9 +64,9 @@
 			},
 			{
 				"issue": "CVE-2017-8386",
-				"publish_date": "2017-06-01",
-				"fix_date": "2017-05-05",
-				"affected_versions": [
+				"publishedOn": "2017-06-01",
+				"fixedOn": "2017-05-05",
+				"affectedVersions": [
 					"<2.4.12",
 					">=2.5 <2.5.6",
 					">=2.6 <2.6.7",
@@ -81,370 +81,370 @@
 		],
 		"releases": {
 			"2.19.1": {
-				"publish_date": "2018-09-27"
+				"publishedOn": "2018-09-27"
 			},
 			"2.18.1": {
-				"publish_date": "2018-09-27"
+				"publishedOn": "2018-09-27"
 			},
 			"2.17.2": {
-				"publish_date": "2018-09-27"
+				"publishedOn": "2018-09-27"
 			},
 			"2.16.5": {
-				"publish_date": "2018-09-27"
+				"publishedOn": "2018-09-27"
 			},
 			"2.15.3": {
-				"publish_date": "2018-09-27"
+				"publishedOn": "2018-09-27"
 			},
 			"2.14.5": {
-				"publish_date": "2018-09-27"
+				"publishedOn": "2018-09-27"
 			},
 			"2.19.0": {
-				"publish_date": "2018-09-10"
+				"publishedOn": "2018-09-10"
 			},
 			"2.18.0": {
-				"publish_date": "2018-06-21"
+				"publishedOn": "2018-06-21"
 			},
 			"2.17.1": {
-				"publish_date": "2018-05-22"
+				"publishedOn": "2018-05-22"
 			},
 			"2.16.4": {
-				"publish_date": "2018-05-22"
+				"publishedOn": "2018-05-22"
 			},
 			"2.15.2": {
-				"publish_date": "2018-05-22"
+				"publishedOn": "2018-05-22"
 			},
 			"2.14.4": {
-				"publish_date": "2018-05-22"
+				"publishedOn": "2018-05-22"
 			},
 			"2.13.7": {
-				"publish_date": "2018-05-22"
+				"publishedOn": "2018-05-22"
 			},
 			"2.17.0": {
-				"publish_date": "2018-04-02"
+				"publishedOn": "2018-04-02"
 			},
 			"2.16.3": {
-				"publish_date": "2018-03-22"
+				"publishedOn": "2018-03-22"
 			},
 			"2.16.2": {
-				"publish_date": "2018-02-15"
+				"publishedOn": "2018-02-15"
 			},
 			"2.16.1": {
-				"publish_date": "2018-01-22"
+				"publishedOn": "2018-01-22"
 			},
 			"2.16.0": {
-				"publish_date": "2018-01-17"
+				"publishedOn": "2018-01-17"
 			},
 			"2.15.1": {
-				"publish_date": "2017-11-28"
+				"publishedOn": "2017-11-28"
 			},
 			"2.15.0": {
-				"publish_date": "2017-10-30"
+				"publishedOn": "2017-10-30"
 			},
 			"2.14.3": {
-				"publish_date": "2017-10-23"
+				"publishedOn": "2017-10-23"
 			},
 			"2.14.2": {
-				"publish_date": "2017-09-22"
+				"publishedOn": "2017-09-22"
 			},
 			"2.13.6": {
-				"publish_date": "2017-09-22"
+				"publishedOn": "2017-09-22"
 			},
 			"2.12.5": {
-				"publish_date": "2017-09-22"
+				"publishedOn": "2017-09-22"
 			},
 			"2.11.4": {
-				"publish_date": "2017-09-22"
+				"publishedOn": "2017-09-22"
 			},
 			"2.10.5": {
-				"publish_date": "2017-09-22"
+				"publishedOn": "2017-09-22"
 			},
 			"2.14.1": {
-				"publish_date": "2017-08-04"
+				"publishedOn": "2017-08-04"
 			},
 			"2.14.0": {
-				"publish_date": "2017-08-04"
+				"publishedOn": "2017-08-04"
 			},
 			"2.13.5": {
-				"publish_date": "2017-08-01"
+				"publishedOn": "2017-08-01"
 			},
 			"2.13.4": {
-				"publish_date": "2017-08-01"
+				"publishedOn": "2017-08-01"
 			},
 			"2.12.4": {
-				"publish_date": "2017-07-30"
+				"publishedOn": "2017-07-30"
 			},
 			"2.11.3": {
-				"publish_date": "2017-07-30"
+				"publishedOn": "2017-07-30"
 			},
 			"2.10.4": {
-				"publish_date": "2017-07-30"
+				"publishedOn": "2017-07-30"
 			},
 			"2.9.5": {
-				"publish_date": "2017-07-30"
+				"publishedOn": "2017-07-30"
 			},
 			"2.8.6": {
-				"publish_date": "2017-07-30"
+				"publishedOn": "2017-07-30"
 			},
 			"2.7.6": {
-				"publish_date": "2017-07-30"
+				"publishedOn": "2017-07-30"
 			},
 			"2.13.3": {
-				"publish_date": "2017-07-12"
+				"publishedOn": "2017-07-12"
 			},
 			"2.13.2": {
-				"publish_date": "2017-06-24"
+				"publishedOn": "2017-06-24"
 			},
 			"2.13.1": {
-				"publish_date": "2017-06-05"
+				"publishedOn": "2017-06-05"
 			},
 			"2.13.0": {
-				"publish_date": "2017-05-09"
+				"publishedOn": "2017-05-09"
 			},
 			"2.12.3": {
-				"publish_date": "2017-05-05"
+				"publishedOn": "2017-05-05"
 			},
 			"2.11.2": {
-				"publish_date": "2017-05-05"
+				"publishedOn": "2017-05-05"
 			},
 			"2.10.3": {
-				"publish_date": "2017-05-05"
+				"publishedOn": "2017-05-05"
 			},
 			"2.9.4": {
-				"publish_date": "2017-05-05"
+				"publishedOn": "2017-05-05"
 			},
 			"2.8.5": {
-				"publish_date": "2017-05-05"
+				"publishedOn": "2017-05-05"
 			},
 			"2.7.5": {
-				"publish_date": "2017-05-05"
+				"publishedOn": "2017-05-05"
 			},
 			"2.6.7": {
-				"publish_date": "2017-05-05"
+				"publishedOn": "2017-05-05"
 			},
 			"2.5.6": {
-				"publish_date": "2017-05-05"
+				"publishedOn": "2017-05-05"
 			},
 			"2.4.12": {
-				"publish_date": "2017-05-05"
+				"publishedOn": "2017-05-05"
 			},
 			"2.12.2": {
-				"publish_date": "2017-03-24"
+				"publishedOn": "2017-03-24"
 			},
 			"2.12.1": {
-				"publish_date": "2017-03-20"
+				"publishedOn": "2017-03-20"
 			},
 			"2.12.0": {
-				"publish_date": "2017-02-24"
+				"publishedOn": "2017-02-24"
 			},
 			"2.11.1": {
-				"publish_date": "2017-02-02"
+				"publishedOn": "2017-02-02"
 			},
 			"2.11.0": {
-				"publish_date": "2016-11-29"
+				"publishedOn": "2016-11-29"
 			},
 			"2.10.2": {
-				"publish_date": "2016-10-28"
+				"publishedOn": "2016-10-28"
 			},
 			"2.10.1": {
-				"publish_date": "2016-10-03"
+				"publishedOn": "2016-10-03"
 			},
 			"2.10.0": {
-				"publish_date": "2016-09-02"
+				"publishedOn": "2016-09-02"
 			},
 			"2.9.3": {
-				"publish_date": "2016-08-12"
+				"publishedOn": "2016-08-12"
 			},
 			"2.9.2": {
-				"publish_date": "2016-07-15"
+				"publishedOn": "2016-07-15"
 			},
 			"2.9.1": {
-				"publish_date": "2016-07-11"
+				"publishedOn": "2016-07-11"
 			},
 			"2.9.0": {
-				"publish_date": "2016-06-13"
+				"publishedOn": "2016-06-13"
 			},
 			"2.8.4": {
-				"publish_date": "2016-06-06"
+				"publishedOn": "2016-06-06"
 			},
 			"2.8.3": {
-				"publish_date": "2016-05-18"
+				"publishedOn": "2016-05-18"
 			},
 			"2.8.2": {
-				"publish_date": "2016-04-29"
+				"publishedOn": "2016-04-29"
 			},
 			"2.8.1": {
-				"publish_date": "2016-04-03"
+				"publishedOn": "2016-04-03"
 			},
 			"2.8.0": {
-				"publish_date": "2016-03-28"
+				"publishedOn": "2016-03-28"
 			},
 			"2.7.4": {
-				"publish_date": "2016-03-17"
+				"publishedOn": "2016-03-17"
 			},
 			"2.6.6": {
-				"publish_date": "2016-03-17"
+				"publishedOn": "2016-03-17"
 			},
 			"2.5.5": {
-				"publish_date": "2016-03-17"
+				"publishedOn": "2016-03-17"
 			},
 			"2.4.11": {
-				"publish_date": "2016-03-17"
+				"publishedOn": "2016-03-17"
 			},
 			"2.7.3": {
-				"publish_date": "2016-03-10"
+				"publishedOn": "2016-03-10"
 			},
 			"2.7.2": {
-				"publish_date": "2016-02-22"
+				"publishedOn": "2016-02-22"
 			},
 			"2.7.1": {
-				"publish_date": "2016-02-05"
+				"publishedOn": "2016-02-05"
 			},
 			"2.7.0": {
-				"publish_date": "2016-01-04"
+				"publishedOn": "2016-01-04"
 			},
 			"2.6.5": {
-				"publish_date": "2016-01-04"
+				"publishedOn": "2016-01-04"
 			},
 			"2.6.4": {
-				"publish_date": "2015-12-08"
+				"publishedOn": "2015-12-08"
 			},
 			"2.6.3": {
-				"publish_date": "2015-11-05"
+				"publishedOn": "2015-11-05"
 			},
 			"2.6.2": {
-				"publish_date": "2015-10-16"
+				"publishedOn": "2015-10-16"
 			},
 			"2.6.1": {
-				"publish_date": "2015-09-29"
+				"publishedOn": "2015-09-29"
 			},
 			"2.3.10": {
-				"publish_date": "2015-09-29"
+				"publishedOn": "2015-09-29"
 			},
 			"2.5.4": {
-				"publish_date": "2015-09-29"
+				"publishedOn": "2015-09-29"
 			},
 			"2.4.10": {
-				"publish_date": "2015-09-29"
+				"publishedOn": "2015-09-29"
 			},
 			"2.6.0": {
-				"publish_date": "2015-09-28"
+				"publishedOn": "2015-09-28"
 			},
 			"2.5.3": {
-				"publish_date": "2015-09-17"
+				"publishedOn": "2015-09-17"
 			},
 			"2.5.2": {
-				"publish_date": "2015-09-04"
+				"publishedOn": "2015-09-04"
 			},
 			"2.4.9": {
-				"publish_date": "2015-09-04"
+				"publishedOn": "2015-09-04"
 			},
 			"2.3.9": {
-				"publish_date": "2015-09-04"
+				"publishedOn": "2015-09-04"
 			},
 			"2.2.3": {
-				"publish_date": "2015-09-04"
+				"publishedOn": "2015-09-04"
 			},
 			"2.5.1": {
-				"publish_date": "2015-08-28"
+				"publishedOn": "2015-08-28"
 			},
 			"2.4.8": {
-				"publish_date": "2015-08-03"
+				"publishedOn": "2015-08-03"
 			},
 			"2.5.0": {
-				"publish_date": "2015-07-27"
+				"publishedOn": "2015-07-27"
 			},
 			"2.4.7": {
-				"publish_date": "2015-07-27"
+				"publishedOn": "2015-07-27"
 			},
 			"2.4.6": {
-				"publish_date": "2015-07-15"
+				"publishedOn": "2015-07-15"
 			},
 			"2.4.5": {
-				"publish_date": "2015-06-25"
+				"publishedOn": "2015-06-25"
 			},
 			"2.4.4": {
-				"publish_date": "2015-06-16"
+				"publishedOn": "2015-06-16"
 			},
 			"2.4.3": {
-				"publish_date": "2015-06-05"
+				"publishedOn": "2015-06-05"
 			},
 			"2.4.2": {
-				"publish_date": "2015-05-26"
+				"publishedOn": "2015-05-26"
 			},
 			"2.4.1": {
-				"publish_date": "2015-05-13"
+				"publishedOn": "2015-05-13"
 			},
 			"2.3.8": {
-				"publish_date": "2015-05-11"
+				"publishedOn": "2015-05-11"
 			},
 			"2.4.0": {
-				"publish_date": "2015-04-30"
+				"publishedOn": "2015-04-30"
 			},
 			"2.3.7": {
-				"publish_date": "2015-04-27"
+				"publishedOn": "2015-04-27"
 			},
 			"2.3.6": {
-				"publish_date": "2015-04-21"
+				"publishedOn": "2015-04-21"
 			},
 			"2.3.5": {
-				"publish_date": "2015-03-31"
+				"publishedOn": "2015-03-31"
 			},
 			"2.3.4": {
-				"publish_date": "2015-03-23"
+				"publishedOn": "2015-03-23"
 			},
 			"2.3.3": {
-				"publish_date": "2015-03-14"
+				"publishedOn": "2015-03-14"
 			},
 			"2.3.2": {
-				"publish_date": "2015-03-06"
+				"publishedOn": "2015-03-06"
 			},
 			"2.3.1": {
-				"publish_date": "2015-02-25"
+				"publishedOn": "2015-02-25"
 			},
 			"2.3.0": {
-				"publish_date": "2015-02-05"
+				"publishedOn": "2015-02-05"
 			},
 			"2.2.2": {
-				"publish_date": "2015-01-12"
+				"publishedOn": "2015-01-12"
 			},
 			"2.0.5": {
-				"publish_date": "2014-12-17"
+				"publishedOn": "2014-12-17"
 			},
 			"2.1.4": {
-				"publish_date": "2014-12-17"
+				"publishedOn": "2014-12-17"
 			},
 			"2.2.1": {
-				"publish_date": "2014-12-17"
+				"publishedOn": "2014-12-17"
 			},
 			"2.2.0": {
-				"publish_date": "2014-11-26"
+				"publishedOn": "2014-11-26"
 			},
 			"2.1.3": {
-				"publish_date": "2014-10-29"
+				"publishedOn": "2014-10-29"
 			},
 			"2.1.2": {
-				"publish_date": "2014-09-30"
+				"publishedOn": "2014-09-30"
 			},
 			"2.1.1": {
-				"publish_date": "2014-09-19"
+				"publishedOn": "2014-09-19"
 			},
 			"2.1.0": {
-				"publish_date": "2014-08-15"
+				"publishedOn": "2014-08-15"
 			},
 			"2.0.4": {
-				"publish_date": "2014-07-30"
+				"publishedOn": "2014-07-30"
 			},
 			"2.0.3": {
-				"publish_date": "2014-07-23"
+				"publishedOn": "2014-07-23"
 			},
 			"2.0.2": {
-				"publish_date": "2014-07-16"
+				"publishedOn": "2014-07-16"
 			},
 			"2.0.1": {
-				"publish_date": "2014-06-25"
+				"publishedOn": "2014-06-25"
 			},
 			"2.0.0": {
-				"publish_date": "2014-05-28"
+				"publishedOn": "2014-05-28"
 			}
 		}
 	}

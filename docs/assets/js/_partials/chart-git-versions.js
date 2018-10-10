@@ -99,14 +99,14 @@ function createGitVersionsChart(canvas, actionBar)
     const flagGitVersions =
         function(gitVersionsData)
         {
-            let gitReleases = gitVersionsData["git-versions"]["releases"];
-            const knownVulnerabilities = gitVersionsData["git-versions"]["known-vulnerabilities"];
+            let gitReleases = gitVersionsData["gitVersions"]["releases"];
+            const knownVulnerabilities = gitVersionsData["gitVersions"]["knownVulnerabilities"];
 
             // Turn all dates into actual Date objects
             for (version in gitReleases)
-                gitReleases[version]["publish_date"] = new Date(gitReleases[version]["publish_date"]);
+                gitReleases[version]["publishedOn"] = new Date(gitReleases[version]["publishedOn"]);
 
-            // Flag all deprecated Git versions
+            // Flag all outdated Git versions
             for (version in gitReleases)
             {
                 const gitRelease = gitReleases[version];
@@ -123,8 +123,8 @@ function createGitVersionsChart(canvas, actionBar)
 
                 if (directPredecessorVersion in gitReleases)
                 {
-                    gitReleases[directPredecessorVersion]["deprecate_date"] = gitRelease["publish_date"];
-                    gitReleases[directPredecessorVersion]["deprecated_by"] = version;
+                    gitReleases[directPredecessorVersion]["outdatedSince"] = gitRelease["publishedOn"];
+                    gitReleases[directPredecessorVersion]["outdatedBy"] = version;
                 }
             }
 
@@ -133,12 +133,12 @@ function createGitVersionsChart(canvas, actionBar)
             {
                 // TODO: rename ~known~ vulnerabilities
                 let vulnerability = knownVulnerabilities[key];
-                vulnerability["publish_date"] = new Date(vulnerability["publish_date"]);
+                vulnerability["publishedOn"] = new Date(vulnerability["publishedOn"]);
 
                 // TODO: Fix mixed snake case/dash trains
-                for (key in vulnerability["affected_versions"])
+                for (key in vulnerability["affectedVersions"])
                 {
-                    const affectedVersionsRequirement = vulnerability["affected_versions"][key];
+                    const affectedVersionsRequirement = vulnerability["affectedVersions"][key];
 
                     const affectedVersions = Object.keys(gitReleases).filter(
                         version => satisfiesVersionRequirement(version, affectedVersionsRequirement));
@@ -148,14 +148,14 @@ function createGitVersionsChart(canvas, actionBar)
                         const affectedVersion = affectedVersions[key];
                         let affectedRelease = gitReleases[affectedVersion];
 
-                        if ("vulnerable_date" in affectedRelease
-                            && affectedRelease["vulnerable_date"] < vulnerability["publish_date"])
+                        if ("vulnerableSince" in affectedRelease
+                            && affectedRelease["vulnerableSince"] < vulnerability["publishedOn"])
                         {
                             continue;
                         }
 
-                        affectedRelease["vulnerable_date"] = vulnerability["publish_date"];
-                        affectedRelease["vulnerable_by"] = vulnerability["issue"];
+                        affectedRelease["vulnerableSince"] = vulnerability["publishedOn"];
+                        affectedRelease["vulnerableBy"] = vulnerability["issue"];
                     }
                 }
             }
@@ -165,36 +165,44 @@ function createGitVersionsChart(canvas, actionBar)
     const computeChartData =
         function(data, gitVersionsData)
         {
-            const gitReleases = gitVersionsData["git-versions"]["releases"];
+            const gitReleases = gitVersionsData["gitVersions"]["releases"];
             let result = {};
 
             for (key in data)
             {
                 const row = data[key];
                 const date = new Date(row["date"]);
-                const version = row["Git version"];
+                let version = row["Git version"];
                 const users = +row["users"];
 
                 if (row["date"] === undefined)
                     continue;
 
-                if (!(date in result))
-                    result[date] = {"date": date, "recommended": 0, "deprecated": 0, "vulnerable": 0};
+                while (version.split('.').length < 3)
+                    version += '.0';
 
-                if (!(version in gitReleases))
-                    continue;
+                const versionMajor = version.split('.')[0];
 
-                if ("vulnerable_date" in gitReleases[version]
-                    && gitReleases[version]["vulnerable_date"] < date)
+                if (versionMajor == '0' || versionMajor == '1')
                 {
                     result[date]["vulnerable"] += users;
                     continue;
                 }
 
-                if ("deprecate_date" in gitReleases[version]
-                    && gitReleases[version]["deprecate_date"] < date)
+                if (!(date in result))
+                    result[date] = {"date": date, "recommended": 0, "outdated": 0, "vulnerable": 0};
+
+                if ("vulnerableSince" in gitReleases[version]
+                    && gitReleases[version]["vulnerableSince"] < date)
                 {
-                    result[date]["deprecated"] += users;
+                    result[date]["vulnerable"] += users;
+                    continue;
+                }
+
+                if ("outdatedSince" in gitReleases[version]
+                    && gitReleases[version]["outdatedSince"] < date)
+                {
+                    result[date]["outdated"] += users;
                     continue;
                 }
 
@@ -206,10 +214,10 @@ function createGitVersionsChart(canvas, actionBar)
             for (key in result)
             {
                 let row = result[key];
-                const total = row["vulnerable"] + row["deprecated"] + row["recommended"];
-                row["vulnerable"] /= total;
-                row["deprecated"] /= total;
-                row["recommended"] /= total;
+                const total = row["vulnerable"] + row["outdated"] + row["recommended"];
+                row["vulnerable"] *= 99.9999 / total;
+                row["outdated"] *= 99.9999 / total;
+                row["recommended"] *= 99.9999 / total;
             }
 
             return result;
@@ -351,7 +359,7 @@ function createGitVersionsChart(canvas, actionBar)
             if (error)
                 throw error;
 
-            if (+gitVersionsData["schema-version"] != 1)
+            if (+gitVersionsData["schemaVersion"] != 1)
                 throw "unexpected Git versions data schema, please update Hubble Enterprise";
 
             flagGitVersions(gitVersionsData);
