@@ -3,7 +3,7 @@ function compareVersions(versionA, versionB)
     const versionAComponents = versionA.split('.');
     const versionBComponents = versionB.split('.');
 
-    const numberOfComponents = max(versionAComponents.length, versionBComponents.length);
+    const numberOfComponents = Math.min(versionAComponents.length, versionBComponents.length);
 
     for (let i = 0; i < numberOfComponents; i++)
     {
@@ -45,24 +45,51 @@ function isPatchedBy(versionA, versionB)
 // TODO: test
 function satisfiesVersionRequirement(version, requirement)
 {
-    if (requirement[0] != '<' || isNaN(parseInt(requirement[1])))
-        throw "currently, checking version requirements is only supported for < requirements";
+    let requirementRegEx = /([<>]=?)(\d+(?:\.\d+)*)/;
 
-    const requirementVersion = requirement.slice(1);
-    const requirementVersionComponents = requirementVersion.split('.');
-    const versionComponents = version.split('.');
+    const requirements = requirement.split(' ');
 
-    for (let i = 0; i < requirementVersionComponents.length - 1; i++)
+    for (let i = 0; i < requirements.length; i++)
     {
-        let componentA = +versionComponents[i];
-        let componentB = +requirementVersionComponents[i];
+        const requirement = requirements[i];
+        let match = requirementRegEx.exec(requirement);
 
-        if (componentA != componentB)
-            return false;
+        if (match.length != 3)
+            throw "invalid semantic versioning requirement format";
+
+        let operator = match[1];
+        let requirementVersion = match[2];
+
+        let comparisonResult = compareVersions(version, requirementVersion);
+
+        switch (operator)
+        {
+            case "<":
+            {
+                if (comparisonResult >= 0)
+                    return false;
+                break;
+            }
+            case "<=":
+            {
+                if (comparisonResult > 0)
+                    return false;
+                break;
+            }
+            case ">":
+            {
+                if (comparisonResult <= 0)
+                    return false;
+                break;
+            }
+            case ">=":
+            {
+                if (comparisonResult < 0)
+                    return false;
+                break;
+            }
+        }
     }
 
-    let componentA = +versionComponents[requirementVersionComponents.length - 1];
-    let componentB = +requirementVersionComponents[requirementVersionComponents.length - 1];
-
-    return componentA < componentB;
+    return true;
 }

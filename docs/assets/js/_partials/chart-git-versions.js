@@ -1,3 +1,32 @@
+const gitVersionsChartDefaults =
+{
+    scales:
+    {
+        xAxes:
+        [
+            {
+                type: 'time',
+                time:
+                {
+                    format: 'YYYY-MM-DD',
+                    tooltipFormat: 'D MMM YYYY',
+                    minUnit: 'day',
+                }
+            }
+        ],
+        yAxes:
+        [
+            {
+                stacked: true,
+                ticks:
+                    {
+                        beginAtZero: true
+                    }
+            }
+        ]
+    },
+};
+
 function createGitVersionsChart(canvas, actionBar)
 {
     let spinner = createSpinner(canvas);
@@ -29,14 +58,18 @@ function createGitVersionsChart(canvas, actionBar)
                     versionMajor + '.' + versionMinor + '.' + (versionPatch - 1);
 
                 if (directPredecessorVersion in gitReleases)
+                {
                     gitReleases[directPredecessorVersion]["deprecate_date"] = gitRelease["publish_date"];
+                    gitReleases[directPredecessorVersion]["deprecated_by"] = version;
+                }
             }
 
             // Flag all vulnerable Git versions
             for (key in knownVulnerabilities)
             {
                 // TODO: rename ~known~ vulnerabilities
-                const vulnerability = knownVulnerabilities[key];
+                let vulnerability = knownVulnerabilities[key];
+                vulnerability["publish_date"] = new Date(vulnerability["publish_date"]);
 
                 // TODO: Fix mixed snake case/dash trains
                 for (key in vulnerability["affected_versions"])
@@ -68,18 +101,65 @@ function createGitVersionsChart(canvas, actionBar)
     const computeChartData =
         function(data, gitVersionsData)
         {
+            const gitReleases = gitVersionsData["git-versions"]["releases"];
             let result = {};
 
-            /*for (row in data)
+            for (key in data)
             {
+                const row = data[key];
+                const date = new Date(row["date"]);
+                const version = row["Git version"];
+                const users = +row["users"];
 
-            }*/
+                if (row["date"] === undefined)
+                    continue;
+
+                if (!(date in result))
+                    result[date] = {"date": date, "unknown": 0, "recommended": 0, "deprecated": 0, "vulnerable": 0};
+
+                if (!(version in gitReleases))
+                {
+                    result[date]["unknown"] += users;
+                    continue;
+                }
+
+                if ("vulnerable_date" in gitReleases[version]
+                    && gitReleases[version]["vulnerable_date"] < date)
+                {
+                    result[date]["vulnerable"] += users;
+                    continue;
+                }
+
+                if ("deprecate_date" in gitReleases[version]
+                    && gitReleases[version]["deprecate_date"] < date)
+                {
+                    result[date]["deprecated"] += users;
+                    continue;
+                }
+
+                result[date]["recommended"] += users;
+            }
+
+            result = Object.keys(result).map(key => result[key]);
+
+            for (key in result)
+            {
+                let row = result[key];
+                const total = row["vulnerable"] + row["deprecated"] + row["recommended"] + row["unknown"];
+                row["vulnerable"] /= total;
+                row["deprecated"] /= total;
+                row["recommended"] /= total;
+                row["unknown"] /= total;
+            }
+
+            return result;
         };
 
     // Build the chart from the data
     const createChart =
         function(data, gitVersionsData)
         {
+            data = computeChartData(data, gitVersionsData);
             sortTimeData(data);
 
             const context = canvas.getContext('2d');
@@ -168,7 +248,7 @@ function createGitVersionsChart(canvas, actionBar)
                     return formatDateRange(dateRange) + suffix;
                 };
 
-            let options = jQuery.extend({}, timeSeriesChartDefaults);
+            let options = jQuery.extend({}, gitVersionsChartDefaults);
 
             options['tooltips'] =
             {
