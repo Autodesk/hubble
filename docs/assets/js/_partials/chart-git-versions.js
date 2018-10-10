@@ -27,6 +27,70 @@ const gitVersionsChartDefaults =
     },
 };
 
+function buildGitVersionsChartData(view)
+{
+    if (view.data.length == 0)
+        return Array();
+
+    const originalDataSeries = Object.keys(view.data[0]).slice(1);
+    const dataSeries = 'series' in view ? view.series : originalDataSeries;
+    const visibleDataSeries = 'visibleSeries' in view ? view.visibleSeries : originalDataSeries;
+
+    let chartData = Array();
+
+    let index = 0;
+
+    $.each(dataSeries,
+        function(dataSeriesID, dataSeries)
+        {
+            // Skip auxiliarly columns
+            if (dataSeries[0] == '_')
+                return;
+
+            let color;
+
+            switch (dataSeriesID)
+            {
+                case 0:
+                    color = chartColorSequence[1];
+                    break;
+                case 1:
+                    color = chartColorSequence[2];
+                    break;
+                case 2:
+                    color = chartColorSequence[3];
+                    break;
+            }
+
+            const backgroundColorString = 'rgba(' + color[0] + ', ' + color[1] + ', ' + color[2] + ')';
+            const borderColorString = 'rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ')';
+
+            let seriesData =
+            {
+                label: dataSeries,
+                backgroundColor: backgroundColorString,
+                borderColor: 'transparent',
+                pointRadius: 0,
+                fill: true,
+                hidden: (visibleDataSeries.indexOf(dataSeries) == -1) ? true : false,
+            };
+
+            seriesData.data = view.data.map(
+                row =>
+                    ({
+                        x: row.date,
+                        y: row[dataSeries],
+                        dateRange: row._dateRange,
+                        infoText: row._infoText
+                    }));
+            chartData.push(seriesData);
+
+            index++;
+        });
+
+    return chartData;
+}
+
 function createGitVersionsChart(canvas, actionBar)
 {
     let spinner = createSpinner(canvas);
@@ -115,13 +179,10 @@ function createGitVersionsChart(canvas, actionBar)
                     continue;
 
                 if (!(date in result))
-                    result[date] = {"date": date, "unknown": 0, "recommended": 0, "deprecated": 0, "vulnerable": 0};
+                    result[date] = {"date": date, "recommended": 0, "deprecated": 0, "vulnerable": 0};
 
                 if (!(version in gitReleases))
-                {
-                    result[date]["unknown"] += users;
                     continue;
-                }
 
                 if ("vulnerable_date" in gitReleases[version]
                     && gitReleases[version]["vulnerable_date"] < date)
@@ -145,11 +206,10 @@ function createGitVersionsChart(canvas, actionBar)
             for (key in result)
             {
                 let row = result[key];
-                const total = row["vulnerable"] + row["deprecated"] + row["recommended"] + row["unknown"];
+                const total = row["vulnerable"] + row["deprecated"] + row["recommended"];
                 row["vulnerable"] /= total;
                 row["deprecated"] /= total;
                 row["recommended"] /= total;
-                row["unknown"] /= total;
             }
 
             return result;
@@ -200,7 +260,7 @@ function createGitVersionsChart(canvas, actionBar)
                     views[i].data = views[i].data.slice(sliceIndex0, sliceIndex1);
                 }
 
-                views[i].chartData = buildHistoryChartData(views[i]);
+                views[i].chartData = buildGitVersionsChartData(views[i]);
             }
 
             let defaultView = views.find(view => (view['default'] == true));
