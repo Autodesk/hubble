@@ -11,12 +11,12 @@
   },
   "devDependencies": {
     "codecov": "^3.1.0",
-    "eslint": "^5.6.1",
-    "jasmine": "^2.99.0",
-    "karma": "^1.7.1",
+    "eslint": "^5.9.0",
+    "jasmine": "^3.3.0",
+    "karma": "^3.1.1",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.2",
-    "karma-jasmine": "^1.1.2"
+    "karma-jasmine": "^2.0.1"
   },
   "engines": {
     "node": ">= 6.0.0"
