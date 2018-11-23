@@ -27,7 +27,7 @@ module.exports = function(config)
             'assets/js/vendor/d3.v4.min.js',
             'assets/js/vendor/moment-with-locales-2.21.0.min.js',
             'assets/js/vendor/moment-timezone-0.5.14-2017c.min.js',
-            'assets/js/vendor/Chart-2.7.1.min.js',
+            'assets/js/vendor/Chart-2.7.3.min.js',
             'assets/js/vendor/spin-2.3.2.min.js',
             '_test/assets/js/charts.js',
             'spec/*.js'
