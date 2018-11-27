@@ -8,7 +8,7 @@ const timeSeriesChartDefaults =
                 type: 'time',
                 time:
                 {
-                    format: 'YYYY-MM-DD',
+                    parser: 'YYYY-MM-DD',
                     tooltipFormat: 'D MMM YYYY',
                     minUnit: 'day',
                 }
