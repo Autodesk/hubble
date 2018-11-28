@@ -5,7 +5,7 @@ const chartColors =
     yellow: [255, 206, 0],
     green: [106, 237, 199],
     blue: [57, 194, 201],
-    purple: [248, 102, 185],
+    magenta: [248, 102, 185],
     violet: [153, 140, 227],
     grey: [201, 203, 207],
 };
@@ -47,7 +47,7 @@ const chartColorSequence =
     chartColors.orange,
     chartColors.red,
     chartColors.violet,
-    chartColors.purple,
+    chartColors.magenta,
 ];
 
 function formatDate(date)
