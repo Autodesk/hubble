@@ -5,7 +5,38 @@ permalink: /users-git-versions
 ---
 
 <div class="chart-placeholder">
-	<h3>Git Versions</h3>
+	<h3>Recommended Git Versions</h3>
+	<canvas data-type="recommended-git-versions"></canvas>
+	<div class="info-box">
+		<p>
+			Shows how many users connected with recommended, outdated, and vulnerable Git clients.
+		</p>
+	</div>
+	<div class="info-box">
+		<p>
+			<em>Vulnerable</em> denotes the number of Git clients for which vulnerabilities existed that were publicly disclosed before the given date.
+		</p>
+		<p>
+			<em>Outdated</em> stands for Git clients that were not at the latest patch level (though no vulnerabilities were publicly known at that time). For example, Git 2.19.0 was outdated after the day that the next patch release of the 2.19 series shipped (2.19.1 in this case).
+		</p>
+		<p>
+			<em>Recommended</em> Git versions are the latest patch releases for which no vulnerabilities were disclosed before the given date.
+		</p>
+	</div>
+	<div class="info-box">
+		<p>
+			We recommend to ensure that developers don’t use any vulnerable clients.
+			It’s likely that exploits exist for the publicly known vulnerabilities.
+		</p>
+		<p>
+			Outdated clients are less of a risk, as they aren’t affected by publicly exposed vulnerabilties.
+			However, newer patch releases usually contain stability and security improvements (and also security fixes that were not publicly announced on vulnerability trackers).
+		</p>
+	</div>
+</div>
+
+<div class="chart-placeholder">
+	<h3>Git Versions Used Yesterday</h3>
 	<canvas
 		data-url="{{ site.dataURL }}/git-versions.tsv"
 		data-type="list"
