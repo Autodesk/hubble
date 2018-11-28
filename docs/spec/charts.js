@@ -104,7 +104,7 @@ describe('global charts.js', function()
             const data = generateData('2018-01-01', '2018-09-30', generator);
             const aggregatedData = aggregateTimeData(data, aggregationConfig);
 
-            expect(aggregatedData.length = 39);
+            expect(aggregatedData.length).toEqual(39);
             expect(dateToString(aggregatedData[0]['date'])).toEqual('2018-01-01');
             expect(dateToString(aggregatedData[1]['date'])).toEqual('2018-01-08');
             expect(dateToString(aggregatedData[2]['date'])).toEqual('2018-01-15');
@@ -128,7 +128,7 @@ describe('global charts.js', function()
             const data = generateData('2017-12-31', '2018-10-01', generator);
             const aggregatedData = aggregateTimeData(data, aggregationConfig);
 
-            expect(aggregatedData.length = 39);
+            expect(aggregatedData.length).toEqual(39);
             expect(dateToString(aggregatedData[0]['date'])).toEqual('2018-01-01');
             expect(dateToString(aggregatedData[1]['date'])).toEqual('2018-01-08');
             expect(dateToString(aggregatedData[2]['date'])).toEqual('2018-01-15');
@@ -152,7 +152,7 @@ describe('global charts.js', function()
             const data = generateData('2018-01-02', '2018-09-29', generator);
             const aggregatedData = aggregateTimeData(data, aggregationConfig);
 
-            expect(aggregatedData.length = 37);
+            expect(aggregatedData.length).toEqual(37);
             expect(dateToString(aggregatedData[0]['date'])).toEqual('2018-01-08');
             expect(dateToString(aggregatedData[1]['date'])).toEqual('2018-01-15');
             expect(dateToString(aggregatedData[35]['date'])).toEqual('2018-09-10');
@@ -173,7 +173,7 @@ describe('global charts.js', function()
             const data = generateData('2018-01-01', '2018-09-30', generator);
             const aggregatedData = aggregateTimeData(data, aggregationConfig);
 
-            expect(aggregatedData.length = 39);
+            expect(aggregatedData.length).toEqual(39);
             expect(aggregatedData[0]['value']).toEqual(21);
             expect(aggregatedData[1]['value']).toEqual(30);
             expect(aggregatedData[2]['value']).toEqual(39);
@@ -189,7 +189,7 @@ describe('global charts.js', function()
             const data = generateData('2017-12-31', '2019-01-01', generator);
             const aggregatedData = aggregateTimeData(data, aggregationConfig);
 
-            expect(aggregatedData.length = 12);
+            expect(aggregatedData.length).toEqual(12);
             expect(dateToString(aggregatedData[0]['date'])).toEqual('2018-01-01');
             expect(dateToString(aggregatedData[1]['date'])).toEqual('2018-02-01');
             expect(dateToString(aggregatedData[10]['date'])).toEqual('2018-11-01');
