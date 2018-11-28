@@ -16,6 +16,7 @@
 {% include_relative _partials/chart-table.js %}
 {% include_relative _partials/chart-chord.js %}
 {% include_relative _partials/chart-area.js %}
+{% include_relative _partials/chart-recommended-git-versions.js %}
 
 $(window).bind('load', function()
 {
@@ -83,6 +84,9 @@ $(window).bind('load', function()
                             break;
                         case 'chord':
                             createChordChart(canvas, actionBar);
+                            break;
+                        case 'recommended-git-versions':
+                            new RecommendedGitVersionsChart(canvas, actionBar).render();
                             break;
                     }
                 });

@@ -31,7 +31,8 @@ module.exports = function(config)
             'assets/js/vendor/spin-2.3.2.min.js',
             '_test/assets/js/charts.js',
             'spec/*.js',
-            {pattern: 'assets/js/git-versions.json', watched: true, served: true, included: false}
+            {pattern: 'assets/js/git-versions.json', watched: true, served: true, included: false},
+            {pattern: 'demo-data/git-versions-new.tsv', watched: true, served: true, included: false}
         ],
 
 
