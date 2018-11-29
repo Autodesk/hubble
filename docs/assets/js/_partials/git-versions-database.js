@@ -18,29 +18,59 @@ class GitVersionsDatabase
             return;
         }
 
-        const dataURL = (customDataURL != undefined) ? customDataURL : GitVersionsDatabase.dataURL;
+        const dataURL = (customDataURL != undefined) ? customDataURL : GitVersionsDatabase.remoteDataURL;
+        const useRemoteData = (customDataURL == undefined);
 
         // Attempt to retrieve the data from the online source first
         d3.queue()
             .defer(d3.json, dataURL)
-            .await((error, data) => this._handleData(callback, error, data));
+            .await((error, data) => this._handleData(callback, error, data, useRemoteData));
     }
 
-    _handleData(callback, error, data)
+    _handleData(callback, error, data, useRemoteData)
     {
         if (error)
-            throw 'could not load Git versions database';
+        {
+            // If the online data couldn’t be retrieved, resort to local copy
+            if (useRemoteData)
+            {
+                console.warn('cannot access remote Git versions database, resorting to local copy');
+                this._handleRemoteDataUnavailable(callback);
+                return;
+            }
+            else
+                throw 'could not load Git versions database';
+        }
 
         const isSchemaSupported = ('schemaVersion' in data && +data.schemaVersion == 1);
 
         if (!isSchemaSupported)
-            throw 'Git versions database schema unsupported, please migrate data repository';
+        {
+            // If the online data has an unsupported schema, resort to local copy
+            if (useRemoteData)
+            {
+                console.warn('remote Git versions database has newer schema, '
+                    + 'resorting to local copy; please update Hubble Enterprise');
+                this._handleRemoteDataUnavailable(callback);
+                return;
+            }
+            else
+                throw 'Git versions database schema unsupported, please migrate data repository';
+        }
 
         this.data = data;
         this._flagGitVersions(this.data);
 
         // Return the data asynchronously
         callback(null, this.data);
+    }
+
+    // Fallback if the remote data can’t be retrieved, use local copy instead
+    _handleRemoteDataUnavailable(callback)
+    {
+        d3.queue()
+            .defer(d3.json, GitVersionsDatabase.localDataURL)
+            .await((error, data) => this._handleData(callback, error, data, false));
     }
 
     // Flag Git versions as vulnerable or outdated
@@ -107,4 +137,5 @@ class GitVersionsDatabase
     }
 }
 
-GitVersionsDatabase.dataURL = '{{ site.baseurl }}/assets/js/git-versions.json';
+GitVersionsDatabase.remoteDataURL = 'https://autodesk.github.io/hubble/assets/js/git-versions.json';
+GitVersionsDatabase.localDataURL = '{{ site.baseurl }}/assets/js/git-versions.json';
