@@ -1,6 +1,7 @@
 ---
 ---
 
+{% include_relative _partials/utils.js %}
 {% include_relative _partials/style.js %}
 {% include_relative _partials/spinner.js %}
 {% include_relative _partials/urls.js %}
@@ -14,6 +15,7 @@
 {% include_relative _partials/chart-list.js %}
 {% include_relative _partials/chart-table.js %}
 {% include_relative _partials/chart-chord.js %}
+{% include_relative _partials/chart-area.js %}
 
 $(window).bind('load', function()
 {
