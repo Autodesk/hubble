@@ -4,6 +4,7 @@
 {% include_relative _partials/style.js %}
 {% include_relative _partials/spinner.js %}
 {% include_relative _partials/urls.js %}
+{% include_relative _partials/semantic-versioning.js %}
 {% include_relative _partials/aggregate.js %}
 {% include_relative _partials/chart-base.js %}
 
