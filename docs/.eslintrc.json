@@ -16,7 +16,6 @@
         "no-console": ["error", {"allow": ["warn", "error"]}],
         "no-tabs": ["error"],
         "no-trailing-spaces": ["error"],
-        "no-unused-vars": ["error", {"varsIgnorePattern": "(?:satisfiesVersionRequirement)"}],
         "no-var": ["error"],
         "quotes": ["error", "single"],
         "semi": ["error", "always"],

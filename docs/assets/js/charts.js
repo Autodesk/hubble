@@ -6,6 +6,8 @@
 {% include_relative _partials/urls.js %}
 {% include_relative _partials/semantic-versioning.js %}
 {% include_relative _partials/aggregate.js %}
+{% include_relative _partials/git-versions-database.js %}
+
 {% include_relative _partials/chart-base.js %}
 
 {% include_relative _partials/chart-history.js %}
