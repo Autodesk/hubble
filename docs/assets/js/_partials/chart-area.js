@@ -25,6 +25,9 @@ class AreaChart
         {
             this._aggregateData(view);
 
+            if (view.normalize)
+                this._normalizeData(view);
+
             // Build the actual data used by Chart.js for rendering
             this._buildChartData(view);
         }
@@ -97,7 +100,10 @@ class AreaChart
                     view.visibleDatasetIDs = originalDatasetIDs;
             }
 
-            view.style = AreaChart.style;
+            if (!('normalize' in view))
+                view.normalize = false;
+
+            view.style = view.normalize ? AreaChart.normalizedStyle : AreaChart.style;
         }
     }
 
@@ -114,6 +120,24 @@ class AreaChart
                 view.rawData.length - view.slice[0]));
             view.rawData = view.rawData.slice(sliceIndex0, sliceIndex1);
         }
+    }
+
+    _normalizeData(view)
+    {
+        if (view.rawData.length == 0)
+            return;
+
+        view.rawData.forEach(
+            row =>
+            {
+                const sum = view.datasetIDs.reduce((sum, datasetID) => sum + row[datasetID], 0);
+
+                view.datasetIDs.forEach(
+                    datasetID =>
+                    {
+                        row[datasetID] = (sum == 0) ? undefined : row[datasetID] / sum;
+                    });
+            });
     }
 
     _buildChartData(view)
@@ -248,4 +272,21 @@ AreaChart.style =
                     },
             },
         },
+    };
+
+AreaChart.normalizedStyle = deepCopyObject(AreaChart.style);
+AreaChart.normalizedStyle.scales.yAxes[0].ticks =
+    {
+        beginAtZero: true,
+        max: 1,
+        callback: value => (value * 100).toFixed(0) + ' %',
+    };
+AreaChart.normalizedStyle.tooltips.callbacks.label =
+    function(tooltipItem, data)
+    {
+        const dataset = data.datasets[tooltipItem.datasetIndex];
+        const label = dataset.label;
+        const value = dataset.data[tooltipItem.index].y;
+
+        return label + ': ' + (value * 100).toFixed(1) + ' %';
     };

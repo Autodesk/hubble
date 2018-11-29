@@ -11,6 +11,7 @@ class RecommendedGitVersionsChart extends AreaChart
                     tooltip: 'Show the last 2 months',
                     aggregate: false,
                     slice: [0, 61],
+                    normalize: true,
                 },
                 {
                     label: '2 y',
@@ -21,6 +22,7 @@ class RecommendedGitVersionsChart extends AreaChart
                         method: 'first'
                     },
                     slice: [0, 106],
+                    normalize: true,
                     default: true,
                 },
                 {
@@ -31,6 +33,7 @@ class RecommendedGitVersionsChart extends AreaChart
                         period: 'week',
                         method: 'first',
                     },
+                    normalize: true,
                 },
             ],
         };
