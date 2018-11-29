@@ -4,6 +4,12 @@ class RecommendedGitVersionsChart extends AreaChart
     {
         const config =
         {
+            datasetColors:
+            {
+                vulnerable: 'red',
+                outdated: 'yellow',
+                recommended: 'green',
+            },
             views:
             [
                 {

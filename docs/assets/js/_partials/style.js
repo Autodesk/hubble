@@ -50,6 +50,29 @@ const chartColorSequence =
     chartColors.magenta,
 ];
 
+function parseColor(colorSpecifier)
+{
+    switch (colorSpecifier)
+    {
+        case 'blue':
+            return chartColors.blue;
+        case 'green':
+            return chartColors.green;
+        case 'yellow':
+            return chartColors.yellow;
+        case 'orange':
+            return chartColors.orange;
+        case 'red':
+            return chartColors.red;
+        case 'violet':
+            return chartColors.violet;
+        case 'magenta':
+            return chartColors.magenta;
+    }
+
+    return chartColors.grey;
+}
+
 function formatDate(date)
 {
     return moment(date).utc().format('D MMM YYYY');
