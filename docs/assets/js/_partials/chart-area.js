@@ -5,6 +5,9 @@ class AreaChart
         this.config = config;
         this.actionBar = actionBar;
 
+        if (!('datasetColors' in this.config))
+            this.config.datasetColors = {};
+
         this.context = canvas.getContext('2d');
         this.views = [];
         this.defaultView = null;
@@ -153,7 +156,10 @@ class AreaChart
             if (datasetID[0] == '_')
                 continue;
 
-            const color = chartColorSequence[view.chartData.length % chartColorSequence.length];
+            const color =
+                (datasetID in this.config.datasetColors)
+                    ? parseColor(this.config.datasetColors[datasetID])
+                    : chartColorSequence[view.chartData.length % chartColorSequence.length];
             const backgroundColorString = 'rgba(' + color[0] + ', ' + color[1] + ', ' + color[2] + ', 0.75)';
 
             let dataset =
