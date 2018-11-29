@@ -31,16 +31,19 @@ describe('Recommended Git versions chart', function()
                     expect(chartData[287].vulnerable).toEqual(200);
                     expect(chartData[287].outdated).toEqual(188);
                     expect(chartData[287].recommended).toEqual(60);
+                    expect(chartData[287].unknown).toEqual(0);
 
                     expect(chartData[84].date).toEqual(new Date('2018-10-08'));
                     expect(chartData[84].vulnerable).toEqual(657);
                     expect(chartData[84].outdated).toEqual(0);
                     expect(chartData[84].recommended).toEqual(51);
+                    expect(chartData[84].unknown).toEqual(0);
 
                     expect(chartData[21].date).toEqual(new Date('2018-12-10'));
                     expect(chartData[21].vulnerable).toEqual(713);
                     expect(chartData[21].outdated).toEqual(146);
                     expect(chartData[21].recommended).toEqual(178);
+                    expect(chartData[21].unknown).toEqual(0);
 
                     done();
                 });

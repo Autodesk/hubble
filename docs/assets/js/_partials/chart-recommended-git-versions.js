@@ -9,7 +9,9 @@ class RecommendedGitVersionsChart extends AreaChart
                 vulnerable: 'red',
                 outdated: 'yellow',
                 recommended: 'green',
+                unknown: 'grey',
             },
+            datasets: ['recommended', 'outdated', 'vulnerable'],
             views:
             [
                 {
@@ -91,6 +93,7 @@ class RecommendedGitVersionsChart extends AreaChart
                     recommended: 0,
                     outdated: 0,
                     vulnerable: 0,
+                    unknown: 0,
                 };
 
             while (version.split('.').length < 3)
@@ -101,6 +104,16 @@ class RecommendedGitVersionsChart extends AreaChart
             if (versionMajor == '0' || versionMajor == '1')
             {
                 result[date].vulnerable += users;
+                continue;
+            }
+
+            if (!(version in gitReleases))
+            {
+                // If an unknown version was found, show the “unknown” dataset
+                if (this.config.datasets.indexOf('unknown') === -1)
+                    this.config.datasets.push('unknown');
+
+                result[date].unknown += users;
                 continue;
             }
 
