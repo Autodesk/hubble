@@ -2,10 +2,10 @@
 
 The updater may be run in two modes:
 
-1. As a [service on a dedicated machine](README.md#service-on-a-dedicated-machine) that calls the GitHub Enterprise appliance.
+1. As a [service on a dedicated machine](README.md#setup-on-a-dedicated-machine) that calls the GitHub Enterprise appliance.
 	* Pro: No modification to the GitHub Enterprise image necessary.
 	* Con: Requires an additional machine and [administrative shell access](https://help.github.com/enterprise/2.11/admin/guides/installation/administrative-shell-ssh-access/).
-1. As a [service on the GitHub Enterprise appliance](README.md#service-on-the-github-enterprise-appliance).
+1. As a [service on the GitHub Enterprise appliance](README.md#setup-on-the-github-enterprise-appliance).
 	* Pro: Quick and easy setup. No additional machine required.
 	* Con: Requires modifications to the GitHub Enterprise image.
 	* Con: Will need to reinstall the service after each upgrade of your GitHub Enterprise appliance.
