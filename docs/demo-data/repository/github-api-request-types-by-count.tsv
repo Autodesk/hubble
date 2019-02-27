@@ -1,0 +1,11 @@
+type	count
+"/repositories/:repository_id/issues/:issue_number/comments"	10620
+"/repositories/:repository_id/issues/:issue_number"	9624
+"/repositories/:repository_id/pulls/:pull_number"	9559
+"/repositories/:repository_id/pulls"	1599
+"/repositories/:repository_id"	291
+"/repositories/:repository_id/contents/?*"	220
+ "/repositories/:repository_id/branches"	130
+ "/repositories/:repository_id/commits"	122
+ "/repositories/:repository_id/languages"	120
+ "/repositories/:repository_id/commits/*"	119

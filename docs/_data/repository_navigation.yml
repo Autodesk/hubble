@@ -1,0 +1,7 @@
+- title: "Overview"
+  url: "/repository/"
+- title: "GitHub Metrics"
+  url: "/repository/github-api-requests"
+  subnavigation:
+    - title: "API Requests"
+      url: "/repository/github-api-requests"
