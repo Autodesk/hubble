@@ -7,7 +7,11 @@ $(window).bind('load', function()
     $('.navigation a').each(function()
     {
         const href = $(this).attr('href');
-        $(this).attr('href', `${href}?nwo=${nwo}`);
+        const noNwoQuery = $(this).attr('data-no-nwo-query')
+
+        if (noNwoQuery === undefined) {
+            $(this).attr('href', `${href}?nwo=${nwo}`);
+        }
     });
 
     // Replace all canvas data urls with repository specific urls
