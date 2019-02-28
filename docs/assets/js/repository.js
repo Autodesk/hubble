@@ -15,7 +15,7 @@ $(window).bind('load', function()
     });
 
     // Replace all canvas data urls with repository specific urls
-    $('canvas[data-url]').each(function()
+    $('[data-url]').each(function()
     {
         const dataUrl = $(this).attr('data-url');
         $(this).attr('data-url', dataUrl.replace('/repository', `/repository/${nwo}`));
