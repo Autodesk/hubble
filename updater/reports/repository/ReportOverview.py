@@ -1,7 +1,6 @@
 from ..Report import *
 
-# Lists the number of contributors for each organization
-# Ordered by the number of contributors in descending order
+# Lists the name and the size of the repository
 class ReportOverview(Report):
 	def name(self):
 		return "overview"
