@@ -91,7 +91,6 @@ a
 	display: flex;
 	justify-content: center;
 	width: 100%;
-	min-height: 88px;
 }
 
 .fork-banner
@@ -105,11 +104,6 @@ a
 {
 	display: inline-flex;
 	text-decoration: none;
-}
-
-.page-header a.header-link
-{
-	display: none;
 }
 
 .project-logo
