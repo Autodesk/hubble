@@ -1,15 +1,9 @@
-from ..Report import *
+from .ReportRepository import *
 
 # Lists the name and the size of the repository
-class ReportOverview(Report):
+class ReportOverview(ReportRepository):
 	def name(self):
 		return "overview"
-
-	def metaName(self):
-		return self.repository + "/overview"
-
-	def fileName(self):
-		return os.path.join(self.dataDirectory, "repository", self.repositoryOwner, self.repositoryName, self.name() + ".tsv")
 
 	# The data is overwritten every day, so skip reading the old data
 	def readData(self):
