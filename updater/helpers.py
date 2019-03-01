@@ -46,3 +46,10 @@ def prepareDataDirectory(dataDirectory, fetchChanges = True):
 		else:
 			executeCommand(["git", "fetch"], cwd = dataDirectory)
 			executeCommand(["git", "reset", "--hard", "origin/master"], cwd = dataDirectory)
+
+# Create a data directory for each monitored repository if not present
+def prepareRepositoryDataDirectory(dataDirectory):
+	for repository in configuration["monitoredRepositories"]:
+		repositoryDataDirectory = os.path.join(dataDirectory, "repository", repository.split('/')[0], repository.split('/')[1])
+		if not os.path.exists(repositoryDataDirectory):
+			os.makedirs(repositoryDataDirectory)

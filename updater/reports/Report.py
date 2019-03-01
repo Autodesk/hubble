@@ -9,18 +9,27 @@ from helpers import *
 
 # Abstract base class for all reports that automates reading and writing reports etc.
 class Report(object):
-	def __init__(self, configuration, dataDirectory, metaStats):
+	def __init__(self, configuration, dataDirectory, metaStats, repository = None):
 		self.configuration = configuration
 		self.dataDirectory = dataDirectory
 		self.metaStats = metaStats
+		self.repository = repository
 		self.header = None
 		self.data = []
 		self.detailedHeader = None
 		self.detailedData = None
 
+		if self.repository != None:
+			self.repositoryOwner = self.repository.split('/')[0]
+			self.repositoryName = self.repository.split('/')[1]
+
 	# Name of the report, must be overridden in subclasses
 	def name(self):
 		return "unnamed-report"
+
+	# Name of the report within the meta stats report
+	def metaName(self):
+		return self.name()
 
 	# Determines the output filename of the report
 	def fileName(self):
@@ -159,7 +168,7 @@ class Report(object):
 
 	# Performs the update by reading existing data, updating it (as defined by subclass), and writing the result
 	def update(self):
-		print("Started update of " + self.name() + ".tsv", file = sys.stderr)
+		print("Started update of " + self.metaName() + ".tsv", file = sys.stderr)
 		sys.stderr.flush()
 
 		timeStart = time.time()
@@ -169,9 +178,9 @@ class Report(object):
 		self.writeData()
 
 		timeElapsed = PrettyFloat(time.time() - timeStart)
-		self.metaStats["runtimes"].append([self.name(), timeElapsed])
+		self.metaStats["runtimes"].append([self.metaName(), timeElapsed])
 
-		print("Finished update of " + self.name() + ".tsv (runtime: " + str(timeElapsed) + " s)", file = sys.stderr)
+		print("Finished update of " + self.metaName() + ".tsv (runtime: " + str(timeElapsed) + " s)", file = sys.stderr)
 		sys.stderr.flush()
 
 	def andExcludedEntities(self, column, delimiter = "AND"):
