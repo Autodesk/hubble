@@ -3,6 +3,11 @@ $(window).bind('load', function()
     const queryString = new URLSearchParams(location.search);
     const nwo = queryString.get('nwo');
 
+    $('h1.project-name').text(`${nwo} Metrics`);
+    
+    // fade header link in after the repository name has been set, otherwise the icon jumps around while the page is loading
+    $('a.header-link').css("display", "inline-flex").hide().fadeIn('fast');
+
     // Add nwo query string to all navigation links
     $('.navigation a').each(function()
     {
