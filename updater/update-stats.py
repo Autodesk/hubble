@@ -28,6 +28,7 @@ from reports.ReportPRHistory import *
 from reports.ReportPRUsage import *
 from reports.ReportRepoActivity import *
 from reports.ReportRepositoryHistory import *
+from reports.ReportReposMonitored import *
 from reports.ReportReposPersonalNonOwnerPushes import *
 from reports.ReportRepoUsage import *
 from reports.ReportTeamsLegacy import *
@@ -97,6 +98,7 @@ def main():
 	ReportPRUsage(configuration, dataDirectory, metaStats).update()
 	ReportRepoActivity(configuration, dataDirectory, metaStats).update()
 	ReportRepositoryHistory(configuration, dataDirectory, metaStats).update()
+	ReportReposMonitored(configuration, dataDirectory, metaStats).update()
 	ReportReposPersonalNonOwnerPushes(configuration, dataDirectory, metaStats).update()
 	ReportRepoUsage(configuration, dataDirectory, metaStats).update()
 	ReportTeamsLegacy(configuration, dataDirectory, metaStats).update()

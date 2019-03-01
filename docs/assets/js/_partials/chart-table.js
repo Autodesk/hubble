@@ -63,9 +63,12 @@ function createTable(table)
                             case 'repository':
                             case 'resource':
                             case 'user':
+                                const tableLinkHref = d3.select(table).attr('data-link-href');
+                                const tableLinkTarget = d3.select(table).attr('data-link-target');
+
                                 let a = cell.append('a').text(entry)
-                                    .attr('target', '_blank')
-                                    .attr('href', gheUrl() + '/' + entry)
+                                    .attr('target', tableLinkTarget || '_blank')
+                                    .attr('href', tableLinkHref ? tableLinkHref + entry : gheUrl() + '/' + entry)
                                     .text(entry);
 
                                 const tableID = d3.select(table).attr('id');
