@@ -9,6 +9,7 @@ echo -e "type\tcount"
 zcat -f /var/log/github/unicorn.log.1* |
     grep -F 'request_category=api' |
     grep -Fv 'remote_address=127.0.0.1' |
+    grep -Fv "controller=\"Api::Internal" |
     grep "repo=$REPOSITORY " |
     grep -oP 'route=\K\S+' |
     grep -Fvx 'nil' |
