@@ -78,6 +78,10 @@ class Report(object):
 					# If the script is a file, then read its content as-is into stdin
 					with open(script) as f:
 						stdin = f.read()
+
+					# Replace $REPOSITORY in script with repository (nwo) if present
+					if self.repository:
+						stdin = stdin.replace("$REPOSITORY", self.repository)
 				except:
 					# If the script is a list of strings, then escape the content and set it to stdin
 					stdin = " ".join(map(lambda x: '"' + x.replace('\\"', '\\\\"').replace('"', '\\"') + '"', script))
