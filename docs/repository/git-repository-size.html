@@ -1,0 +1,175 @@
+---
+layout: repository
+title: Git Metrics - Repository Size
+permalink: /repository/git-repository-size
+---
+
+<div class="chart-placeholder">
+	<h3>Number of Commits, Trees, Blobs, Tags and Refs</h3>
+	<canvas
+		data-url=".{{ site.dataURL }}/repository/git-repository-size-objects-count.tsv"
+		data-type="history"
+		data-config='{
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"series":
+					[
+						"commits",
+						"trees",
+						"blobs",
+						"tags",
+						"refs"
+					],
+					"visibleSeries":
+					[
+						"commits",
+						"trees",
+						"blobs",
+						"tags",
+						"refs"
+					],
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "median"
+					},
+					"series":
+					[
+						"commits",
+						"trees",
+						"blobs",
+						"tags",
+						"refs"
+					],
+					"visibleSeries":
+					[
+						"commits",
+						"trees",
+						"blobs",
+						"tags",
+						"refs"
+					],
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "median"
+					},
+					"series":
+					[
+						"commits",
+						"trees",
+						"blobs",
+						"tags",
+						"refs"
+					],
+					"visibleSeries":
+					[
+						"commits",
+						"trees",
+						"blobs",
+						"tags",
+						"refs"
+					]
+				}
+			]
+		}'></canvas>
+	<div class="info-box">
+		<p>
+			The total number of commits, trees, blobs, tags and refs.
+		</p>
+	</div>
+</div>
+
+<div class="chart-placeholder">
+	<h3>Size of Commits, Trees and Blobs</h3>
+	<canvas
+		data-url=".{{ site.dataURL }}/repository/git-repository-size-objects-size.tsv"
+		data-type="history"
+		data-config='{
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"series":
+					[
+						"commits [MiB]",
+						"trees [MiB]",
+						"blobs [MiB]"
+					],
+					"visibleSeries":
+					[
+						"commits [MiB]",
+						"trees [MiB]",
+						"blobs [MiB]"
+					],
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "median"
+					},
+					"series":
+					[
+						"commits [MiB]",
+						"trees [MiB]",
+						"blobs [MiB]"
+					],
+					"visibleSeries":
+					[
+						"commits [MiB]",
+						"trees [MiB]",
+						"blobs [MiB]"
+					],
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "median"
+					},
+					"series":
+					[
+						"commits [MiB]",
+						"trees [MiB]",
+						"blobs [MiB]"
+					],
+					"visibleSeries":
+					[
+						"commits [MiB]",
+						"trees [MiB]",
+						"blobs [MiB]"
+					]
+				}
+			]
+		}'></canvas>
+	<div class="info-box">
+		<p>
+			The total size of commits, trees and blobs in MiB.
+		</p>
+	</div>
+</div>

@@ -76,7 +76,7 @@ configuration = \
 	# Name with owner of repositories that are to be monitored for repository
 	# specific metrics.
 	#
-	# Example: [ "org1/large-repo", "it/mobile-client" ]
+	# Example: [ "test-org/large-repo", "it/mobile-client" ]
 	"monitoredRepositories": [],
 
 
@@ -103,4 +103,7 @@ configuration = \
 	# Command that returns the SQL shell with the correct environment
 	"databaseCommand": ["ghe-dbconsole", "-y"],
 
+	# Path to git-sizer (https://github.com/github/git-sizer) used for Git metrics.
+	# Default is home directory of admin user on GitHub Enterprise appliance.
+	"gitSizerPath": "/home/admin/git-sizer"
 }
