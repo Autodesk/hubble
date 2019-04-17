@@ -36,8 +36,7 @@ from reports.ReportTeamsTotal import *
 from reports.ReportTokenlessAuth import *
 from reports.ReportUsers import *
 from reports.repository.ReportOverview import *
-from reports.repository.ReportGitRepositorySizeObjectsCount import *
-from reports.repository.ReportGitRepositorySizeObjectsSize import *
+from reports.repository.ReportGitSizer import *
 from reports.repository.ReportGitHubGitDownload import *
 from reports.repository.ReportGitHubApiRequestTypesByCount import *
 
@@ -112,8 +111,7 @@ def main():
 	# Repository reports
 	for repository in configuration["monitoredRepositories"]:
 		ReportOverview(configuration, dataDirectory, metaStats, repository).update()
-		ReportGitRepositorySizeObjectsCount(configuration, dataDirectory, metaStats, repository).update()
-		ReportGitRepositorySizeObjectsSize(configuration, dataDirectory, metaStats, repository).update()
+		ReportGitSizer(configuration, dataDirectory, metaStats, repository).update()
 		ReportGitHubGitDownload(configuration, dataDirectory, metaStats, repository).update()
 		ReportGitHubApiRequestTypesByCount(configuration, dataDirectory, metaStats, repository).update()
 
