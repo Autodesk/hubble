@@ -95,7 +95,7 @@ class Report(object):
 					"admin@" + self.configuration["remoteRun"]["gheHost"]
 				] + script
 
-		stdout, stderr = executeCommand(script, stdin)
+		stdout, stderr = executeCommand(script, stdin = stdin, repository = self.repository)
 
 		print(stderr.decode("utf-8"), file = sys.stderr)
 		sys.stderr.flush()
