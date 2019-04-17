@@ -1,0 +1,141 @@
+---
+layout: repository
+title: GitHub Metrics - Git Traffic
+permalink: /repository/github-git-traffic
+---
+
+<div class="chart-placeholder">
+	<h3>Operations</h3>
+	<canvas
+		data-url=".{{ site.dataURL }}/repository/github-git-download.tsv"
+		data-type="history"
+		data-config='{
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"series":
+					[
+						"clones",
+						"fetches"
+					],
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					},
+					"series":
+					[
+						"clones",
+						"fetches"
+					],
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					},
+					"series":
+					[
+						"clones",
+						"fetches"
+					]
+				}
+			]
+		}'></canvas>
+	<div class="info-box">
+		<p>
+			<em>Cloning</em> a Git repository is expensive, as the entire repository history must be transferred.
+			Clients that have cloned a repository before should rather <em>fetch</em> the latest changes.
+			This is (sometimes dramatically!) faster for the client and less expensive for the server.
+		</p>
+		<p>
+			High numbers of clone operations usually indicate an unfavorably configured CI process.
+		</p>
+	</div>
+</div>
+
+<div class="chart-placeholder">
+	<h3>Transferred Data</h3>
+	<canvas
+		data-url=".{{ site.dataURL }}/repository/github-git-download.tsv"
+		data-type="history"
+		data-config='{
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"series":
+					[
+						"clone traffic [GB]",
+						"fetch traffic [GB]",
+						"LFS traffic [GB]"
+					],
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					},
+					"series":
+					[
+						"clone traffic [GB]",
+						"fetch traffic [GB]",
+						"LFS traffic [GB]"
+					],
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					},
+					"series":
+					[
+						"clone traffic [GB]",
+						"fetch traffic [GB]",
+						"LFS traffic [GB]"
+					]
+				}
+			]
+		}'></canvas>
+	<div class="info-box">
+		<p>
+			The amount of data transferred for clones and fetches (<em>excluding</em> Git LFS traffic) as well as pure <a href="https://git-lfs.github.com/">Git LFS</a> traffic (indirectly triggered through clones and fetches).
+		</p>
+		<p>
+			To save resources, you should try to minimize the number of clones, especially for large repositories.
+		</p>
+	</div>
+</div>
+
+<div class="chart-placeholder">
+	<table data-url=".{{ site.dataURL }}/repository/github-git-download-detailed.tsv" data-type="table"></table>
+	<div class="info-box">
+		<p>
+			This table lists the repositories that accounted for the majority of the traffic yesterday.
+		</p>
+	</div>
+</div>

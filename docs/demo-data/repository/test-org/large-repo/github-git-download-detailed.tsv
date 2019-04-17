@@ -1,0 +1,26 @@
+repository	user	cloning?	requests	download [GB]
+test-org/large-repo	someUser5322	true	7	37
+test-org/large-repo	someUser5337	true	44	36
+test-org/large-repo	someUser2762	true	40	34
+test-org/large-repo	someUser8267	true	27	28
+test-org/large-repo	someUser1992	true	35	26
+test-org/large-repo	someUser2706	true	110	23
+test-org/large-repo	someUser5302	true	27	22
+test-org/large-repo	someUser5357	true	80	21
+test-org/large-repo	someUser5317	true	139	18
+test-org/large-repo	someUser4337	true	76	16
+test-org/large-repo	someUser5137	true	74	11
+test-org/large-repo	someUser3589	true	10	10
+test-org/large-repo	someUser5134	true	33	9
+test-org/large-repo	someUser1528	true	63	9
+test-org/large-repo	someUser5737	true	43	7
+test-org/large-repo	someUser2064	true	6	6
+test-org/large-repo	someUser2736	true	40	6
+test-org/large-repo	someUser5550	true	7	6
+test-org/large-repo	someUser5347	true	129	6
+test-org/large-repo	someUser2434	true	20	6
+test-org/large-repo	someUser3526	true	21	6
+test-org/large-repo	someUser4112	true	62	6
+test-org/large-repo	someUser5307	false	29	5
+test-org/large-repo	someUser1322	true	68	5
+test-org/large-repo	someUser1972	true	33	5
