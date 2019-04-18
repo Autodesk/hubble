@@ -5,7 +5,7 @@ permalink: /repository/git-repository-size
 ---
 
 <div class="chart-placeholder">
-	<h3>Number of Commits, Trees, Blobs, Tags and Refs</h3>
+	<h3>Number of Commits and Depth of History</h3>
 	<canvas
 		data-url=".{{ site.dataURL }}/repository/git-sizer.tsv"
 		data-type="history"
@@ -19,18 +19,12 @@ permalink: /repository/git-repository-size
 					"series":
 					[
 						"commits",
-						"trees",
-						"blobs",
-						"tags",
-						"refs"
+						"largest history depth"
 					],
 					"visibleSeries":
 					[
 						"commits",
-						"trees",
-						"blobs",
-						"tags",
-						"refs"
+						"largest history depth"
 					],
 					"slice": [0, 61]
 				},
@@ -45,18 +39,12 @@ permalink: /repository/git-repository-size
 					"series":
 					[
 						"commits",
-						"trees",
-						"blobs",
-						"tags",
-						"refs"
+						"largest history depth"
 					],
 					"visibleSeries":
 					[
 						"commits",
-						"trees",
-						"blobs",
-						"tags",
-						"refs"
+						"largest history depth"
 					],
 					"slice": [0, 106],
 					"default": true
@@ -72,31 +60,25 @@ permalink: /repository/git-repository-size
 					"series":
 					[
 						"commits",
-						"trees",
-						"blobs",
-						"tags",
-						"refs"
+						"largest history depth"
 					],
 					"visibleSeries":
 					[
 						"commits",
-						"trees",
-						"blobs",
-						"tags",
-						"refs"
+						"largest history depth"
 					]
 				}
 			]
 		}'></canvas>
 	<div class="info-box">
 		<p>
-			The total number of commits, trees, blobs, tags and refs.
+			The total number of commits and the maximum history depth. Cloning a repository with a large number of commits and a deep history and running certain local Git commands on it (e.g. git blame) can be slow.
 		</p>
 	</div>
 </div>
 
 <div class="chart-placeholder">
-	<h3>Size of Commits, Trees and Blobs</h3>
+	<h3>Size of Blobs</h3>
 	<canvas
 		data-url=".{{ site.dataURL }}/repository/git-sizer.tsv"
 		data-type="history"
@@ -109,14 +91,10 @@ permalink: /repository/git-repository-size
 					"aggregate": false,
 					"series":
 					[
-						"commits [MiB]",
-						"trees [MiB]",
 						"blobs [MiB]"
 					],
 					"visibleSeries":
 					[
-						"commits [MiB]",
-						"trees [MiB]",
 						"blobs [MiB]"
 					],
 					"slice": [0, 61]
@@ -131,14 +109,10 @@ permalink: /repository/git-repository-size
 					},
 					"series":
 					[
-						"commits [MiB]",
-						"trees [MiB]",
 						"blobs [MiB]"
 					],
 					"visibleSeries":
 					[
-						"commits [MiB]",
-						"trees [MiB]",
 						"blobs [MiB]"
 					],
 					"slice": [0, 106],
@@ -154,14 +128,10 @@ permalink: /repository/git-repository-size
 					},
 					"series":
 					[
-						"commits [MiB]",
-						"trees [MiB]",
 						"blobs [MiB]"
 					],
 					"visibleSeries":
 					[
-						"commits [MiB]",
-						"trees [MiB]",
 						"blobs [MiB]"
 					]
 				}
@@ -169,7 +139,141 @@ permalink: /repository/git-repository-size
 		}'></canvas>
 	<div class="info-box">
 		<p>
-			The total size of commits, trees and blobs in MiB.
+			The total size of blobs in MiB. Avoid a rapid growth of the total size of blobs by using LFS for larger files.
+		</p>
+	</div>
+</div>
+
+<div class="chart-placeholder">
+	<h3>Number of Refs</h3>
+	<canvas
+		data-url=".{{ site.dataURL }}/repository/git-sizer.tsv"
+		data-type="history"
+		data-config='{
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"series":
+					[
+						"refs"
+					],
+					"visibleSeries":
+					[
+						"refs"
+					],
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "median"
+					},
+					"series":
+					[
+						"refs"
+					],
+					"visibleSeries":
+					[
+						"refs"
+					],
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "median"
+					},
+					"series":
+					[
+						"refs"
+					],
+					"visibleSeries":
+					[
+						"refs"
+					]
+				}
+			]
+		}'></canvas>
+	<div class="info-box">
+		<p>
+			The total number of branches and tags. Cloning a repository with a large number of branches and tags can take a lot of time and local Git operations (e.g. tab-complete a branch name) can be slow.
+		</p>
+	</div>
+</div>
+
+<div class="chart-placeholder">
+	<h3>Number of Submodules</h3>
+	<canvas
+		data-url=".{{ site.dataURL }}/repository/git-sizer.tsv"
+		data-type="history"
+		data-config='{
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"series":
+					[
+						"submodules"
+					],
+					"visibleSeries":
+					[
+						"submodules"
+					],
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "median"
+					},
+					"series":
+					[
+						"submodules"
+					],
+					"visibleSeries":
+					[
+						"submodules"
+					],
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "median"
+					},
+					"series":
+					[
+						"submodules"
+					],
+					"visibleSeries":
+					[
+						"submodules"
+					]
+				}
+			]
+		}'></canvas>
+	<div class="info-box">
+		<p>
+			The total number of submodules. Git needs to query their status on all kinds of local operations and this query operation is in particular slow on Windows.
 		</p>
 	</div>
 </div>
