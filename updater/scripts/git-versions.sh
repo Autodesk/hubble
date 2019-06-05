@@ -4,11 +4,11 @@
 #
 echo -e "Git version\tusers"
 
-zgrep -hF '||git/' /var/log/haproxy.log.1* |
-	perl -lape 's/.* (.*):.* \[.*\|\|git\/(\d+(?:\.\d+){0,2}).*/$1 $2/' |
+zcat -f /var/log/github-audit.log.1* |
+	perl -ne 'print if s/.*agent=git\/(\d+(?:\.\d+){0,2}).*"user_id":(\d+).*/\2\t\1/' |
 	sort |
 	uniq |
-	perl -lape 's/[^ ]+ //' |
+	perl -lape 's/\d+ *//' |
 	sort -r -V |
 	uniq -ic |
 	awk '{printf("%s\t%s\n",$2,$1)}'
