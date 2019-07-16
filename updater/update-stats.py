@@ -14,6 +14,7 @@ from reports.ReportContributorsByOrg import *
 from reports.ReportContributorsByRepo import *
 from reports.ReportForksToOrgs import *
 from reports.ReportGitDownload import *
+from reports.ReportGitProtocol import *
 from reports.ReportGitRequests import *
 from reports.ReportGitVersions import *
 from reports.ReportGitVersionsNew import *
@@ -80,6 +81,7 @@ def main():
 	ReportContributorsByRepo(configuration, dataDirectory, metaStats).update()
 	ReportForksToOrgs(configuration, dataDirectory, metaStats).update()
 	ReportGitDownload(configuration, dataDirectory, metaStats).update()
+	ReportGitProtocol(configuration, dataDirectory, metaStats).update()
 	ReportGitRequests(configuration, dataDirectory, metaStats).update()
 	ReportGitVersions(configuration, dataDirectory, metaStats).update()
 	ReportGitVersionsNew(configuration, dataDirectory, metaStats).update()
