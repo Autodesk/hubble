@@ -1,0 +1,63 @@
+---
+layout: default
+title: Git Protocol Usage
+permalink: /users-git-protocol
+---
+
+<div class="chart-placeholder">
+	<h3>Git Protocol Usage</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/git-protocol.tsv"
+		data-type="history"
+		data-config='{
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"series":
+					[
+						"http",
+						"ssh"
+					],
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					},
+					"series":
+					[
+						"http",
+						"ssh"
+					],
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					},
+					"series":
+					[
+						"http",
+						"ssh"
+					]
+				}
+			]
+		}'></canvas>
+	<div class="info-box">
+		<p>
+			Number of Git connections per protocol.
+		</p>
+	</div>
+</div>
