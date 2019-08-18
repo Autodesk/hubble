@@ -1,2 +1,2 @@
-dataURL: ./demo-data
+dataURL: https://steffen.github.io/hubble/demo-data
 exclude: ['spec', 'node_modules', 'README.md', '.gitignore', 'package.json', 'package-lock.json']
