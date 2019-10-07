@@ -17,8 +17,8 @@ class ReportGitProtocol(ReportDaily):
 		self.data.append(
 			[
 				str(self.yesterday()),
-				protocols["http"],
-				protocols["ssh"],
+				protocols.get("http", 0),
+				protocols.get("ssh", 0),
 			])
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()
