@@ -1,0 +1,98 @@
+---
+layout: default
+title: Repository Size
+permalink: /repos-size
+---
+
+<div class="chart-placeholder">
+	<h3>Repository Size</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/repository-size.tsv"
+		data-type="history"
+		data-config='{
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"series":
+					[
+						"repositories >1GB"
+					],
+					"visibleSeries":
+					[
+						"repositories >1GB"
+					],
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "max"
+					},
+					"series":
+					[
+						"repositories >1GB"
+					],
+					"visibleSeries":
+					[
+						"repositories >1GB"
+					],
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "max"
+					},
+					"series":
+					[
+						"repositories >1GB"
+					],
+					"visibleSeries":
+					[
+						"repositories >1GB"
+					]
+				}
+			]
+		}'
+		></canvas>
+	<div class="info-box">
+		<p>
+			Shows how many repositories are larger than 1GB.
+		</p>
+	</div>
+	<div class="info-box">
+		<p>
+			GitHub <a href="https://help.github.com/en/github/managing-large-files/what-is-my-disk-quota#file-and-repository-size-limitations">recommends</a> to keep the repository
+			size below 1 GB. Repositories above that limit require usually more extensive resources for the
+			automated repository maintenance which can affect the overall health of the appliance.
+			</p>
+		<p>
+			You can reach out to <a href="https://services.github.com/">GitHub Professional Services</a> if you
+			want help to shrink your repositories.
+		</p>
+	</div>
+</div>
+
+<div class="chart-placeholder">
+	<h3>Most Active Repositories</h3>
+	<table
+		data-url="{{ site.dataURL }}/repository-size-detailed.tsv"
+		data-config='{"slice": [0, 50]}'
+		data-type="table"
+	></table>
+	<div class="info-box">
+		<p>
+			The top 50 largest repositories sorted by their size.
+		</p>
+	</div>
+</div>
