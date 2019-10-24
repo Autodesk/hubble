@@ -53,6 +53,11 @@ def writeMetaStats(metaStats, dataDirectory):
 			print(*entry, sep="\t", file = outputFile)
 
 def main():
+	if configuration['remoteRun']['enabled'] == True:
+		if getMaintenanceStatus() == "on":
+			print("https://", configuration['remoteRun']['gheHost'], "is in maintenance-mode")
+			sys.exit(1)
+
 	metaStats = {"runtimes": []}
 
 	if len(sys.argv) > 1 and sys.argv[1] == "--dry-run":
@@ -81,7 +86,7 @@ def main():
 	ReportContributorsByRepo(configuration, dataDirectory, metaStats).update()
 	ReportForksToOrgs(configuration, dataDirectory, metaStats).update()
 	ReportGitDownload(configuration, dataDirectory, metaStats).update()
-	ReportGitProtocol(configuration, dataDirectory, metaStats).update()
+	#ReportGitProtocol(configuration, dataDirectory, metaStats).update()
 	ReportGitRequests(configuration, dataDirectory, metaStats).update()
 	ReportGitVersions(configuration, dataDirectory, metaStats).update()
 	ReportGitVersionsNew(configuration, dataDirectory, metaStats).update()
@@ -102,6 +107,8 @@ def main():
 	ReportTeamsTotal(configuration, dataDirectory, metaStats).update()
 	ReportTokenlessAuth(configuration, dataDirectory, metaStats).update()
 	ReportUsers(configuration, dataDirectory, metaStats).update()
+
+	sys.exit(5)
 
 	# Write meta infos
 	writeMeta(dataDirectory)

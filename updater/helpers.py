@@ -3,6 +3,10 @@ import os
 import subprocess
 import sys
 
+import http.client
+import json
+import ssl
+
 from config import *
 
 # Simple class to get floating-point values printed prettily
@@ -42,7 +46,34 @@ def prepareDataDirectory(dataDirectory, fetchChanges = True):
 	if fetchChanges:
 		# Clone data repository if necessary
 		if not os.path.exists(os.path.join(dataDirectory, ".git")):
+			print("git clone", configuration["repositoryURL"])
 			executeCommand(["git", "clone", configuration["repositoryURL"], "."], cwd = dataDirectory)
 		else:
 			executeCommand(["git", "fetch"], cwd = dataDirectory)
 			executeCommand(["git", "reset", "--hard", "origin/master"], cwd = dataDirectory)
+
+def getMaintenanceStatus():
+	"""Poll https://$gheHost/setup/api/maintenance to get state of maintenance-mode"""
+	if configuration['remoteRun']['enabled'] == True:
+		try:
+			if len(configuration['remoteRun']['consolePassword']) > 0:
+				consolePassword = configuration['remoteRun']['consolePassword']
+
+				maintUrl = '/setup/api/maintenance?api_key=' + consolePassword
+
+				conn = http.client.HTTPSConnection(     configuration['remoteRun']['gheHost'],
+									8443,
+									context = ssl._create_unverified_context()
+								  )
+
+				conn.request("GET", maintUrl)
+
+				res = conn.getresponse()
+				data = res.read()
+
+				gheStatus = json.loads(data.decode("utf-8"))
+
+				return(gheStatus['status'])
+
+		except Exception as e:
+			return("unknown")

@@ -11,6 +11,7 @@ configuration = \
 		"enabled" : False,
 		"sshKey"  : "/path/to/key",
 		"gheHost" : "host",
+		"consolePassword" : "Admin Console Password"
 	},
 
 
