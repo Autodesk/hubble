@@ -36,6 +36,7 @@ from reports.ReportTeamsTotal import *
 from reports.ReportTokenlessAuth import *
 from reports.ReportUsers import *
 
+
 def writeMeta(dataDirectory):
 	outputFilePath = os.path.join(dataDirectory, "meta.tsv")
 
@@ -53,6 +54,15 @@ def writeMetaStats(metaStats, dataDirectory):
 			print(*entry, sep="\t", file = outputFile)
 
 def main():
+	sshHostString = "admin@" + configuration['remoteRun']['gheHost']
+	maintenanceStatus = executeCommand(["ssh", "-p122", sshHostString, "ghe-maintenance", "--query|cat"])
+
+	if "maintenance mode set" in str(maintenanceStatus):
+		print(configuration['remoteRun']['gheHost'], "in-maintenance")
+		sys.exit(1)
+	else:
+		print(configuration['remoteRun']['gheHost'], "not in maintenance, continuing")
+
 	metaStats = {"runtimes": []}
 
 	if len(sys.argv) > 1 and sys.argv[1] == "--dry-run":
@@ -81,7 +91,7 @@ def main():
 	ReportContributorsByRepo(configuration, dataDirectory, metaStats).update()
 	ReportForksToOrgs(configuration, dataDirectory, metaStats).update()
 	ReportGitDownload(configuration, dataDirectory, metaStats).update()
-	ReportGitProtocol(configuration, dataDirectory, metaStats).update()
+	#ReportGitProtocol(configuration, dataDirectory, metaStats).update()
 	ReportGitRequests(configuration, dataDirectory, metaStats).update()
 	ReportGitVersions(configuration, dataDirectory, metaStats).update()
 	ReportGitVersionsNew(configuration, dataDirectory, metaStats).update()
@@ -102,6 +112,8 @@ def main():
 	ReportTeamsTotal(configuration, dataDirectory, metaStats).update()
 	ReportTokenlessAuth(configuration, dataDirectory, metaStats).update()
 	ReportUsers(configuration, dataDirectory, metaStats).update()
+
+	sys.exit(5)
 
 	# Write meta infos
 	writeMeta(dataDirectory)
