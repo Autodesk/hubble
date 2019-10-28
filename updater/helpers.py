@@ -11,8 +11,13 @@ class PrettyFloat(float):
 		return "%0.3f" % self
 
 # Executes a single command and returns stdout and stderr
-def executeCommand(command, stdin = None, cwd = None):
-	with subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.PIPE, stdin = (subprocess.PIPE if stdin != None else None), cwd = cwd) as process:
+def executeCommand(command, stdin = None, cwd = None, repository = None):
+	env = os.environ.copy()
+	
+	if repository:
+		env["REPOSITORY"] = repository
+	
+	with subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.PIPE, stdin = (subprocess.PIPE if stdin != None else None), cwd = cwd, env = env) as process:
 		stdout, stderr = process.communicate(input = (stdin.encode("utf-8") if stdin != None else None))
 
 		print(stderr.decode("utf-8"), file = sys.stderr)
@@ -46,3 +51,10 @@ def prepareDataDirectory(dataDirectory, fetchChanges = True):
 		else:
 			executeCommand(["git", "fetch"], cwd = dataDirectory)
 			executeCommand(["git", "reset", "--hard", "origin/master"], cwd = dataDirectory)
+
+# Create a data directory for each monitored repository if not present
+def prepareRepositoryDataDirectory(dataDirectory):
+	for repository in configuration["monitoredRepositories"]:
+		repositoryDataDirectory = os.path.join(dataDirectory, "repository", repository.split('/')[0], repository.split('/')[1])
+		if not os.path.exists(repositoryDataDirectory):
+			os.makedirs(repositoryDataDirectory)

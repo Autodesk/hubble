@@ -1,6 +1,7 @@
 function createTable(table)
 {
     const url = $(table).data('url');
+    const noThead = $(table).data('no-thead');
 
     let spinner = createSpinner(table);
 
@@ -13,14 +14,15 @@ function createTable(table)
             if (data.length == 0)
                 return;
 
-            d3.select(table)
-                .append('thead')
-                .append('tr')
-                .selectAll('th')
-                .data(data.columns)
-                .enter()
-                .append('th')
-                .text(d => d);
+            if (noThead === undefined)
+                d3.select(table)
+                    .append('thead')
+                    .append('tr')
+                    .selectAll('th')
+                    .data(data.columns)
+                    .enter()
+                    .append('th')
+                    .text(d => d);
 
             let displayData = data;
             const configSlice = readConfig($(table), 'slice');
@@ -61,9 +63,12 @@ function createTable(table)
                             case 'repository':
                             case 'resource':
                             case 'user':
+                                const tableLinkHref = d3.select(table).attr('data-link-href');
+                                const tableLinkTarget = d3.select(table).attr('data-link-target');
+
                                 let a = cell.append('a').text(entry)
-                                    .attr('target', '_blank')
-                                    .attr('href', gheUrl() + '/' + entry)
+                                    .attr('target', tableLinkTarget || '_blank')
+                                    .attr('href', tableLinkHref ? tableLinkHref + entry : gheUrl() + '/' + entry)
                                     .text(entry);
 
                                 const tableID = d3.select(table).attr('id');

@@ -27,6 +27,8 @@
       url: "/repos-activity"
     - title: "Total"
       url: "/repos-total"
+    - title: "Monitored"
+      url: "/repos-monitored"
 - title: "Organizations"
   url: "/orgs-activity"
   subnavigation:

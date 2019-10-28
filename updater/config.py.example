@@ -64,12 +64,20 @@ configuration = \
 		"github-enterprise",
 	],
 
+
 	# The collaboration metric calculates the membership of users to
 	# organizations based on the number of pushes. A user is called "a member
 	# of an organization" if the user has made the most pushes to that
 	# organization. Certain organizations are not supposed to have members in
 	# that sense (e.g. components organizations).
 	"memberlessOrganizations": [],
+
+
+	# Name with owner of repositories that are to be monitored for repository
+	# specific metrics.
+	#
+	# Example: [ "test-org/large-repo", "it/mobile-client" ]
+	"monitoredRepositories": [],
 
 
 	# Help Links
@@ -95,4 +103,7 @@ configuration = \
 	# Command that returns the SQL shell with the correct environment
 	"databaseCommand": ["ghe-dbconsole", "-y"],
 
+	# Path to git-sizer (https://github.com/github/git-sizer) used for Git metrics.
+	# Default is home directory of admin user on GitHub Enterprise appliance.
+	"gitSizerPath": "/home/admin/git-sizer"
 }

@@ -1,0 +1,14 @@
+- title: "Overview"
+  url: "/repository/"
+- title: "Git Metrics"
+  url: "/repository/git-repository-size"
+  subnavigation:
+    - title: "Repository Size"
+      url: "/repository/git-repository-size"
+- title: "GitHub Metrics"
+  url: "/repository/github-git-traffic"
+  subnavigation:
+    - title: "Git Traffic"
+      url: "/repository/github-git-traffic"
+    - title: "API Requests"
+      url: "/repository/github-api-requests"

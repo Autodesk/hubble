@@ -1,0 +1,61 @@
+{% include environment.html %}
+<!doctype html>
+<html lang="en-us">
+	<head>
+		<meta charset="UTF-8">
+		<title>Hubble Enterprise{% if page.title %}: {{ page.title }}{% endif %}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" sizes="256x256" href="{{ site.baseurl }}/assets/icons/favicon-256x256.png?version={{ site.github.build_revision }}">
+		<link rel="icon" sizes="192x192" href="{{ site.baseurl }}/assets/icons/favicon-192x192.png?version={{ site.github.build_revision }}">
+		<link rel="icon" sizes="128x128" href="{{ site.baseurl }}/assets/icons/favicon-128x128.png?version={{ site.github.build_revision }}">
+		<link rel="icon" sizes="96x96" href="{{ site.baseurl }}/assets/icons/favicon-96x96.png?version={{ site.github.build_revision }}">
+		<link rel="icon" sizes="64x64" href="{{ site.baseurl }}/assets/icons/favicon-64x64.png?version={{ site.github.build_revision }}">
+		<link rel="icon" sizes="48x48" href="{{ site.baseurl }}/assets/icons/favicon-48x48.png?version={{ site.github.build_revision }}">
+		<link rel="icon" sizes="32x32" href="{{ site.baseurl }}/assets/icons/favicon-32x32.png?version={{ site.github.build_revision }}">
+		<link rel="icon" sizes="16x16" href="{{ site.baseurl }}/assets/icons/favicon-16x16.png?version={{ site.github.build_revision }}">
+		<link rel="apple-touch-icon" sizes="57x57" href="{{ site.baseurl }}/assets/icons/apple-touch-icon-57x57.png?version={{ site.github.build_revision }}">
+		<link rel="apple-touch-icon" sizes="76x76" href="{{ site.baseurl }}/assets/icons/apple-touch-icon-76x76.png?version={{ site.github.build_revision }}">
+		<link rel="apple-touch-icon" sizes="120x120" href="{{ site.baseurl }}/assets/icons/apple-touch-icon-120x120.png?version={{ site.github.build_revision }}">
+		<link rel="apple-touch-icon" sizes="152x152" href="{{ site.baseurl }}/assets/icons/apple-touch-icon-152x152.png?version={{ site.github.build_revision }}">
+		<link rel="apple-touch-icon" sizes="167x167" href="{{ site.baseurl }}/assets/icons/apple-touch-icon-167x167.png?version={{ site.github.build_revision }}">
+		<link rel="apple-touch-icon" sizes="180x180" href="{{ site.baseurl }}/assets/icons/apple-touch-icon-180x180.png?version={{ site.github.build_revision }}">
+		<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/normalize.css?version={{ site.github.build_revision }}" media="screen">
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i" media="screen">
+		<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/stylesheet.css?version={{ site.github.build_revision }}" media="screen">
+		<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/repository.css?version={{ site.github.build_revision }}" media="screen">
+		<script src="{{ site.baseurl }}/assets/js/vendor/jquery-3.2.1.min.js"></script>
+		<script src="{{ site.baseurl }}/assets/js/vendor/d3.v4.min.js"></script>
+		<script src="{{ site.baseurl }}/assets/js/vendor/moment-with-locales-2.21.0.min.js"></script>
+		<script src="{{ site.baseurl }}/assets/js/vendor/Chart-2.7.3.min.js"></script>
+		<script src="{{ site.baseurl }}/assets/js/vendor/spin-2.3.2.min.js"></script>
+		<script src="{{ site.baseurl }}/assets/js/repository.js?version={{ site.github.build_revision }}"></script>
+		<script src="{{ site.baseurl }}/assets/js/charts.js?version={{ site.github.build_revision }}"></script>
+	</head>
+	<body>
+		<section class="page-header">
+			<a href="https://github.com/Autodesk/hubble" class="fork-banner">
+				<img alt="Fork me on GitHub" src="{{ site.baseurl }}/assets/images/fork-banner.png">
+			</a>
+			<a href="{{ site.baseurl }}/" alt="Hubble Enterprise">
+				<img src="{{ site.baseurl }}/assets/images/logo-title.svg" class="project-logo" width="3rem" height="3rem">
+				<h1 class="project-name">
+					<script>
+						(function()
+						{
+							const queryString = new URLSearchParams(location.search);
+    						const nwo = queryString.get('nwo');
+
+							document.write(`${nwo} Metrics`);
+						})();
+					</script>
+				</h1>
+			</a>
+		</section>
+		{% include repository_navigation.html %}
+		<section class="main-content">
+			{{ content }}
+			{% include footer.html %}
+		</section>
+	</body>
+</html>

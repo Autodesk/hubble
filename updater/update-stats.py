@@ -29,12 +29,17 @@ from reports.ReportPRHistory import *
 from reports.ReportPRUsage import *
 from reports.ReportRepoActivity import *
 from reports.ReportRepositoryHistory import *
+from reports.ReportReposMonitored import *
 from reports.ReportReposPersonalNonOwnerPushes import *
 from reports.ReportRepoUsage import *
 from reports.ReportTeamsLegacy import *
 from reports.ReportTeamsTotal import *
 from reports.ReportTokenlessAuth import *
 from reports.ReportUsers import *
+from reports.repository.ReportOverview import *
+from reports.repository.ReportGitSizer import *
+from reports.repository.ReportGitHubGitDownload import *
+from reports.repository.ReportGitHubApiRequestTypesByCount import *
 
 def writeMeta(dataDirectory):
 	outputFilePath = os.path.join(dataDirectory, "meta.tsv")
@@ -68,6 +73,7 @@ def main():
 	# Prepare the data directory for writing the new data
 	dataDirectory = locateDataDirectory()
 	prepareDataDirectory(dataDirectory, fetchChanges = not configuration["dryRun"])
+	prepareRepositoryDataDirectory(dataDirectory)
 
 	# Verify schema version for forward compatibility
 	checkSchemaVersion(dataDirectory)
@@ -96,12 +102,20 @@ def main():
 	ReportPRUsage(configuration, dataDirectory, metaStats).update()
 	ReportRepoActivity(configuration, dataDirectory, metaStats).update()
 	ReportRepositoryHistory(configuration, dataDirectory, metaStats).update()
+	ReportReposMonitored(configuration, dataDirectory, metaStats).update()
 	ReportReposPersonalNonOwnerPushes(configuration, dataDirectory, metaStats).update()
 	ReportRepoUsage(configuration, dataDirectory, metaStats).update()
 	ReportTeamsLegacy(configuration, dataDirectory, metaStats).update()
 	ReportTeamsTotal(configuration, dataDirectory, metaStats).update()
 	ReportTokenlessAuth(configuration, dataDirectory, metaStats).update()
 	ReportUsers(configuration, dataDirectory, metaStats).update()
+
+	# Repository reports
+	for repository in configuration["monitoredRepositories"]:
+		ReportOverview(configuration, dataDirectory, metaStats, repository).update()
+		ReportGitSizer(configuration, dataDirectory, metaStats, repository).update()
+		ReportGitHubGitDownload(configuration, dataDirectory, metaStats, repository).update()
+		ReportGitHubApiRequestTypesByCount(configuration, dataDirectory, metaStats, repository).update()
 
 	# Write meta infos
 	writeMeta(dataDirectory)
