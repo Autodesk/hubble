@@ -4,7 +4,7 @@
 
 describe('Git versions database', function()
 {
-    it('should detect oudated and vulnerable versions correctly', function(done)
+    it('should detect outdated and vulnerable versions correctly', function(done)
     {
         const dataURL = '/base/assets/js/git-versions.json';
         const gitVersionsDatabase = new GitVersionsDatabase();
