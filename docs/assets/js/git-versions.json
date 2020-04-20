@@ -236,11 +236,41 @@
 			}
 		],
 		"releases": {
+			"2.26.1": {
+				"publishedOn": "2020-04-14"
+			},
+			"2.25.3": {
+				"publishedOn": "2020-04-14"
+			},
+			"2.24.2": {
+				"publishedOn": "2020-04-14"
+			},
+			"2.23.2": {
+				"publishedOn": "2020-04-14"
+			},
+			"2.22.3": {
+				"publishedOn": "2020-04-14"
+			},
+			"2.21.2": {
+				"publishedOn": "2020-04-14"
+			},
+			"2.20.3": {
+				"publishedOn": "2020-04-14"
+			},
+			"2.19.4": {
+				"publishedOn": "2020-04-14"
+			},
+			"2.18.3": {
+				"publishedOn": "2020-04-14"
+			},
+			"2.17.4": {
+				"publishedOn": "2020-04-14"
+			},
 			"2.26.0": {
-				"publishedOn": "2020-03-22"
+				"publishedOn": "2020-03-23"
 			},
 			"2.25.2": {
-				"publishedOn": "2020-03-17"
+				"publishedOn": "2020-03-18"
 			},
 			"2.25.1": {
 				"publishedOn": "2020-02-17"
@@ -248,38 +278,38 @@
 			"2.25.0": {
 				"publishedOn": "2020-01-13"
 			},
-			"2.16.6": {
-				"publishedOn": "2019-12-06"
-			},
-			"2.15.4": {
-				"publishedOn": "2019-12-06"
-			},
-			"2.14.6": {
-				"publishedOn": "2019-12-06"
-			},
-			"2.20.2": {
-				"publishedOn": "2019-12-06"
-			},
-			"2.19.3": {
-				"publishedOn": "2019-12-06"
-			},
-			"2.18.2": {
-				"publishedOn": "2019-12-06"
-			},
-			"2.17.3": {
-				"publishedOn": "2019-12-06"
+			"2.24.1": {
+				"publishedOn": "2019-12-10"
 			},
 			"2.23.1": {
-				"publishedOn": "2019-12-06"
+				"publishedOn": "2019-12-10"
 			},
 			"2.22.2": {
-				"publishedOn": "2019-12-06"
+				"publishedOn": "2019-12-10"
 			},
 			"2.21.1": {
-				"publishedOn": "2019-12-06"
+				"publishedOn": "2019-12-10"
 			},
-			"2.24.1": {
-				"publishedOn": "2019-12-06"
+			"2.20.2": {
+				"publishedOn": "2019-12-10"
+			},
+			"2.19.3": {
+				"publishedOn": "2019-12-10"
+			},
+			"2.18.2": {
+				"publishedOn": "2019-12-10"
+			},
+			"2.17.3": {
+				"publishedOn": "2019-12-10"
+			},
+			"2.16.6": {
+				"publishedOn": "2019-12-10"
+			},
+			"2.15.4": {
+				"publishedOn": "2019-12-10"
+			},
+			"2.14.6": {
+				"publishedOn": "2019-12-10"
 			},
 			"2.24.0": {
 				"publishedOn": "2019-11-04"
@@ -288,7 +318,7 @@
 				"publishedOn": "2019-08-16"
 			},
 			"2.22.1": {
-				"publishedOn": "2019-08-11"
+				"publishedOn": "2019-08-12"
 			},
 			"2.22.0": {
 				"publishedOn": "2019-06-07"
@@ -306,22 +336,22 @@
 				"publishedOn": "2018-11-21"
 			},
 			"2.19.1": {
-				"publishedOn": "2018-09-27"
+				"publishedOn": "2018-10-05"
 			},
 			"2.18.1": {
-				"publishedOn": "2018-09-27"
+				"publishedOn": "2018-10-05"
 			},
 			"2.17.2": {
-				"publishedOn": "2018-09-27"
+				"publishedOn": "2018-10-05"
 			},
 			"2.16.5": {
-				"publishedOn": "2018-09-27"
+				"publishedOn": "2018-10-05"
 			},
 			"2.15.3": {
-				"publishedOn": "2018-09-27"
+				"publishedOn": "2018-10-05"
 			},
 			"2.14.5": {
-				"publishedOn": "2018-09-27"
+				"publishedOn": "2018-10-05"
 			},
 			"2.19.0": {
 				"publishedOn": "2018-09-10"
@@ -330,19 +360,19 @@
 				"publishedOn": "2018-06-21"
 			},
 			"2.17.1": {
-				"publishedOn": "2018-05-22"
+				"publishedOn": "2018-05-29"
 			},
 			"2.16.4": {
-				"publishedOn": "2018-05-22"
+				"publishedOn": "2018-05-29"
 			},
 			"2.15.2": {
-				"publishedOn": "2018-05-22"
+				"publishedOn": "2018-05-29"
 			},
 			"2.14.4": {
-				"publishedOn": "2018-05-22"
+				"publishedOn": "2018-05-29"
 			},
 			"2.13.7": {
-				"publishedOn": "2018-05-22"
+				"publishedOn": "2018-05-29"
 			},
 			"2.17.0": {
 				"publishedOn": "2018-04-02"
@@ -351,13 +381,13 @@
 				"publishedOn": "2018-03-22"
 			},
 			"2.16.2": {
-				"publishedOn": "2018-02-15"
+				"publishedOn": "2018-02-16"
 			},
 			"2.16.1": {
 				"publishedOn": "2018-01-22"
 			},
 			"2.16.0": {
-				"publishedOn": "2018-01-17"
+				"publishedOn": "2018-01-18"
 			},
 			"2.15.1": {
 				"publishedOn": "2017-11-28"
@@ -366,52 +396,52 @@
 				"publishedOn": "2017-10-30"
 			},
 			"2.14.3": {
-				"publishedOn": "2017-10-23"
+				"publishedOn": "2017-10-30"
 			},
 			"2.14.2": {
-				"publishedOn": "2017-09-22"
+				"publishedOn": "2017-09-26"
 			},
 			"2.13.6": {
-				"publishedOn": "2017-09-22"
+				"publishedOn": "2017-09-26"
 			},
 			"2.12.5": {
-				"publishedOn": "2017-09-22"
+				"publishedOn": "2017-09-26"
 			},
 			"2.11.4": {
-				"publishedOn": "2017-09-22"
+				"publishedOn": "2017-09-26"
 			},
 			"2.10.5": {
-				"publishedOn": "2017-09-22"
+				"publishedOn": "2017-09-26"
 			},
 			"2.14.1": {
-				"publishedOn": "2017-08-04"
+				"publishedOn": "2017-08-10"
+			},
+			"2.13.5": {
+				"publishedOn": "2017-08-10"
+			},
+			"2.12.4": {
+				"publishedOn": "2017-08-10"
+			},
+			"2.11.3": {
+				"publishedOn": "2017-08-10"
+			},
+			"2.10.4": {
+				"publishedOn": "2017-08-10"
+			},
+			"2.9.5": {
+				"publishedOn": "2017-08-10"
+			},
+			"2.8.6": {
+				"publishedOn": "2017-08-10"
+			},
+			"2.7.6": {
+				"publishedOn": "2017-08-10"
 			},
 			"2.14.0": {
 				"publishedOn": "2017-08-04"
 			},
-			"2.13.5": {
-				"publishedOn": "2017-08-01"
-			},
 			"2.13.4": {
 				"publishedOn": "2017-08-01"
-			},
-			"2.12.4": {
-				"publishedOn": "2017-07-30"
-			},
-			"2.11.3": {
-				"publishedOn": "2017-07-30"
-			},
-			"2.10.4": {
-				"publishedOn": "2017-07-30"
-			},
-			"2.9.5": {
-				"publishedOn": "2017-07-30"
-			},
-			"2.8.6": {
-				"publishedOn": "2017-07-30"
-			},
-			"2.7.6": {
-				"publishedOn": "2017-07-30"
 			},
 			"2.13.3": {
 				"publishedOn": "2017-07-12"
@@ -423,34 +453,34 @@
 				"publishedOn": "2017-06-05"
 			},
 			"2.13.0": {
-				"publishedOn": "2017-05-09"
+				"publishedOn": "2017-05-10"
 			},
 			"2.12.3": {
-				"publishedOn": "2017-05-05"
+				"publishedOn": "2017-05-10"
 			},
 			"2.11.2": {
-				"publishedOn": "2017-05-05"
+				"publishedOn": "2017-05-10"
 			},
 			"2.10.3": {
-				"publishedOn": "2017-05-05"
+				"publishedOn": "2017-05-10"
 			},
 			"2.9.4": {
-				"publishedOn": "2017-05-05"
+				"publishedOn": "2017-05-10"
 			},
 			"2.8.5": {
-				"publishedOn": "2017-05-05"
+				"publishedOn": "2017-05-10"
 			},
 			"2.7.5": {
-				"publishedOn": "2017-05-05"
+				"publishedOn": "2017-05-10"
 			},
 			"2.6.7": {
-				"publishedOn": "2017-05-05"
+				"publishedOn": "2017-05-10"
 			},
 			"2.5.6": {
-				"publishedOn": "2017-05-05"
+				"publishedOn": "2017-05-10"
 			},
 			"2.4.12": {
-				"publishedOn": "2017-05-05"
+				"publishedOn": "2017-05-10"
 			},
 			"2.12.2": {
 				"publishedOn": "2017-03-24"
@@ -468,13 +498,13 @@
 				"publishedOn": "2016-11-29"
 			},
 			"2.10.2": {
-				"publishedOn": "2016-10-28"
+				"publishedOn": "2016-10-29"
 			},
 			"2.10.1": {
 				"publishedOn": "2016-10-03"
 			},
 			"2.10.0": {
-				"publishedOn": "2016-09-02"
+				"publishedOn": "2016-09-03"
 			},
 			"2.9.3": {
 				"publishedOn": "2016-08-12"
@@ -489,10 +519,10 @@
 				"publishedOn": "2016-06-13"
 			},
 			"2.8.4": {
-				"publishedOn": "2016-06-06"
+				"publishedOn": "2016-06-07"
 			},
 			"2.8.3": {
-				"publishedOn": "2016-05-18"
+				"publishedOn": "2016-05-19"
 			},
 			"2.8.2": {
 				"publishedOn": "2016-04-29"
@@ -522,7 +552,7 @@
 				"publishedOn": "2016-02-22"
 			},
 			"2.7.1": {
-				"publishedOn": "2016-02-05"
+				"publishedOn": "2016-02-06"
 			},
 			"2.7.0": {
 				"publishedOn": "2016-01-04"
@@ -540,16 +570,16 @@
 				"publishedOn": "2015-10-16"
 			},
 			"2.6.1": {
-				"publishedOn": "2015-09-29"
-			},
-			"2.3.10": {
-				"publishedOn": "2015-09-29"
+				"publishedOn": "2015-10-05"
 			},
 			"2.5.4": {
-				"publishedOn": "2015-09-29"
+				"publishedOn": "2015-10-05"
 			},
 			"2.4.10": {
-				"publishedOn": "2015-09-29"
+				"publishedOn": "2015-10-05"
+			},
+			"2.3.10": {
+				"publishedOn": "2015-10-05"
 			},
 			"2.6.0": {
 				"publishedOn": "2015-09-28"
@@ -558,16 +588,16 @@
 				"publishedOn": "2015-09-17"
 			},
 			"2.5.2": {
-				"publishedOn": "2015-09-04"
+				"publishedOn": "2015-09-10"
 			},
 			"2.4.9": {
-				"publishedOn": "2015-09-04"
+				"publishedOn": "2015-09-10"
 			},
 			"2.3.9": {
-				"publishedOn": "2015-09-04"
+				"publishedOn": "2015-09-10"
 			},
 			"2.2.3": {
-				"publishedOn": "2015-09-04"
+				"publishedOn": "2015-09-10"
 			},
 			"2.5.1": {
 				"publishedOn": "2015-08-28"
@@ -632,14 +662,14 @@
 			"2.2.2": {
 				"publishedOn": "2015-01-12"
 			},
-			"2.0.5": {
-				"publishedOn": "2014-12-17"
+			"2.2.1": {
+				"publishedOn": "2014-12-18"
 			},
 			"2.1.4": {
-				"publishedOn": "2014-12-17"
+				"publishedOn": "2014-12-18"
 			},
-			"2.2.1": {
-				"publishedOn": "2014-12-17"
+			"2.0.5": {
+				"publishedOn": "2014-12-18"
 			},
 			"2.2.0": {
 				"publishedOn": "2014-11-26"
@@ -660,7 +690,7 @@
 				"publishedOn": "2014-07-30"
 			},
 			"2.0.3": {
-				"publishedOn": "2014-07-23"
+				"publishedOn": "2014-07-24"
 			},
 			"2.0.2": {
 				"publishedOn": "2014-07-16"
