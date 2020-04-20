@@ -5,7 +5,7 @@
 			{
 				"issue": "CVE-2019-19604",
 				"publishedOn": "2019-12-10",
-				"fixedOn": "2019-12-06",
+				"fixedOn": "2019-12-10",
 				"affectedVersions": [
 					"<2.20.2",
 					">=2.21 <2.21.1",
@@ -17,7 +17,7 @@
 			{
 				"issue": "CVE-2019-1387",
 				"publishedOn": "2019-12-10",
-				"fixedOn": "2019-12-06",
+				"fixedOn": "2019-12-10",
 				"affectedVersions": [
 					"<2.14.6",
 					">=2.15 <2.15.4",
@@ -35,7 +35,7 @@
 			{
 				"issue": "CVE-2019-1354",
 				"publishedOn": "2019-12-10",
-				"fixedOn": "2019-12-06",
+				"fixedOn": "2019-12-10",
 				"affectedVersions": [
 					"<2.14.6",
 					">=2.15 <2.15.4",
@@ -53,7 +53,7 @@
 			{
 				"issue": "CVE-2019-1353",
 				"publishedOn": "2019-12-10",
-				"fixedOn": "2019-12-06",
+				"fixedOn": "2019-12-10",
 				"affectedVersions": [
 					"<2.14.6",
 					">=2.15 <2.15.4",
@@ -71,7 +71,7 @@
 			{
 				"issue": "CVE-2019-1352",
 				"publishedOn": "2019-12-10",
-				"fixedOn": "2019-12-06",
+				"fixedOn": "2019-12-10",
 				"affectedVersions": [
 					"<2.14.6",
 					">=2.15 <2.15.4",
@@ -89,7 +89,7 @@
 			{
 				"issue": "CVE-2019-1351",
 				"publishedOn": "2019-12-10",
-				"fixedOn": "2019-12-06",
+				"fixedOn": "2019-12-10",
 				"affectedVersions": [
 					"<2.14.6",
 					">=2.15 <2.15.4",
@@ -107,7 +107,7 @@
 			{
 				"issue": "CVE-2019-1350",
 				"publishedOn": "2019-12-10",
-				"fixedOn": "2019-12-06",
+				"fixedOn": "2019-12-10",
 				"affectedVersions": [
 					"<2.14.6",
 					">=2.15 <2.15.4",
@@ -125,7 +125,7 @@
 			{
 				"issue": "CVE-2019-1349",
 				"publishedOn": "2019-12-10",
-				"fixedOn": "2019-12-06",
+				"fixedOn": "2019-12-10",
 				"affectedVersions": [
 					"<2.14.6",
 					">=2.15 <2.15.4",
@@ -143,7 +143,7 @@
 			{
 				"issue": "CVE-2019-1348",
 				"publishedOn": "2019-12-10",
-				"fixedOn": "2019-12-06",
+				"fixedOn": "2019-12-10",
 				"affectedVersions": [
 					"<2.14.6",
 					">=2.15 <2.15.4",
@@ -174,7 +174,7 @@
 			{
 				"issue": "CVE-2018-11233,CVE-2018-11235",
 				"publishedOn": "2018-05-30",
-				"fixedOn": "2018-05-22",
+				"fixedOn": "2018-05-29",
 				"affectedVersions": [
 					"<2.13.7",
 					">=2.14 <2.14.4",
@@ -186,7 +186,7 @@
 			{
 				"issue": "CVE-2017-15298",
 				"publishedOn": "2017-10-14",
-				"fixedOn": "2018-01-17",
+				"fixedOn": "2018-01-18",
 				"affectedVersions": [
 					"<2.16"
 				]
@@ -194,7 +194,7 @@
 			{
 				"issue": "CVE-2017-1000117",
 				"publishedOn": "2017-10-04",
-				"fixedOn": "2017-08-04",
+				"fixedOn": "2017-08-10",
 				"affectedVersions": [
 					"<2.7.6",
 					">=2.8 <2.8.6",
@@ -209,7 +209,7 @@
 			{
 				"issue": "CVE-2017-14867",
 				"publishedOn": "2017-09-28",
-				"fixedOn": "2017-09-22",
+				"fixedOn": "2017-09-26",
 				"affectedVersions": [
 					"<2.10.5",
 					">=2.11 <2.11.4",
@@ -221,7 +221,7 @@
 			{
 				"issue": "CVE-2017-8386",
 				"publishedOn": "2017-06-01",
-				"fixedOn": "2017-05-05",
+				"fixedOn": "2017-05-10",
 				"affectedVersions": [
 					"<2.4.12",
 					">=2.5 <2.5.6",
