@@ -10,13 +10,13 @@
     "codecov": "codecov -F docs"
   },
   "devDependencies": {
-    "codecov": "^3.6.5",
-    "eslint": "^6.8.0",
-    "jasmine": "^3.5.0",
-    "karma": "^5.0.2",
+    "codecov": "^3.7.2",
+    "eslint": "^7.6.0",
+    "jasmine": "^3.6.1",
+    "karma": "^5.1.1",
     "karma-chrome-launcher": "^3.1.0",
-    "karma-coverage": "^2.0.2",
-    "karma-jasmine": "^3.1.1"
+    "karma-coverage": "^2.0.3",
+    "karma-jasmine": "^3.3.1"
   },
   "engines": {
     "node": ">= 6.0.0"
