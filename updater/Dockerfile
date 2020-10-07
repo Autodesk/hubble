@@ -13,7 +13,7 @@ WORKDIR $APP_HOME
 # Copy over our application code
 ADD reports $APP_HOME/reports
 ADD scripts $APP_HOME/scripts
-ADD ./check-schema.py ./helpers.py ./schema.py ./update-stats.py $APP_HOME/
+ADD ./*.py $APP_HOME/
 
 # Install dependencies
 RUN apk add --no-cache git openssh-client
