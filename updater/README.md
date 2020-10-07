@@ -24,7 +24,7 @@ Alternatively, you can set it up via Docker:
     $ docker build . --tag hubble-updater
     ```
 1. Create a config file in `updater/config.py` (based on [`updater/config.py.example`](config.py.example))
-1. Configure a service or cronjob that executes the docker container once a day (replace `/path/to/config.py` and `/path/to/key` with your paths):
+1. Configure a service or cron job that executes the Docker container once a day (replace `/path/to/config.py` and `/path/to/key` with your paths):
     ```sh
     docker run -it --mount type=bind,source=/path/to/config.py,target=/hubble-updater/config.py --mount type=bind,source=/path/to/key,target=/key hubble-updater
     ```
