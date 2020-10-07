@@ -18,7 +18,7 @@ The updater may be run in two modes:
 1. Create a config file in `updater/config.py` in your local clone (based on [`updater/config.py.example`](config.py.example))
 1. Configure a service or cronjob that executes `python3 update-stats.py` once per day.
 
-Alternatively you can set it up via Docker:
+Alternatively, you can set it up via Docker:
 1. Build the Docker image
     ```sh
     $ docker build . --tag hubble-updater
