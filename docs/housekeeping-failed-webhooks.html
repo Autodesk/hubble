@@ -5,7 +5,46 @@ permalink: /housekeeping-failed-webhooks
 ---
 
 <div class="chart-placeholder">
-  <table data-url="{{ site.dataURL }}/failed-webhooks.tsv" data-type="table"></table>
+	<h3>Failed Webhooks</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/failed-webhooks.tsv"
+		data-type="history"
+		data-config='{
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"slice": [0, 61],
+					"default": true
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					},
+					"slice": [0, 106]
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					}
+				}
+			]
+    }'></canvas>
+	<div class="info-box"></div>
+</div>
+
+<div class="chart-placeholder">
+  <table data-url="{{ site.dataURL }}/failed-webhooks-detailed.tsv" data-type="table"></table>
 
 	<div class="info-box">
 		<p>
