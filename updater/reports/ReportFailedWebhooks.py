@@ -6,9 +6,14 @@ class ReportFailedWebhooks(ReportDaily):
 		return "failed-webhooks"
 
 	def updateDailyData(self):
-		self.detailedHeader, self.detailedData = self.parseData(
+		self.detailedHeader, newData = self.parseData(
 			self.executeScript(self.scriptPath("failed-webhooks.sh")))
 		self.header = ["date", "failed webhooks"]
-		self.data.append([str(self.yesterday()), len(self.detailedData)])
+		self.data.append(
+			[
+				str(self.yesterday()),
+				sum(map(lambda x: int(x[4] if len(x) > 3 else 0), newData)),
+			])
+		self.detailedData = newData[:25]
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()
