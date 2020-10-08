@@ -8,7 +8,7 @@ class ReportFailedWebhooks(ReportDaily):
 	def readData(self):
 		pass
 
-	def updateData(self):
+	def updateDailyData(self):
 		self.detailedHeader, self.detailedData = self.parseData(
 			self.executeScript(self.scriptPath("failed-webhooks.sh")))
 		self.header = ["date", "failed webhooks"]
