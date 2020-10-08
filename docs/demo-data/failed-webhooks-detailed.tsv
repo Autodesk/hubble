@@ -1,0 +1,5 @@
+hook_id	type	host	message	count
+1	business	10.0.0.1	request timed out	3
+2	integration	10.0.0.2	Couldn't connect to server	2
+3	repository	10.0.0.3	Couldn't connect to server	1
+4	organization	10.0.0.4	Couldn't resolve host name	1
