@@ -39,21 +39,39 @@ permalink: /housekeeping-failed-webhooks
 					}
 				}
 			]
-    }'></canvas>
-	<div class="info-box"></div>
-</div>
-
-<div class="chart-placeholder">
-  <table data-url="{{ site.dataURL }}/failed-webhooks-detailed.tsv" data-type="table"></table>
+		}'></canvas>
 
 	<div class="info-box">
 		<p>
+			Use <code>ghe-webhook-logs -f -i &lt;hook-id&gt;</code> to show a webhook's failures. Please see <a href="https://docs.github.com/enterprise-server/admin/configuration/command-line-utilities#ghe-webhook-logs">ghe-webhook-logs</a> for additional information.
+		</p>
+		<p>
+			Use <code>ghe-webhook-manage -s &lt;hook-id&gt;</code> to lookup a webhook's information (target, url, active status).
+		</p>
+		<p>
+			Use <code>ghe-webhook-manage -d &lt;hook-id&gt;</code> to disable a webhook.
+		</p>
+		<p>
+			Use <code>ghe-webhook-manage -e &lt;hook-id&gt;</code> to enable a webhook.
+		</p>
+	</div>
+</div>
+
+<div class="chart-placeholder">
+	<table data-url="{{ site.dataURL }}/failed-webhooks-detailed.tsv" data-type="table"></table>
+
+	<div class="info-box">
+		<p>
+			This table lists the webhooks that failed yesterday.
+		</p>
+		<p>
+			Webhook types
 			<ul>
-        <li><code>business</code> a <a href="https://docs.github.com/enterprise-server/admin/user-management/managing-global-webhooks">global webhook</a></li>
-        <li><code>integration</code> a <a href="https://docs.github.com/enterprise-server/developers/apps/getting-started-with-apps">GitHub App</a> webhook URL</li>
-        <li><code>repository</code> an <a href="https://docs.github.com/enterprise-server/rest/reference/repos#webhooks">repository hook</a></li>
-        <li><code>organization</code> an <a href="https://docs.github.com/enterprise-server/rest/reference/orgs#webhooks">organization hook</a></li>
-      </ul>
+				<li><code>business</code> a <a href="https://docs.github.com/enterprise-server/admin/user-management/managing-global-webhooks">global webhook</a></li>
+				<li><code>integration</code> a <a href="https://docs.github.com/enterprise-server/developers/apps/getting-started-with-apps">GitHub App</a> webhook</li>
+				<li><code>repository</code> a <a href="https://docs.github.com/enterprise-server/rest/reference/repos#webhooks">repository hook</a></li>
+				<li><code>organization</code> an <a href="https://docs.github.com/enterprise-server/rest/reference/orgs#webhooks">organization hook</a></li>
+			</ul>
 		</p>
 	</div>
 </div>
