@@ -1,7 +1,7 @@
 configuration = \
 {
-	# If you run the Hubble Enterprise updater on a dedicated machine instead
-	# of the GitHub Enterprise appliance directly, then you need to enable
+	# If you run the Hubble Enterprise updater on a dedicated machine (or Docker)
+	# instead of the GitHub Enterprise appliance directly, then you need to enable
 	# "remoteRun".  Set the path to a private key that has permission to access
 	# the GitHub Enterprise administrative shell [1] on your appliance in the
 	# "sshKey" field (use just "/key" if you run the Hubble updater with
