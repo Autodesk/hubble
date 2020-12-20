@@ -1,0 +1,59 @@
+---
+layout: default
+title: Failed Authentication
+permalink: /failures-failed-authentication
+---
+
+<div class="chart-placeholder">
+	<h3>Failed Authentication</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/failed-auth.tsv"
+		data-type="history"
+		data-config='{
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"slice": [0, 61],
+					"default": true
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					},
+					"slice": [0, 106]
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					}
+				}
+			]
+		}'></canvas>
+	<div class="info-box">
+		<p>
+			Looking at failed authentication attempts across the system is helpful in spotting misconfigured systems that may be tying up authentication workers.
+		</p>
+		<p>
+			For example, users may have changed credentials used to access GitHub, however they failed to update CI/CD systems using those credentials. Another example is that a CI/CD system
+			may be configured with a user account which is no longer active in GitHub and/or your company.
+		</p>
+		<p>
+			Therefore, you should try to reduce them.
+		</p>
+	</div>
+</div>
+
+<div class="chart-placeholder">
+	<table data-url="{{ site.dataURL }}/failed-auth-detailed.tsv" data-type="table"></table>
+</div>

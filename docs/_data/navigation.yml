@@ -55,8 +55,13 @@
       url: "/housekeeping-repo-location"
     - title: "Forks"
       url: "/housekeeping-forks"
-    - title: "Failed Webhooks"
-      url: "/housekeeping-failed-webhooks"
+- title: "Failures"
+  url: "/failures-failed-authentication"
+  subnavigation:
+    - title: "Authentication"
+      url: "/failures-failed-authentication"
+    - title: "Webhooks"
+      url: "/failures-failed-webhooks"
 - title: "Recommendations"
   url: "/recommendations-tokenless-auth"
   subnavigation:
