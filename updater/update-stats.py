@@ -12,6 +12,7 @@ from reports.ReportAPIRequests import *
 from reports.ReportAPIRequestsByUser import *
 from reports.ReportContributorsByOrg import *
 from reports.ReportContributorsByRepo import *
+from reports.ReportFailedAuth import *
 from reports.ReportFailedWebhooks import *
 from reports.ReportForksToOrgs import *
 from reports.ReportGitDownload import *
@@ -81,6 +82,7 @@ def main():
 	ReportAPIRequestsByUser(configuration, dataDirectory, metaStats).update()
 	ReportContributorsByOrg(configuration, dataDirectory, metaStats).update()
 	ReportContributorsByRepo(configuration, dataDirectory, metaStats).update()
+	ReportFailedAuth(configuration, dataDirectory, metaStats).update()
 	ReportFailedWebhooks(configuration, dataDirectory, metaStats).update()
 	ReportForksToOrgs(configuration, dataDirectory, metaStats).update()
 	ReportGitDownload(configuration, dataDirectory, metaStats).update()
