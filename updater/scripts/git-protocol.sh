@@ -4,7 +4,7 @@
 #
 echo -e "Git protocol\tconnections"
 
-zcat -f /var/log/babeld/babeld.log.1* |
+zcat -f /var/log/syslog.1* |
 	perl -ne 'print if s/.*proto=([^ ]+).*op done.*/\1/' |
 	sort |
 	uniq -c |

@@ -4,7 +4,7 @@
 #
 echo -e "repository\tsource IP\trequests"
 
-zcat -f /var/log/babeld/babeld.log.1* |
+zcat -f /var/log/syslog.1* |
     perl -ne 'print if s/.*ip=([^ ]+).*repo=([^ ]+).*/\1 \2/' |
     sort |
     uniq -ic |

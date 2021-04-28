@@ -6,7 +6,7 @@
 
 echo -e "hook_id\ttype\thost\tmessage\tcount"
 
-zcat -f /var/log/hookshot/exceptions.log.1* |
+zcat -f /var/log/github/exceptions.log.1* |
   jq --slurp '.[] | del(.backtrace) | {hook_id,service_host,message,class,parent}' |
   jq --slurp -c 'sort_by(.hook_id) | .[] | {id: .hook_id,url: .service_host, data: (.parent|tostring), msg: .message}' |
   # remove this part as it's not real JSON and breaks the remaining chain
