@@ -1,0 +1,163 @@
+---
+layout: default
+title: Issues & Comments
+permalink: /users-communication
+---
+
+<div id="issues" class="chart-placeholder">
+	<h3>Issues</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/issues.tsv"
+		data-type="history"
+		data-config='{
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"series":
+					[
+						"issues created",
+						"issues closed",
+						"issues updated"
+					],
+					"visibleSeries":
+					[
+						"issues created",
+						"issues closed",
+						"issues updated"
+					],
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					},
+					"series":
+					[
+						"issues created",
+						"issues closed",
+						"issues updated"
+					],
+					"visibleSeries":
+					[
+						"issues created",
+						"issues closed",
+						"issues updated"
+					],
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					},
+					"series":
+					[
+						"issues created",
+						"issues closed",
+						"issues updated"
+					],
+					"visibleSeries":
+					[
+						"issues created",
+						"issues closed",
+						"issues updated"
+					]
+				}
+			]
+		}'></canvas>
+	<div class="info-box">
+		<p>
+			<i>Issues</i> shows how many GitHub issues were created, updated, or closed. <i>issues updated</i> excludes creating or closing an issue.
+		</p>
+	</div>
+</div>
+
+<div id="comments" class="chart-placeholder">
+	<h3>Comments</h3>
+	<canvas
+		data-url="{{ site.dataURL }}/comments.tsv"
+		data-type="history"
+		data-config='{
+			"views":
+			[
+				{
+					"label": "2 m",
+					"tooltip": "Show the last 2 months",
+					"aggregate": false,
+					"series":
+					[
+						"issue comments",
+						"pull request comments",
+						"commit comments"
+					],
+					"visibleSeries":
+					[
+						"issue comments",
+						"pull request comments",
+						"commit comments"
+					],
+					"slice": [0, 61]
+				},
+				{
+					"label": "2 y",
+					"tooltip": "Show the last 2 years",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					},
+					"series":
+					[
+						"issue comments",
+						"pull request comments",
+						"commit comments"
+					],
+					"visibleSeries":
+					[
+						"issue comments",
+						"pull request comments",
+						"commit comments"
+					],
+					"slice": [0, 106],
+					"default": true
+				},
+				{
+					"label": "all",
+					"tooltip": "Show all data",
+					"aggregate":
+					{
+						"period": "week",
+						"method": "sum"
+					},
+					"series":
+					[
+						"issue comments",
+						"pull request comments",
+						"commit comments"
+					],
+					"visibleSeries":
+					[
+						"issue comments",
+						"pull request comments",
+						"commit comments"
+					]
+				}
+			]
+		}'></canvas>
+	<div class="info-box">
+		<p>
+			<i>Comments</i> shows how many comments ware created for issues, pull requests, and commits. <i>pull request comments</i> includes comments on the PR as well as the ones for reviews.
+		</p>
+	</div>
+</div>
