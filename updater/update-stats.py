@@ -37,6 +37,8 @@ from reports.ReportTeamsLegacy import *
 from reports.ReportTeamsTotal import *
 from reports.ReportTokenlessAuth import *
 from reports.ReportUsers import *
+from reports.ReportIssues import *
+from reports.ReportComments import *
 
 def writeMeta(dataDirectory):
 	outputFilePath = os.path.join(dataDirectory, "meta.tsv")
@@ -106,7 +108,9 @@ def main():
 	ReportTeamsTotal(configuration, dataDirectory, metaStats).update()
 	ReportTokenlessAuth(configuration, dataDirectory, metaStats).update()
 	ReportUsers(configuration, dataDirectory, metaStats).update()
-
+	ReportIssues(configuration, dataDirectory, metaStats).update()
+	ReportComments(configuration, dataDirectory, metaStats).update()
+	
 	# Write meta infos
 	writeMeta(dataDirectory)
 	writeMetaStats(metaStats, dataDirectory)

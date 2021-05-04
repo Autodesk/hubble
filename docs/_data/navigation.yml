@@ -5,6 +5,8 @@
       url: "/"
     - title: "Contributors"
       url: "/users-contributors"
+    - title: "Issues & Comments"
+      url: "/users-communication"
     - title: "Activity"
       url: "/users-activity"
     - title: "Git Versions"
