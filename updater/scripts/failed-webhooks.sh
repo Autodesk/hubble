@@ -16,7 +16,7 @@ function ghe_greater_equal () {
     return $?
 }
 
-if ghe_greater_equal "3.0.0" then
+if ghe_greater_equal "3.0.0"; then
     # check yesterday's log file post 3.0.0
     zcat -f /var/log/syslog.1* | grep hookshot-go |
         grep 'hook_id=[^ ]' |
