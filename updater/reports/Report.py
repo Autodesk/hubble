@@ -71,8 +71,8 @@ class Report(object):
 						stdin = f.read()
 				except:
 					# If the script is a list of strings, then escape the content and set it to stdin
-					stdin = " ".join(map(lambda x: '"' + x.replace('\\"', '\\\\"').replace('"', '\\"') + '"', script))
-				script = ["bash -s", "--"]
+					stdin = " ".join(script)
+				script = ["bash", "-s", "--"]
 
 			# Execute the script via SSH
 			script = [
