@@ -12,7 +12,7 @@ all:	clean
 	cd $(BUILDDIR) && \
 	export DEBEMAIL=$(EMAIL) && \
 	export DEBFULLNAME=$(MAINTAINER) && \
-	python /usr/bin/dh_make -p $(PKGNAME)_$(PKGVERSION) -i --native -c mit -y && \
+	python /usr/bin/dh_make -p $(PKGNAME)_$(PKGVERSION) -i --native -c expat -y && \
 	dpkg-buildpackage -rfakeroot -d -us -uc
 	mkdir -p $(PKGDIR)
 	mv $(BUILDDIR)/../*.deb $(PKGDIR)/
