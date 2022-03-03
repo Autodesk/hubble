@@ -89,7 +89,7 @@ class Report(object):
 
 		return stdout
 
-	def executeGHEConsole(self, script):
+	def executeRubyScriptOnServer(self, script):
 		# Escape the Ruby script, as it is going to be sent as a string on the command line
 		script = script.replace('\\t', '\\\\t').replace('\\n', '\\\\n')
 

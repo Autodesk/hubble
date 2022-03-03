@@ -10,7 +10,7 @@ class ReportTeamsLegacy(ReportDaily):
 
 	def updateDailyData(self):
 		self.detailedHeader, self.detailedData = self.parseData(
-			self.executeGHEConsole('''
+			self.executeRubyScriptOnServer('''
 				puts "organization\tteam\tmembers\n"
 				User.where(:type => "Organization")
 				    .order("login")

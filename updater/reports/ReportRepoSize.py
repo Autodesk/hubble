@@ -7,7 +7,7 @@ class ReportRepoSize(ReportDaily):
 
 	def updateDailyData(self):
 		self.detailedHeader, self.detailedData = self.parseData(
-			self.executeGHEConsole('''
+			self.executeRubyScriptOnServer('''
 				puts "repository\tarchived?\trepository size [MB]\n"
 				Repository
 					.select{ |repo|

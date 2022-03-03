@@ -11,7 +11,7 @@ class ReportOrgOwners(Report):
 
 	def updateData(self):
 		self.header, self.data = self.parseData(
-			self.executeGHEConsole('''
+			self.executeRubyScriptOnServer('''
 				puts "organization\towner(s)\n"
 				User.where(:type => "Organization")
 				    .where("''' + self.andExcludedEntities("login", "").replace('"', '\\"') + '''")
