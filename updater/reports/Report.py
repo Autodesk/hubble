@@ -89,11 +89,13 @@ class Report(object):
 
 		return stdout
 
-	def executeGHEConsole(self, rubyCode):
-		escapedRubyCode = rubyCode.replace('\\t', '\\\\t').replace('\\n', '\\\\n')
-		return self.executeScript(
-			["github-env", "bin/runner", "-e", "production", "'" + escapedRubyCode + "'"]
-		)
+	def executeGHEConsole(self, script):
+		# Escape the Ruby script, as it is going to be sent as a string on the command line
+		script = script.replace('\\t', '\\\\t').replace('\\n', '\\\\n')
+
+		command = ["github-env", "bin/runner", "-e", "production", "'" + script + "'"]
+
+		return self.executeScript(command)
 
 	# Executes a database query, given as a string
 	def executeDatabaseQueryOnServer(self, query):
