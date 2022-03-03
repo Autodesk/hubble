@@ -96,7 +96,7 @@ class Report(object):
 		)
 
 	# Executes a database query, given as a string
-	def executeQuery(self, query):
+	def executeDatabaseQueryOnServer(self, query):
 		return self.executeScript(self.configuration["databaseCommand"], stdin = query)
 
 	# Helper function to parse a TSV file into a data array

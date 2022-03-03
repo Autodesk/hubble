@@ -137,7 +137,7 @@ class ReportOrgCollaboration(Report):
 				target.org_id'''
 
 	def orgCollaborationMatrix(self, timeRange):
-		_, newData = self.parseData(self.executeQuery(self.collaboration(timeRange)))
+		_, newData = self.parseData(self.executeDatabaseQueryOnServer(self.collaboration(timeRange)))
 		collab = {}
 		orgs = []
 

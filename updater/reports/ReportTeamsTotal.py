@@ -6,7 +6,7 @@ class ReportTeamsTotal(ReportDaily):
 		return "teams-total"
 
 	def updateDailyData(self):
-		self.header, newData = self.parseData(self.executeQuery(self.query()))
+		self.header, newData = self.parseData(self.executeDatabaseQueryOnServer(self.query()))
 		self.data.extend(newData)
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()

@@ -18,9 +18,9 @@ class ReportPRUsage(ReportDaily):
 			while date < range[1]:
 				days_in_month = calendar.monthrange(date.year, date.month)[1]
 				date += datetime.timedelta(days_in_month)
-				_, newData = self.parseData(self.executeQuery(self.query(date)))
+				_, newData = self.parseData(self.executeDatabaseQueryOnServer(self.query(date)))
 				self.data.extend(newData)
-		self.header, newData = self.parseData(self.executeQuery(self.query(self.yesterday())))
+		self.header, newData = self.parseData(self.executeDatabaseQueryOnServer(self.query(self.yesterday())))
 		self.data.extend(newData)
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()

@@ -12,7 +12,7 @@ class ReportPRByRepo(Report):
 
 	def updateData(self):
 		self.header, self.data = self.parseData(
-			self.executeQuery(self.query([self.daysAgo(30), self.yesterday()])))
+			self.executeDatabaseQueryOnServer(self.query([self.daysAgo(30), self.yesterday()])))
 
 	# Collects the number of merged and new pull requests per repository
 	def query(self, timeRange):

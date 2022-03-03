@@ -12,7 +12,7 @@ class ReportContributorsByOrg(Report):
 
 	def updateData(self):
 		self.header, self.data = self.parseData(
-			self.executeQuery(self.query([self.daysAgo(30), self.yesterday()])))
+			self.executeDatabaseQueryOnServer(self.query([self.daysAgo(30), self.yesterday()])))
 
 	# Collects the number of contributors per organization
 	def query(self, timeRange):

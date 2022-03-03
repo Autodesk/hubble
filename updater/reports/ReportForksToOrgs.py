@@ -10,7 +10,7 @@ class ReportForksToOrgs(ReportDaily):
 		return "forks-to-organizations"
 
 	def updateDailyData(self):
-		self.detailedHeader, self.detailedData = self.parseData(self.executeQuery(self.query()))
+		self.detailedHeader, self.detailedData = self.parseData(self.executeDatabaseQueryOnServer(self.query()))
 		self.header = ["date", "forks to organizations"]
 		self.data.append([str(self.yesterday()), len(self.detailedData)])
 		self.truncateData(self.timeRangeTotal())

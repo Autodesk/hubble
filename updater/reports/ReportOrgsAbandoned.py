@@ -8,7 +8,7 @@ class ReportOrgsAbandoned(ReportDaily):
 		return "organizations-abandoned"
 
 	def updateDailyData(self):
-		self.detailedHeader, self.detailedData = self.parseData(self.executeQuery(self.query()))
+		self.detailedHeader, self.detailedData = self.parseData(self.executeDatabaseQueryOnServer(self.query()))
 		self.header = ["date", "abandoned organizations"]
 		self.data.append([str(self.yesterday()), len(self.detailedData)])
 		self.truncateData(self.timeRangeTotal())

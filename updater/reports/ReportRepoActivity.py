@@ -13,12 +13,12 @@ class ReportRepoActivity(ReportDaily):
 		return "repository-activity"
 
 	def updateDailyData(self):
-		self.header, newData = self.parseData(self.executeQuery(self.query()))
+		self.header, newData = self.parseData(self.executeDatabaseQueryOnServer(self.query()))
 		self.data.extend(newData)
 		self.truncateData(self.timeRangeTotal())
 		self.sortDataByDate()
 		self.detailedHeader, self.detailedData = self.parseData(
-			self.executeQuery(self.detailedQuery()))
+			self.executeDatabaseQueryOnServer(self.detailedQuery()))
 
 	# Collects active repositories for a user type (user/organization)
 	# given a time range
