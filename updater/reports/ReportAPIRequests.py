@@ -6,8 +6,7 @@ class ReportAPIRequests(ReportDaily):
 		return "api-requests"
 
 	def updateDailyData(self):
-		self.detailedHeader, newData = self.parseData(
-			self.executeScript(self.scriptPath("api-requests.sh")))
+		self.detailedHeader, newData = self.parseData(self.executeScript("api-requests.sh"))
 		self.header = ["date", "API requests"]
 		self.data.append(
 			[

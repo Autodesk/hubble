@@ -10,5 +10,4 @@ class ReportAPIRequestsByUser(Report):
 		pass
 
 	def updateData(self):
-		self.header, self.data = self.parseData(
-			self.executeScript(self.scriptPath("api-requests-by-user.sh")))
+		self.header, self.data = self.parseData(self.executeScript("api-requests-by-user.sh"))

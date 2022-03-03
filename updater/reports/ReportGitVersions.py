@@ -10,5 +10,4 @@ class ReportGitVersions(Report):
 		pass
 
 	def updateData(self):
-		self.header, self.data = self.parseData(
-			self.executeScript(self.scriptPath("git-versions.sh")))
+		self.header, self.data = self.parseData(self.executeScript("git-versions.sh"))

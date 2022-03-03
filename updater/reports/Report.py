@@ -67,7 +67,7 @@ class Report(object):
 			if not stdin:
 				try:
 					# If the script is a file, then read its content as-is into stdin
-					with open(script) as f:
+					with open(self.scriptPath(script)) as f:
 						stdin = f.read()
 				except:
 					# If the script is a list of strings, then escape the content and set it to stdin

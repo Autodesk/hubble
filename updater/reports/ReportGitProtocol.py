@@ -6,8 +6,7 @@ class ReportGitProtocol(ReportDaily):
 		return "git-protocol"
 
 	def updateDailyData(self):
-		_, items = self.parseData(
-			self.executeScript(self.scriptPath("git-protocol.sh")))
+		_, items = self.parseData(self.executeScript("git-protocol.sh"))
 
 		protocols = {}
 		for item in items:
