@@ -1,9 +1,7 @@
 #!/bin/bash
-
 #
 # List failed webhooks
 #
-
 echo -e "hook_id\ttype\thost\tmessage\tcount"
 
 zcat -f /var/log/hookshot/exceptions.log.1* |
