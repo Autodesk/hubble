@@ -6,7 +6,7 @@ class ReportGitVersionsNew(ReportDaily):
 		return "git-versions-new"
 
 	def updateDailyData(self):
-		newHeader, newData = self.parseData(self.executeScript("git-versions.sh"))
+		newHeader, newData = self.parseData(self.executeBashScriptOnServer("git-versions.sh"))
 
 		self.header = ["date"] + newHeader
 

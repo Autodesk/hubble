@@ -6,8 +6,9 @@ class ReportGitDownload(ReportDaily):
 		return "git-download"
 
 	def updateDailyData(self):
-		self.detailedHeader, newData = self.parseData(self.executeScript("git-download.sh"))
-		_, sumLFSTraffic = self.parseData(self.executeScript("git-lfs-download.sh"))
+		self.detailedHeader, newData = self.parseData(
+			self.executeBashScriptOnServer("git-download.sh"))
+		_, sumLFSTraffic = self.parseData(self.executeBashScriptOnServer("git-lfs-download.sh"))
 		self.header = \
 			[
 				"date",

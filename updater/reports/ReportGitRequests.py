@@ -6,7 +6,8 @@ class ReportGitRequests(ReportDaily):
 		return "git-requests"
 
 	def updateDailyData(self):
-		self.detailedHeader, newData = self.parseData(self.executeScript("git-requests.sh"))
+		self.detailedHeader, newData = self.parseData(
+			self.executeBashScriptOnServer("git-requests.sh"))
 		self.header = ["date", "Git requests"]
 		self.data.append(
 			[

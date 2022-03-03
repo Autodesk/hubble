@@ -56,38 +56,41 @@ class Report(object):
 			script
 		)
 
-	# Executes a script but prints stderr and returns stdout only.
-	# A script is either a path to a file or a list of strings with bash
-	# commands.
-	# In case of a remote run (IOW: scripts run via SSH), the script is
-	# executed by passing its content via stdin to `bash -s --`. This
-	# method only works if the script has no stdin not set already.
-	def executeScript(self, script, stdin = None):
+	# Executes a command on the GitHub server returning only stdout and forwarding stderr. command
+	# is a list of strings, where the first one designates the command itself and the remaining
+	# strings are the command arguments
+	def executeCommandOnServer(self, command, stdin = None):
 		if self.configuration["remoteRun"]["enabled"]:
-			if not stdin:
-				try:
-					# If the script is a file, then read its content as-is into stdin
-					with open(self.scriptPath(script)) as f:
-						stdin = f.read()
-				except:
-					# If the script is a list of strings, then escape the content and set it to stdin
-					stdin = " ".join(map(lambda x: '"' + x.replace('\\"', '\\\\"').replace('"', '\\"') + '"', script))
-				script = ["bash", "-s", "--"]
-
-			# Execute the script via SSH
-			script = [
+			command = \
+				[
 					"ssh",
 					"-i", self.configuration["remoteRun"]["sshKey"],
 					"-p", "122",
-					"admin@" + self.configuration["remoteRun"]["gheHost"]
-				] + script
+					"admin@" + self.configuration["remoteRun"]["gheHost"],
+					"-t",
+					"--"
+				] \
+				+ command
 
-		stdout, stderr = executeCommand(script, stdin)
+		stdout, stderr = executeCommand(command, stdin)
 
 		print(stderr.decode("utf-8"), file = sys.stderr)
 		sys.stderr.flush()
 
 		return stdout
+
+	# Executes a Bash script on the server. The script path is relative to the scripts/ directory.
+	# stdin cannot be supplied currently, as the stdin channel is used to pass the script content to
+	# the server in a remote run, where SSH is used
+	def executeBashScriptOnServer(self, scriptPath):
+		with open(self.scriptPath(scriptPath)) as file:
+			stdin = file.read()
+
+		# By running Bash with the -s option, the Bash script to be executed is read from stdin. As
+		# a result, the stdin channel can’t be used for anything else currently
+		command = ["bash", "-s", "--"]
+
+		return self.executeCommandOnServer(command, stdin)
 
 	def executeRubyScriptOnServer(self, script):
 		# Escape the Ruby script, as it is going to be sent as a string on the command line
@@ -95,11 +98,11 @@ class Report(object):
 
 		command = ["github-env", "bin/runner", "-e", "production", "'" + script + "'"]
 
-		return self.executeScript(command)
+		return self.executeCommandOnServer(command)
 
 	# Executes a database query, given as a string
 	def executeDatabaseQueryOnServer(self, query):
-		return self.executeScript(self.configuration["databaseCommand"], stdin = query)
+		return self.executeCommandOnServer(self.configuration["databaseCommand"], stdin = query)
 
 	# Helper function to parse a TSV file into a data array
 	def readTSVData(self, tsvReader):
