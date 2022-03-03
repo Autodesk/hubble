@@ -72,7 +72,7 @@ class Report(object):
 				except:
 					# If the script is a list of strings, then escape the content and set it to stdin
 					stdin = " ".join(map(lambda x: '"' + x.replace('\\"', '\\\\"').replace('"', '\\"') + '"', script))
-				script = ["bash -s", "--"]
+				script = ["bash", "-s", "--"]
 
 			# Execute the script via SSH
 			script = [
