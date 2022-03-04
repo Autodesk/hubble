@@ -92,13 +92,18 @@ class Report(object):
 
 		return self.executeCommandOnServer(command, stdin)
 
+	# Executes a Ruby script on the server in the production environment. stdin cannot be supplied
+	# currently, as the stdin channel is used to pass the script content to the server in a remote
+	# run, where SSH is used
 	def executeRubyScriptOnServer(self, script):
-		# Escape the Ruby script, as it is going to be sent as a string on the command line
-		script = script.replace('\\t', '\\\\t').replace('\\n', '\\\\n')
+		stdin = script
 
-		command = ["github-env", "bin/runner", "-e", "production", "'" + script + "'"]
+		# By running github-enb with a trailing - on the command line, the Ruby script to be
+		# executed is read from stdin. As a result, the stdin channel can’t be used for anything
+		# else currently
+		command = ["github-env", "bin/runner", "-e", "production", "-"]
 
-		return self.executeCommandOnServer(command)
+		return self.executeCommandOnServer(command, stdin)
 
 	# Executes a database query, given as a string
 	def executeDatabaseQueryOnServer(self, query):
