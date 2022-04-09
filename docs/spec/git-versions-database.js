@@ -18,7 +18,7 @@ describe('Git versions database', function()
 
                     const gitReleases = gitVersionsData.gitVersions.releases;
                     expect(gitReleases['2.16.2'].outdatedSince).toEqual(new Date('2018-03-22'));
-                    expect(gitReleases['2.18.0'].outdatedSince).toEqual(new Date('2018-10-05'));
+                    expect(gitReleases['2.18.0'].outdatedSince).toEqual(new Date('2018-09-27'));
                     expect(gitReleases['2.16.2'].vulnerableSince).toEqual(new Date('2018-05-30'));
                     expect(gitReleases['2.18.0'].vulnerableSince).toEqual(new Date('2018-10-06'));
 
